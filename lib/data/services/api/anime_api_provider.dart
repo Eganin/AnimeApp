@@ -5,22 +5,22 @@ import 'package:anime_app/data/models/top.dart';
 import 'package:http/http.dart' as http;
 
 class AnimeProvider {
-
   Future<List<Top>> getAnime({
     AnimeTypes type = AnimeTypes.ANIME,
     int page = 0,
     Subtype subtype = Subtype.AIRING,
   }) async {
-    final url =
-        Uri.https('https://api.jikan.moe/v3/top', '/$type/$page/$subtype');
+    final url = Uri.https('api.jikan.moe',
+        '/v3/top/${type.value}/$page/${subtype.value}');
 
     final response = await http.get(url);
+    print(response.body);
 
     if (response.statusCode == 200) {
       final dynamic dataJson = json.decode(response.body);
       return AnimeData.fromJson(dataJson).top;
     } else {
-      throw ('Error Api');
+      throw ('${response.statusCode}');
     }
   }
 }

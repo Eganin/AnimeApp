@@ -2,19 +2,25 @@ import 'package:anime_app/data/cubit/state.dart';
 import 'package:anime_app/data/models/top.dart';
 import 'package:anime_app/data/services/anime_repository.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class MainAnimeCubit extends Cubit<UserState> {
+class MainAnimeCubit extends Cubit<DataState> {
   final AnimeRepository repository;
 
   int _page = -1;
 
+  bool closeTopContainer = false;
+  double topContainer = 0;
+
+  List<Widget> itemsData = [];
+
   MainAnimeCubit({this.repository}) : super(DataEmptyState());
 
-  Future<void> fetchAnime(
+  Future<void> fetchAnime({
     AnimeTypes type,
     Subtype subtype,
-  ) async {
+  }) async {
     try {
       emit(DataLoadingState());
 
@@ -26,7 +32,8 @@ class MainAnimeCubit extends Cubit<UserState> {
       );
 
       emit(DataLoadedState(loadedData: _loadedData));
-    } catch (_) {
+    } catch (e) {
+      print(e.toString());
       emit(DataErrorState());
     }
   }

@@ -1,14 +1,15 @@
+import 'package:anime_app/data/models/top.dart';
 import 'package:flutter/cupertino.dart';
 
-abstract class UserState {}
+abstract class DataState {}
 
-class DataEmptyState extends UserState {}
+class DataEmptyState extends DataState {}
 
-class DataLoadingState extends UserState {}
+class DataLoadingState extends DataState {}
 
-class DataLoadedState extends UserState{
-  List<dynamic> loadedData;
+class DataLoadedState extends DataState{
+  List<Top> loadedData;
   DataLoadedState({@required this.loadedData}) : assert(loadedData != null);
 }
 
-class DataErrorState extends UserState{}
+class DataErrorState extends DataState{}

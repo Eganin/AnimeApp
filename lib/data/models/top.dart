@@ -35,7 +35,7 @@ class Top {
     startDate = json['start_date'];
     endDate = json['end_date'];
     members = json['members'];
-    score = json['score'];
+    score = json['score'].toDouble();
   }
 
   Map<String, dynamic> toJson() {
