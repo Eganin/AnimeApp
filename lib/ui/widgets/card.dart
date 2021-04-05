@@ -2,7 +2,6 @@ import 'package:anime_app/data/models/top.dart';
 import 'package:flutter/material.dart';
 
 class AnimeCard extends StatelessWidget {
-
   final Top post;
 
   AnimeCard({this.post});
@@ -24,35 +23,39 @@ class AnimeCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[
               Expanded(
+                flex: 3,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
                     Text(
                       post.title,
                       style: const TextStyle(
-                          fontSize: 22, fontWeight: FontWeight.bold),
+                          fontSize: 18, fontWeight: FontWeight.bold),
                     ),
                     Text(
-                      post.episodes.toString(),
-                      style: const TextStyle(fontSize: 17, color: Colors.grey),
+                      'Episodes - ${post.episodes == null ? 'No Info' : post.episodes.toString()}',
+                      style: const TextStyle(fontSize: 14, color: Colors.grey),
                     ),
                     SizedBox(
                       height: 10,
                     ),
                     Text(
-                      post.rank.toString(),
+                      'Raiting : ${post.score}',
                       style: const TextStyle(
-                          fontSize: 25,
+                          fontSize: 11,
                           color: Colors.black,
                           fontWeight: FontWeight.bold),
                     )
                   ],
                 ),
               ),
-              Image.network(
-                post.imageUrl,
-                height: double.infinity,
-                fit: BoxFit.fitHeight,
+              Expanded(
+                flex: 2,
+                child: Image.network(
+                  post.imageUrl,
+                  height: double.infinity,
+                  fit: BoxFit.fitHeight,
+                ),
               )
             ],
           ),

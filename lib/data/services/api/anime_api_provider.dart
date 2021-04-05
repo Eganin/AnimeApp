@@ -101,3 +101,43 @@ extension SubtypeExtension on Subtype {
     }
   }
 }
+
+Subtype getSybtypeByName({String name}){
+  switch(name){
+    case 'Airing':
+      return Subtype.AIRING;
+
+    case 'Up coming':
+      return Subtype.UPCOMING;
+
+    case 'TV':
+      return Subtype.TV;
+
+    case 'Movie':
+      return Subtype.MOVIE;
+
+    case 'OVA':
+      return Subtype.OVA;
+
+    case 'Special':
+      return Subtype.SPECIAL;
+
+    case 'Manga':
+      return Subtype.MANGA;
+
+    case 'Novels':
+      return Subtype.NOVELS;
+
+    case 'Oneshots':
+      return Subtype.ONESHOTS;
+
+    case 'Doujin':
+      return Subtype.DOUJIN;
+
+    case 'Manhwa':
+      return Subtype.MANHWA;
+
+    default :
+      return Subtype.MANHUA;
+  }
+}

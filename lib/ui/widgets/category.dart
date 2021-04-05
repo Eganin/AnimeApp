@@ -1,4 +1,7 @@
+import 'package:anime_app/data/cubit/main_anime_cubit.dart';
+import 'package:anime_app/data/services/api/anime_api_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Category extends StatelessWidget {
 
@@ -11,28 +14,36 @@ class Category extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 150,
-      margin: EdgeInsets.only(right: 20),
-      height: height,
-      decoration: BoxDecoration(color: color, borderRadius: BorderRadius.all(Radius.circular(20.0))),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: <Widget>[
-            Text(
-              title,
-              style: TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            Text(
-              subtitle,
-              style: TextStyle(fontSize: 16, color: Colors.white),
-            ),
-          ],
+    return GestureDetector(
+      onTap: (){
+        BlocProvider.of<MainAnimeCubit>(context).fetchAnime(
+          type: AnimeTypes.ANIME,
+          subtype: getSybtypeByName(name: title),
+        );
+      },
+      child: Container(
+        width: 150,
+        margin: EdgeInsets.only(right: 20),
+        height: height,
+        decoration: BoxDecoration(color: color, borderRadius: BorderRadius.all(Radius.circular(20.0))),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Text(
+                title,
+                style: TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              SizedBox(
+                height: 10,
+              ),
+              Text(
+                subtitle,
+                style: TextStyle(fontSize: 16, color: Colors.white),
+              ),
+            ],
+          ),
         ),
       ),
     );

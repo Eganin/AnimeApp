@@ -2,13 +2,14 @@ import 'package:anime_app/data/cubit/state.dart';
 import 'package:anime_app/data/models/top.dart';
 import 'package:anime_app/data/services/anime_repository.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainAnimeCubit extends Cubit<DataState> {
   final AnimeRepository repository;
 
   int _page = -1;
+
+  AnimeTypes lastType;
 
   MainAnimeCubit({this.repository}) : super(DataEmptyState());
 
@@ -19,7 +20,11 @@ class MainAnimeCubit extends Cubit<DataState> {
     try {
       emit(DataLoadingState());
 
-      _page++;
+      if (type != lastType) {
+        _page++;
+      }
+      lastType = type;
+
       final List<Top> _loadedData = await repository.getData(
         type: type,
         page: _page,

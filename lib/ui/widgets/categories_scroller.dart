@@ -15,6 +15,7 @@ class CategoriesScroller extends StatelessWidget {
         margin: const EdgeInsets.symmetric(vertical: 20, horizontal: 20),
         child: Row(
           children: <Widget>[
+
             Category(
               height: categoryHeight,
               color: Colors.orange[400],
