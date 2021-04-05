@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            elevation: 0,
+            elevation: 2,
             backgroundColor: Colors.white,
             leading: Icon(
               Icons.menu,

@@ -10,11 +10,6 @@ class MainAnimeCubit extends Cubit<DataState> {
 
   int _page = -1;
 
-  bool closeTopContainer = false;
-  double topContainer = 0;
-
-  List<Widget> itemsData = [];
-
   MainAnimeCubit({this.repository}) : super(DataEmptyState());
 
   Future<void> fetchAnime({
