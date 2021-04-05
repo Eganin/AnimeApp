@@ -1,26 +1,24 @@
 import 'dart:convert';
 
 import 'package:anime_app/data/models/anime_data.dart';
+import 'package:anime_app/data/models/top.dart';
 import 'package:http/http.dart' as http;
 
 class AnimeProvider {
-  final AnimeTypes type;
 
-  final int page;
-
-  var subtype = '';
-
-  AnimeProvider({this.type, this.page, this.subtype});
-
-  Future<List<AnimeData>> getAnime() async {
+  Future<List<Top>> getAnime({
+    AnimeTypes type = AnimeTypes.ANIME,
+    int page = 0,
+    Subtype subtype = Subtype.AIRING,
+  }) async {
     final url =
         Uri.https('https://api.jikan.moe/v3/top', '/$type/$page/$subtype');
 
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
-      final List<dynamic> dataJson = json.decode(response.body);
-      return dataJson.map((data) => AnimeData.fromJson(data)).toList();
+      final dynamic dataJson = json.decode(response.body);
+      return AnimeData.fromJson(dataJson).top;
     } else {
       throw ('Error Api');
     }
@@ -47,40 +45,13 @@ extension AnimeTypesExtension on AnimeTypes {
   }
 }
 
-enum AnimeSubtype {
+enum Subtype {
   AIRING,
   UPCOMING,
   TV,
   MOVIE,
   OVA,
   SPECIAL,
-}
-
-extension AnimeSubtypeExtension on AnimeSubtype {
-  String get value {
-    switch (this) {
-      case AnimeSubtype.AIRING:
-        return 'airing';
-
-      case AnimeSubtype.UPCOMING:
-        return 'upcoming';
-
-      case AnimeSubtype.TV:
-        return 'tv';
-
-      case AnimeSubtype.MOVIE:
-        return 'movie';
-
-      case AnimeSubtype.OVA:
-        return 'ova';
-
-      case AnimeSubtype.SPECIAL:
-        return 'special';
-    }
-  }
-}
-
-enum MangaSubtype {
   MANGA,
   NOVELS,
   ONESHOTS,
@@ -89,25 +60,43 @@ enum MangaSubtype {
   MANHUA,
 }
 
-extension MangaSubtypeExtension on MangaSubtype {
+extension SubtypeExtension on Subtype {
   String get value {
     switch (this) {
-      case MangaSubtype.MANGA:
+      case Subtype.AIRING:
+        return 'airing';
+
+      case Subtype.UPCOMING:
+        return 'upcoming';
+
+      case Subtype.TV:
+        return 'tv';
+
+      case Subtype.MOVIE:
+        return 'movie';
+
+      case Subtype.OVA:
+        return 'ova';
+
+      case Subtype.SPECIAL:
+        return 'special';
+
+      case Subtype.MANGA:
         return 'manga';
 
-      case MangaSubtype.NOVELS:
+      case Subtype.NOVELS:
         return 'novels';
 
-      case MangaSubtype.ONESHOTS:
+      case Subtype.ONESHOTS:
         return 'oneshots';
 
-      case MangaSubtype.DOUJIN:
+      case Subtype.DOUJIN:
         return 'doujin';
 
-      case MangaSubtype.MANHWA:
+      case Subtype.MANHWA:
         return 'manhwa';
 
-      case MangaSubtype.MANHUA:
+      case Subtype.MANHUA:
         return 'manhua';
     }
   }

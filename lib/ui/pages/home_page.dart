@@ -1,9 +1,13 @@
 import 'package:anime_app/ui/widgets/categories_scroller.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget{
   @override
-  _HomePageState createState() => _HomePageState();
+  Widget build(BuildContext context) {
+    // TODO: implement build
+    throw UnimplementedError();
+  }
+
 }
 
 class _HomePageState extends State<HomePage> {
