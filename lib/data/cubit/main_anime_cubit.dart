@@ -28,7 +28,7 @@ class MainAnimeCubit extends Cubit<DataState> {
       lastType = type;
       lastSubtype = subtype;
 
-      final List<Top> _loadedData = await repository.getData(
+      final List<Top> _loadedData = await repository.getAnimeData(
         type: type,
         page: _page,
         subtype: subtype,
@@ -45,10 +45,9 @@ class MainAnimeCubit extends Cubit<DataState> {
   Future<void> loadedAnime() async {
     if (!loadedRequest) {
       _page++;
-      print(_page);
       loadedRequest = true;
       try {
-        final List<Top> _loadedData = await repository.getData(
+        final List<Top> _loadedData = await repository.getAnimeData(
           type: lastType,
           page: _page,
           subtype: lastSubtype,

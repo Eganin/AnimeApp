@@ -1,3 +1,7 @@
+import 'package:anime_app/data/models/anime/detail/aired.dart';
+import 'package:anime_app/data/models/anime/detail/other_data.dart';
+import 'package:anime_app/data/models/anime/detail/related.dart';
+
 class AnimeDetailInfo {
   String requestHash;
   bool requestCached;
@@ -7,12 +11,12 @@ class AnimeDetailInfo {
   String imageUrl;
   String trailerUrl;
   String title;
-  Null titleEnglish;
+  String titleEnglish;
   String titleJapanese;
   List<String> titleSynonyms;
   String type;
   String source;
-  Null episodes;
+  int episodes;
   String status;
   bool airing;
   Aired aired;
@@ -25,7 +29,7 @@ class AnimeDetailInfo {
   int members;
   int favorites;
   String synopsis;
-  Null background;
+  String background;
   String premiered;
   String broadcast;
   Related related;
@@ -94,7 +98,7 @@ class AnimeDetailInfo {
     aired = json['aired'] != null ? new Aired.fromJson(json['aired']) : null;
     duration = json['duration'];
     rating = json['rating'];
-    score = json['score'];
+    score = json['score'].toDouble();
     scoredBy = json['scored_by'];
     rank = json['rank'];
     popularity = json['popularity'];
@@ -188,155 +192,6 @@ class AnimeDetailInfo {
   }
 }
 
-class Aired {
-  String from;
-  Null to;
-  Prop prop;
-  String string;
 
-  Aired({this.from, this.to, this.prop, this.string});
 
-  Aired.fromJson(Map<String, dynamic> json) {
-    from = json['from'];
-    to = json['to'];
-    prop = json['prop'] != null ? new Prop.fromJson(json['prop']) : null;
-    string = json['string'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['from'] = this.from;
-    data['to'] = this.to;
-    if (this.prop != null) {
-      data['prop'] = this.prop.toJson();
-    }
-    data['string'] = this.string;
-    return data;
-  }
-}
-
-class Prop {
-  From from;
-  To to;
-
-  Prop({this.from, this.to});
-
-  Prop.fromJson(Map<String, dynamic> json) {
-    from = json['from'] != null ? new From.fromJson(json['from']) : null;
-    to = json['to'] != null ? new To.fromJson(json['to']) : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.from != null) {
-      data['from'] = this.from.toJson();
-    }
-    if (this.to != null) {
-      data['to'] = this.to.toJson();
-    }
-    return data;
-  }
-}
-
-class From {
-  int day;
-  int month;
-  int year;
-
-  From({this.day, this.month, this.year});
-
-  From.fromJson(Map<String, dynamic> json) {
-    day = json['day'];
-    month = json['month'];
-    year = json['year'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['day'] = this.day;
-    data['month'] = this.month;
-    data['year'] = this.year;
-    return data;
-  }
-}
-
-class To {
-  Null day;
-  Null month;
-  Null year;
-
-  To({this.day, this.month, this.year});
-
-  To.fromJson(Map<String, dynamic> json) {
-    day = json['day'];
-    month = json['month'];
-    year = json['year'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['day'] = this.day;
-    data['month'] = this.month;
-    data['year'] = this.year;
-    return data;
-  }
-}
-
-class Related {
-  List<OtherData> adaptation;
-  List<OtherData> prequel;
-
-  Related({this.adaptation, this.prequel});
-
-  Related.fromJson(Map<String, dynamic> json) {
-    if (json['Adaptation'] != null) {
-      adaptation = [];
-      json['Adaptation'].forEach((v) {
-        adaptation.add(new OtherData.fromJson(v));
-      });
-    }
-    if (json['Prequel'] != null) {
-      prequel = [];
-      json['Prequel'].forEach((v) {
-        prequel.add(new OtherData.fromJson(v));
-      });
-    }
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.adaptation != null) {
-      data['Adaptation'] = this.adaptation.map((v) => v.toJson()).toList();
-    }
-    if (this.prequel != null) {
-      data['Prequel'] = this.prequel.map((v) => v.toJson()).toList();
-    }
-    return data;
-  }
-}
-
-class OtherData {
-  int malId;
-  String type;
-  String name;
-  String url;
-
- OtherData({this.malId, this.type, this.name, this.url});
-
-  OtherData.fromJson(Map<String, dynamic> json) {
-    malId = json['mal_id'];
-    type = json['type'];
-    name = json['name'];
-    url = json['url'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['mal_id'] = this.malId;
-    data['type'] = this.type;
-    data['name'] = this.name;
-    data['url'] = this.url;
-    return data;
-  }
-}
 

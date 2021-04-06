@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/anime_data.dart';
 import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
+import 'package:anime_app/data/models/anime/detail/anime_detail_info.dart';
 import 'package:http/http.dart' as http;
 
 class AnimeProvider {
@@ -10,16 +11,29 @@ class AnimeProvider {
     int page = 0,
     Subtype subtype = Subtype.AIRING,
   }) async {
-    final url = Uri.https('api.jikan.moe',
-        '/v3/top/${type.value}/$page/${subtype.value}');
+    final url = Uri.https(
+        'api.jikan.moe', '/v3/top/${type.value}/$page/${subtype.value}');
 
     final response = await http.get(url);
-    print(response.body);
 
     if (response.statusCode == 200) {
-      final dynamic dataJson = json.decode(response.body);
+      final Map<String , dynamic> dataJson = json.decode(response.body);
       return AnimeData.fromJson(dataJson).top;
     } else {
+      throw ('${response.statusCode}');
+    }
+  }
+
+  Future<AnimeDetailInfo> getDetailInfo(
+      {AnimeTypes type = AnimeTypes.ANIME, int id}) async {
+    final url = Uri.https('api.jikan.moe', '/v3/${type.value}/$id');
+
+    final response = await http.get(url);
+
+    if(response.statusCode == 200){
+      final Map<String , dynamic> dataJson = json.decode(response.body);
+      return AnimeDetailInfo.fromJson(dataJson);
+    }else{
       throw ('${response.statusCode}');
     }
   }
@@ -102,8 +116,8 @@ extension SubtypeExtension on Subtype {
   }
 }
 
-Subtype getSybtypeByName({String name}){
-  switch(name){
+Subtype getSybtypeByName({String name}) {
+  switch (name) {
     case 'Airing':
       return Subtype.AIRING;
 
@@ -137,7 +151,7 @@ Subtype getSybtypeByName({String name}){
     case 'Manhwa':
       return Subtype.MANHWA;
 
-    default :
+    default:
       return Subtype.MANHUA;
   }
 }
