@@ -7,9 +7,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class MainAnimeCubit extends Cubit<DataState> {
   final AnimeRepository repository;
 
-  int _page = -1;
+  int _page = 1;
 
   AnimeTypes lastType;
+  Subtype lastSubtype;
+
+  List<Top> itemsData = [];
+
+  bool loadedRequest = false;
 
   MainAnimeCubit({this.repository}) : super(DataEmptyState());
 
@@ -17,24 +22,45 @@ class MainAnimeCubit extends Cubit<DataState> {
     AnimeTypes type,
     Subtype subtype,
   }) async {
+    print(subtype.value);
     try {
       emit(DataLoadingState());
 
-      if (type != lastType) {
-        _page++;
-      }
       lastType = type;
+      lastSubtype = subtype;
 
       final List<Top> _loadedData = await repository.getData(
         type: type,
         page: _page,
         subtype: subtype,
       );
+      itemsData = _loadedData;
 
       emit(DataLoadedState(loadedData: _loadedData));
     } catch (e) {
       print(e.toString());
       emit(DataErrorState());
+    }
+  }
+
+  Future<void> loadedAnime() async {
+    if (!loadedRequest) {
+      _page++;
+      print(_page);
+      loadedRequest = true;
+      try {
+        final List<Top> _loadedData = await repository.getData(
+          type: lastType,
+          page: _page,
+          subtype: lastSubtype,
+        );
+
+        itemsData.addAll(_loadedData);
+      } catch (e) {
+        print(e.toString());
+        emit(DataErrorState());
+      }
+      loadedRequest = false;
     }
   }
 }

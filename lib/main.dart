@@ -1,3 +1,5 @@
+import 'package:anime_app/data/models/top.dart';
+import 'package:anime_app/ui/pages/detail_page.dart';
 import 'package:anime_app/ui/pages/home_page.dart';
 import 'package:flutter/material.dart';
 
@@ -14,9 +16,21 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      onGenerateRoute: (settings) {
+        switch (settings.name) {
+          case '/':
+            return MaterialPageRoute(builder: (context) => HomePage());
+
+          case '/detail':
+            Top post = settings.arguments;
+            return MaterialPageRoute(
+                builder: (context) => DetailPage(post: post));
+
+          default:
+            return MaterialPageRoute(builder: (context) => HomePage());
+        }
+      },
       home: HomePage(),
     );
   }
 }
-
-

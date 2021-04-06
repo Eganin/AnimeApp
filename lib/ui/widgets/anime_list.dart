@@ -12,6 +12,8 @@ class AnimeList extends StatefulWidget {
 }
 
 class _AnimeListState extends State<AnimeList> {
+  MainAnimeCubit animeCubit;
+
   final CategoriesScroller categoriesScroller = CategoriesScroller();
   ScrollController controller = ScrollController();
   bool closeTopContainer = false;
@@ -20,7 +22,8 @@ class _AnimeListState extends State<AnimeList> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<MainAnimeCubit>(context).fetchAnime(
+    animeCubit = BlocProvider.of<MainAnimeCubit>(context);
+    animeCubit.fetchAnime(
       type: AnimeTypes.ANIME,
       subtype: Subtype.AIRING,
     );
@@ -59,7 +62,7 @@ class _AnimeListState extends State<AnimeList> {
                 Expanded(
                     child: ListView.builder(
                         controller: controller,
-                        itemCount: state.loadedData.length,
+                        itemCount: animeCubit.itemsData.length,
                         physics: BouncingScrollPhysics(),
                         itemBuilder: (context, index) {
                           double scale = 1.0;
@@ -71,6 +74,10 @@ class _AnimeListState extends State<AnimeList> {
                               scale = 1;
                             }
                           }
+                          if (index > animeCubit.itemsData.length-2) {
+                            print('++++++++++++++++++++++++++++++++++');
+                            animeCubit.loadedAnime();
+                          }
                           return Opacity(
                             opacity: scale,
                             child: Transform(
@@ -81,7 +88,7 @@ class _AnimeListState extends State<AnimeList> {
                                   heightFactor: 0.7,
                                   alignment: Alignment.topCenter,
                                   child: AnimeCard(
-                                    post: state.loadedData[index],
+                                    post: animeCubit.itemsData[index],
                                   )),
                             ),
                           );
