@@ -1,7 +1,7 @@
 import 'package:anime_app/data/cubit/main_anime_cubit.dart';
 import 'package:anime_app/data/services/anime_repository.dart';
-import 'package:anime_app/ui/widgets/anime_list.dart';
-import 'package:anime_app/ui/widgets/app_bar.dart';
+import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/ui/widgets/list/anime_list.dart';
+import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/ui/widgets/common/app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

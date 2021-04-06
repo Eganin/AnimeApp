@@ -7,6 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class DetailAnimeCubit extends Cubit<DataState> {
   final AnimeRepository repository;
 
+  AnimeDetailInfo data;
+
   DetailAnimeCubit({this.repository}) : super(DataEmptyState());
 
   Future<void> fetchDetailData(
@@ -14,8 +16,13 @@ class DetailAnimeCubit extends Cubit<DataState> {
     try {
       emit(DataLoadingState());
 
-      final AnimeDetailInfo _loadedData = await repository.
+      final AnimeDetailInfo _loadedData = await repository.getAnimeDetailInfo(
+        type: type,
+        id: id,
+      );
+      data = _loadedData;
 
+      emit(DataLoadedState());
     } catch (e) {
       print(e.toString());
       emit(DataErrorState());

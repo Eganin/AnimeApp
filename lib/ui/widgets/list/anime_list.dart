@@ -1,10 +1,11 @@
 import 'package:anime_app/data/cubit/main_anime_cubit.dart';
 import 'package:anime_app/data/cubit/state.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
-import 'package:anime_app/ui/widgets/card.dart';
-import 'package:anime_app/ui/widgets/categories_scroller.dart';
+import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/ui/widgets/list/card.dart';
+import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/ui/widgets/common/categories_scroller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class AnimeList extends StatefulWidget {
   @override
@@ -110,7 +111,10 @@ class _AnimeListState extends State<AnimeList> {
 
         if (state is DataLoadingState) {
           return Center(
-            child: CircularProgressIndicator(),
+            child: SpinKitDoubleBounce(
+              color: Colors.black87,
+              size: 100,
+            ),
           );
         }
 

@@ -1,4 +1,4 @@
-import 'package:anime_app/ui/widgets/category.dart';
+import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/ui/widgets/common/category.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesScroller extends StatelessWidget {
