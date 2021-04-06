@@ -74,10 +74,9 @@ class _AnimeListState extends State<AnimeList> {
                               scale = 1;
                             }
                           }
-                          if (index > animeCubit.itemsData.length-2) {
-                            print('++++++++++++++++++++++++++++++++++');
+                          if (index > animeCubit.itemsData.length - 2)
                             animeCubit.loadedAnime();
-                          }
+
                           return Opacity(
                             opacity: scale,
                             child: Transform(

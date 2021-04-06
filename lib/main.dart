@@ -1,4 +1,4 @@
-import 'package:anime_app/data/models/top.dart';
+import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
 import 'package:anime_app/ui/pages/detail_page.dart';
 import 'package:anime_app/ui/pages/home_page.dart';
 import 'package:flutter/material.dart';

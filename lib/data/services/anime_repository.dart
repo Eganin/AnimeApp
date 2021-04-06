@@ -1,4 +1,4 @@
-import 'package:anime_app/data/models/top.dart';
+import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
 
 class AnimeRepository {
@@ -10,4 +10,6 @@ class AnimeRepository {
     Subtype subtype = Subtype.AIRING,
   }) =>
       _provider.getAnime(type: type, page: page, subtype: subtype);
+
+
 }

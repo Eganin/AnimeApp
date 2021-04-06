@@ -1,5 +1,5 @@
 import 'package:anime_app/data/cubit/state.dart';
-import 'package:anime_app/data/models/top.dart';
+import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
 import 'package:anime_app/data/services/anime_repository.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -22,7 +22,6 @@ class MainAnimeCubit extends Cubit<DataState> {
     AnimeTypes type,
     Subtype subtype,
   }) async {
-    print(subtype.value);
     try {
       emit(DataLoadingState());
 
@@ -36,7 +35,7 @@ class MainAnimeCubit extends Cubit<DataState> {
       );
       itemsData = _loadedData;
 
-      emit(DataLoadedState(loadedData: _loadedData));
+      emit(DataLoadedState());
     } catch (e) {
       print(e.toString());
       emit(DataErrorState());

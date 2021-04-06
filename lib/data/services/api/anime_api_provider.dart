@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:anime_app/data/models/anime_data.dart';
-import 'package:anime_app/data/models/top.dart';
+import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/anime_data.dart';
+import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
 import 'package:http/http.dart' as http;
 
 class AnimeProvider {
