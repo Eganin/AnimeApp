@@ -4,6 +4,7 @@ import 'package:anime_app/data/cubit/state.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class DetailInfo extends StatefulWidget {
@@ -68,81 +69,123 @@ class _DetailInfoState extends State<DetailInfo> {
       }
 
       if (state is DataLoadedState) {
-        return Column(
+        return Stack(
           children: [
-            AnimatedOpacity(
-              opacity: closeTopContainer ? 0 : 1,
-              duration: const Duration(milliseconds: 250),
-              child: AnimatedContainer(
-                duration: const Duration(milliseconds: 250),
-                width: size.width,
-                alignment: Alignment.topCenter,
-                height: closeTopContainer ? 0 : categoryHeight,
-                child: Image.network(
-                  post.imageUrl,
-                  fit: BoxFit.fitWidth,
+            Positioned(
+              top: 10,
+              left: 10,
+              child: SizedBox(
+                width: 60,
+                height: 60,
+                child: Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    "${detailCubit.data.rating.substring(0, 5)}",
+                    style: TextStyle(
+                      fontSize: 17,
+                      color: Colors.white,
+                      backgroundColor: Colors.black87,
+                    ),
+                  ),
                 ),
               ),
             ),
-              ListView(
-                controller: controller,
-                physics: BouncingScrollPhysics(),
-                scrollDirection: Axis.vertical,
-                children: [
-                  Text(
-                    detailCubit.data.title,
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.black87,
+            Column(
+              children: [
+                AnimatedOpacity(
+                  opacity: closeTopContainer ? 0 : 1,
+                  duration: const Duration(milliseconds: 250),
+                  child: AnimatedContainer(
+                    duration: const Duration(milliseconds: 250),
+                    width: size.width,
+                    alignment: Alignment.topCenter,
+                    height: closeTopContainer ? 0 : categoryHeight,
+                    child: Image.network(
+                      post.imageUrl,
+                      fit: BoxFit.fitWidth,
                     ),
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    'Episodes - ${detailCubit.data.episodes == null ? 'No Info' : detailCubit.data.episodes.toString()}',
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: Colors.black87,
+                ),
+                Expanded(
+                  child: ListView(
+                    controller: controller,
+                    physics: BouncingScrollPhysics(),
+                    scrollDirection: Axis.vertical,
+                    padding: EdgeInsets.symmetric(
+                      vertical: 20,
+                      horizontal: 20,
                     ),
+                    children: [
+                      Text(
+                        detailCubit.data.title,
+                        style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      FlutterRatingBarIndicator(
+                        fillColor: Colors.lightBlueAccent,
+                        rating: detailCubit.data.score,
+                        itemCount: 10,
+                        itemSize: 20.0,
+                        emptyColor: Colors.amber.withAlpha(50),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        'Episodes : ${detailCubit.data.episodes == null ? 'No Info' : detailCubit.data.episodes.toString()}',
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 5,
+                      ),
+                      Text(
+                        "Status : ${detailCubit.data.status}",
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5,
+                      ),
+                      Text(
+                        "Source : ${detailCubit.data.source}",
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      Text(
+                        "Duration : ${detailCubit.data.duration}",
+                        style: TextStyle(
+                          fontSize: 17,
+                          color: Colors.black87,
+                        ),
+                      ),
+                      ConstrainedBox(
+                        child: Text(
+                          detailCubit.getGenres(),
+                          style: TextStyle(
+                              color: Colors.redAccent,
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      ListView.builder(itemBuilder: (context, index) {}),
+                    ],
                   ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    "Status - ${detailCubit.data.status}",
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  Text(
-                    "Source - ${detailCubit.data.source}",
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  Text(
-                    "Raiting - ${detailCubit.data.rating}",
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: Colors.black87,
-                    ),
-                  ),
-                  Text(
-                    "Score - ${detailCubit.data.score}",
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: Colors.black87,
-                    ),
-                  ),
-                ],
-              ),
+                ),
+              ],
+            ),
           ],
         );
       }

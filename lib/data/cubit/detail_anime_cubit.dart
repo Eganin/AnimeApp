@@ -28,4 +28,12 @@ class DetailAnimeCubit extends Cubit<DataState> {
       emit(DataErrorState());
     }
   }
+
+  String getGenres() {
+    String result = '';
+    for (final i in data.genres) {
+      result += i.name.trim() + ',';
+    }
+    return result.substring(0, result.length - 1);
+  }
 }
