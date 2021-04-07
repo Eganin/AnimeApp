@@ -10,7 +10,7 @@ class CharactersList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 250,
+      height: 212,
       child: ListView.builder(
           shrinkWrap: true,
           padding: EdgeInsets.symmetric(
@@ -20,13 +20,10 @@ class CharactersList extends StatelessWidget {
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
             final character = info.characters[index];
-            return Align(
-              alignment: Alignment.center,
-              child: Character(
-                name: character.name,
-                imageUrl: character.imageUrl,
-                role: character.role,
-              ),
+            return Character(
+              name: character.name,
+              imageUrl: character.imageUrl,
+              role: character.role,
             );
           }),
     );

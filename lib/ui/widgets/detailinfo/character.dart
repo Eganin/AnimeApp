@@ -1,3 +1,4 @@
+import 'package:anime_app/ui/widgets/common/detail_subtitle.dart';
 import 'package:flutter/material.dart';
 
 class Character extends StatelessWidget {
@@ -9,36 +10,29 @@ class Character extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(top: 10,right: 10),
-      child: Column(
-        children: [
-          Image.network(
-            imageUrl,
-            height: 180,
-          ),
-          Expanded(
-            child: Text(
-              name,
-              style: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 17,
-              ),
-            ),
-          ),
-          Expanded(
-            child: Text(
-              role,
-              style: TextStyle(
-                color: Colors.black87,
-                fontWeight: FontWeight.bold,
-                fontSize: 15,
-              ),
-            ),
-          ),
-        ],
+    Container container = Container(
+      margin: const EdgeInsets.only(right: 10),
+      child: ColorFiltered(
+        colorFilter: ColorFilter.mode(
+            Colors.black.withOpacity(0.4), BlendMode.srcOver),
+        child: Image.network(
+          imageUrl,
+          height: 180,
+        ),
       ),
+    );
+    return Column(
+      children: [
+        container,
+        ConstrainedBox(
+          constraints: BoxConstraints.tightFor(width: 120),
+          child: detailSubtitle(
+            text: name,
+            size: 14.0,
+            color: Colors.white70,
+          ),
+        ),
+      ],
     );
   }
 }

@@ -2,6 +2,7 @@ import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/a
 import 'package:anime_app/data/cubit/detail_anime_cubit.dart';
 import 'package:anime_app/data/cubit/state.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
+import 'package:anime_app/ui/widgets/common/detail_subtitle.dart';
 import 'package:anime_app/ui/widgets/detailinfo/characters_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -77,7 +78,7 @@ class _DetailInfoState extends State<DetailInfo> {
               left: 10,
               child: SizedBox(
                 width: closeTopContainer ? 0 : 60,
-                height:closeTopContainer ? 0 : 60,
+                height: closeTopContainer ? 0 : 60,
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
@@ -108,102 +109,99 @@ class _DetailInfoState extends State<DetailInfo> {
                   ),
                 ),
                 Expanded(
-                  child: ListView(
-                    controller: controller,
-                    physics: BouncingScrollPhysics(),
-                    scrollDirection: Axis.vertical,
-                    padding: EdgeInsets.symmetric(
-                      vertical: 20,
+                  child: Container(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 20,
                     ),
-                    children: [
-                      Text(
-                        detailCubit.data.title,
-                        style: TextStyle(
-                          fontSize: 32,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black87,
+                    child: ListView(
+                      controller: controller,
+                      physics: BouncingScrollPhysics(),
+                      scrollDirection: Axis.vertical,
+                      padding: EdgeInsets.symmetric(
+                        vertical: 20,
+                      ),
+                      children: [
+                        detailSubtitle(
+                          text: detailCubit.data.title,
+                          size: 32.0,
                         ),
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Align(
-                        alignment: Alignment.center,
-                        child: FlutterRatingBarIndicator(
-                          fillColor: Colors.lightBlueAccent,
-                          rating: detailCubit.data.score,
-                          itemCount: 10,
-                          itemSize: 20.0,
-                          emptyColor: Colors.amber.withAlpha(50),
+                        SizedBox(
+                          height: 10,
                         ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        'Episodes : ${detailCubit.data.episodes == null ? 'No Info' : detailCubit.data.episodes.toString()}',
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: Colors.black87,
+                        Align(
+                          alignment: Alignment.center,
+                          child: FlutterRatingBarIndicator(
+                            fillColor: Colors.lightBlueAccent,
+                            rating: detailCubit.data.score,
+                            itemCount: 10,
+                            itemSize: 20.0,
+                            emptyColor: Colors.amber.withAlpha(50),
+                          ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        "Status : ${detailCubit.data.status}",
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: Colors.black87,
+                        SizedBox(
+                          height: 5,
                         ),
-                      ),
-                      SizedBox(
-                        width: 5,
-                      ),
-                      Text(
-                        "Source : ${detailCubit.data.source}",
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: Colors.black87,
+                        detailSubtitle(
+                          text:
+                              'Episodes : ${detailCubit.data.episodes == null ? 'No Info' : detailCubit.data.episodes.toString()}',
+                          size: 17.0,
                         ),
-                      ),
-                      Text(
-                        "Duration : ${detailCubit.data.duration}",
-                        style: TextStyle(
-                          fontSize: 17,
-                          color: Colors.black87,
+                        SizedBox(
+                          height: 5,
                         ),
-                      ),
-                      Text(
-                        detailCubit.getGenres(),
-                        style: TextStyle(
-                            color: Colors.redAccent,
-                            fontSize: 15,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      Container(
-                        color: Colors.pinkAccent,
-                        child: Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Characters:',
-                                style: TextStyle(
-                                  fontSize: 30,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.white,
-                                  fontStyle: FontStyle.italic,
+                        detailSubtitle(
+                          text: "Status : ${detailCubit.data.status}",
+                          size: 17.0,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        detailSubtitle(
+                          text: "Source : ${detailCubit.data.source}",
+                          size: 17.0,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        detailSubtitle(
+                          text: "Duration : ${detailCubit.data.duration}",
+                          size: 17.0,
+                        ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        detailSubtitle(
+                          text: detailCubit.getGenres(),
+                          size: 15.0,
+                          color: Colors.redAccent,
+                        ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Container(
+                          color: Colors.pinkAccent,
+                          child: Column(
+                            children: [
+                              Align(
+                                alignment: Alignment.centerLeft,
+                                child: Text(
+                                  'Characters:',
+                                  style: TextStyle(
+                                    fontSize: 30,
+                                    fontWeight: FontWeight.bold,
+                                    color: Colors.white,
+                                    fontStyle: FontStyle.italic,
+                                  ),
                                 ),
                               ),
-                            ),
-                            CharactersList(
-                              info: detailCubit.characters,
-                            ),
-                          ],
+                              CharactersList(
+                                info: detailCubit.characters,
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ],
