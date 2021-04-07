@@ -1,5 +1,6 @@
 import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
 import 'package:anime_app/data/models/anime/detail/anime_detail_info.dart';
+import 'package:anime_app/data/models/characters/characters_detail_info.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
 
 class AnimeRepository {
@@ -15,4 +16,7 @@ class AnimeRepository {
   Future<AnimeDetailInfo> getAnimeDetailInfo(
           {AnimeTypes type = AnimeTypes.ANIME, int id}) =>
       _provider.getDetailInfo(type: type, id: id);
+
+  Future<CharactersDetailInfo> getDetailInfoCharacters({int id}) =>
+      _provider.getDetailInfoCharacters(id: id);
 }

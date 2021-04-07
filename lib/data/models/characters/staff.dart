@@ -1,27 +1,27 @@
-class Animeography {
+class Staff {
   int malId;
-  String name;
   String url;
+  String name;
   String imageUrl;
-  String role;
+  List<String> positions;
 
-  Animeography({this.malId, this.name, this.url, this.imageUrl, this.role});
+  Staff({this.malId, this.url, this.name, this.imageUrl, this.positions});
 
-  Animeography.fromJson(Map<String, dynamic> json) {
+  Staff.fromJson(Map<String, dynamic> json) {
     malId = json['mal_id'];
-    name = json['name'];
     url = json['url'];
+    name = json['name'];
     imageUrl = json['image_url'];
-    role = json['role'];
+    positions = json['positions'].cast<String>();
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['mal_id'] = this.malId;
-    data['name'] = this.name;
     data['url'] = this.url;
+    data['name'] = this.name;
     data['image_url'] = this.imageUrl;
-    data['role'] = this.role;
+    data['positions'] = this.positions;
     return data;
   }
 }

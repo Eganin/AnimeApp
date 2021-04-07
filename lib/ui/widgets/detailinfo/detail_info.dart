@@ -80,7 +80,7 @@ class _DetailInfoState extends State<DetailInfo> {
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
-                    "${detailCubit.data.rating.substring(0, 5)}",
+                    "${detailCubit.data.rating.substring(0, 6)}",
                     style: TextStyle(
                       fontSize: 17,
                       color: Colors.white,
@@ -127,12 +127,15 @@ class _DetailInfoState extends State<DetailInfo> {
                       SizedBox(
                         height: 10,
                       ),
-                      FlutterRatingBarIndicator(
-                        fillColor: Colors.lightBlueAccent,
-                        rating: detailCubit.data.score,
-                        itemCount: 10,
-                        itemSize: 20.0,
-                        emptyColor: Colors.amber.withAlpha(50),
+                      Align(
+                        alignment: Alignment.center,
+                        child: FlutterRatingBarIndicator(
+                          fillColor: Colors.lightBlueAccent,
+                          rating: detailCubit.data.score,
+                          itemCount: 10,
+                          itemSize: 20.0,
+                          emptyColor: Colors.amber.withAlpha(50),
+                        ),
                       ),
                       SizedBox(
                         height: 5,
@@ -171,16 +174,13 @@ class _DetailInfoState extends State<DetailInfo> {
                           color: Colors.black87,
                         ),
                       ),
-                      ConstrainedBox(
-                        child: Text(
-                          detailCubit.getGenres(),
-                          style: TextStyle(
-                              color: Colors.redAccent,
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold),
-                        ),
+                      Text(
+                        detailCubit.getGenres(),
+                        style: TextStyle(
+                            color: Colors.redAccent,
+                            fontSize: 15,
+                            fontWeight: FontWeight.bold),
                       ),
-                      ListView.builder(itemBuilder: (context, index) {}),
                     ],
                   ),
                 ),

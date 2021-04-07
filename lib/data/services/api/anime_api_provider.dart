@@ -2,7 +2,9 @@ import 'dart:convert';
 
 import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/anime_data.dart';
 import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
+import 'package:anime_app/data/cubit/detail_anime_cubit.dart';
 import 'package:anime_app/data/models/anime/detail/anime_detail_info.dart';
+import 'package:anime_app/data/models/characters/characters_detail_info.dart';
 import 'package:http/http.dart' as http;
 
 class AnimeProvider {
@@ -17,7 +19,7 @@ class AnimeProvider {
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
-      final Map<String , dynamic> dataJson = json.decode(response.body);
+      final Map<String, dynamic> dataJson = json.decode(response.body);
       return AnimeData.fromJson(dataJson).top;
     } else {
       throw ('${response.statusCode}');
@@ -30,10 +32,24 @@ class AnimeProvider {
 
     final response = await http.get(url);
 
-    if(response.statusCode == 200){
-      final Map<String , dynamic> dataJson = json.decode(response.body);
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> dataJson = json.decode(response.body);
       return AnimeDetailInfo.fromJson(dataJson);
-    }else{
+    } else {
+      throw ('${response.statusCode}');
+    }
+  }
+
+  Future<CharactersDetailInfo> getDetailInfoCharacters({int id}) async {
+    final url = Uri.https(
+        'api.jikan.moe', '/v3/${AnimeTypes.ANIME.value}/$id/characters_staff');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> dataJson = json.decode(response.body);
+      return CharactersDetailInfo.fromJson(dataJson);
+    } else {
       throw ('${response.statusCode}');
     }
   }
