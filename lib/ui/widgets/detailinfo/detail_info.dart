@@ -6,6 +6,7 @@ import 'package:anime_app/ui/widgets/common/detail_subtitle.dart';
 import 'package:anime_app/ui/widgets/detailinfo/characters_info.dart';
 import 'package:anime_app/ui/widgets/detailinfo/episode_list.dart';
 import 'package:anime_app/ui/widgets/detailinfo/recommendation_list.dart';
+import 'package:anime_app/ui/widgets/detailinfo/reviews_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -75,25 +76,27 @@ class _DetailInfoState extends State<DetailInfo> {
       if (state is DataLoadedState) {
         return Stack(
           children: [
-            Positioned(
-              top: 10,
-              left: 10,
-              child: SizedBox(
-                width: closeTopContainer ? 0 : 60,
-                height: closeTopContainer ? 0 : 60,
-                child: Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    "${detailCubit.data.rating.substring(0, 6)}",
-                    style: TextStyle(
-                      fontSize: 17,
-                      color: Colors.white,
-                      backgroundColor: Colors.black87,
+            detailCubit.data.rating != null
+                ? Positioned(
+                    top: 10,
+                    left: 10,
+                    child: SizedBox(
+                      width: closeTopContainer ? 0 : 60,
+                      height: closeTopContainer ? 0 : 60,
+                      child: Align(
+                        alignment: Alignment.center,
+                        child: Text(
+                          "${detailCubit.data.rating.substring(0, 6)}",
+                          style: TextStyle(
+                            fontSize: 17,
+                            color: Colors.white,
+                            backgroundColor: Colors.black87,
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
-            ),
+                  )
+                : Container(),
             Column(
               children: [
                 AnimatedOpacity(
@@ -123,23 +126,27 @@ class _DetailInfoState extends State<DetailInfo> {
                         vertical: 20,
                       ),
                       children: [
-                        detailSubtitle(
-                          text: detailCubit.data.title,
-                          size: 32.0,
-                        ),
+                        detailCubit.data.title != null
+                            ? detailSubtitle(
+                                text: detailCubit.data.title,
+                                size: 32.0,
+                              )
+                            : Container(),
                         SizedBox(
                           height: 10,
                         ),
-                        Align(
-                          alignment: Alignment.center,
-                          child: FlutterRatingBarIndicator(
-                            fillColor: Colors.lightBlueAccent,
-                            rating: detailCubit.data.score,
-                            itemCount: 10,
-                            itemSize: 20.0,
-                            emptyColor: Colors.amber.withAlpha(50),
-                          ),
-                        ),
+                        detailCubit.data.score != null
+                            ? Align(
+                                alignment: Alignment.center,
+                                child: FlutterRatingBarIndicator(
+                                  fillColor: Colors.lightBlueAccent,
+                                  rating: detailCubit.data.score,
+                                  itemCount: 10,
+                                  itemSize: 20.0,
+                                  emptyColor: Colors.amber.withAlpha(50),
+                                ),
+                              )
+                            : Container(),
                         SizedBox(
                           height: 5,
                         ),
@@ -151,24 +158,30 @@ class _DetailInfoState extends State<DetailInfo> {
                         SizedBox(
                           height: 5,
                         ),
-                        detailSubtitle(
-                          text: "Status : ${detailCubit.data.status}",
-                          size: 17.0,
-                        ),
+                        detailCubit.data.status != null
+                            ? detailSubtitle(
+                                text: "Status : ${detailCubit.data.status}",
+                                size: 17.0,
+                              )
+                            : Container(),
                         SizedBox(
                           height: 5,
                         ),
-                        detailSubtitle(
-                          text: "Source : ${detailCubit.data.source}",
-                          size: 17.0,
-                        ),
+                        detailCubit.data.source != null
+                            ? detailSubtitle(
+                                text: "Source : ${detailCubit.data.source}",
+                                size: 17.0,
+                              )
+                            : Container(),
                         SizedBox(
                           height: 5,
                         ),
-                        detailSubtitle(
-                          text: "Duration : ${detailCubit.data.duration}",
-                          size: 17.0,
-                        ),
+                        detailCubit.data.duration != null
+                            ? detailSubtitle(
+                                text: "Duration : ${detailCubit.data.duration}",
+                                size: 17.0,
+                              )
+                            : Container(),
                         SizedBox(
                           height: 5,
                         ),
@@ -180,70 +193,95 @@ class _DetailInfoState extends State<DetailInfo> {
                         SizedBox(
                           height: 15,
                         ),
-                        Container(
-                          color: Colors.pinkAccent,
-                          child: Column(
-                            children: [
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Characters:',
-                                  style: TextStyle(
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontStyle: FontStyle.italic,
-                                  ),
+                        detailCubit.characters.characters.isNotEmpty
+                            ? Container(
+                                color: Colors.pinkAccent,
+                                child: Column(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        'Characters:',
+                                        style: TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      ),
+                                    ),
+                                    CharactersList(
+                                      info: detailCubit.characters,
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              CharactersList(
-                                info: detailCubit.characters,
-                              ),
-                            ],
-                          ),
-                        ),
+                              )
+                            : Container(),
                         SizedBox(
                           height: 15,
                         ),
-                        Column(
-                          children: [
-                            Align(
-                              alignment: Alignment.centerLeft,
-                              child: detailSubtitle(
-                                text: 'Episodes: ',
-                                size: 30.0,
-                              ),
-                            ),
-                            EpisodeList(
-                              episodes: detailCubit.episodes,
-                            ),
-                          ],
-                        ),
+                        detailCubit.episodes.episodes.isNotEmpty
+                            ? Column(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: detailSubtitle(
+                                      text: 'Episodes: ',
+                                      size: 30.0,
+                                    ),
+                                  ),
+                                  EpisodeList(
+                                    episodes: detailCubit.episodes,
+                                  ),
+                                ],
+                              )
+                            : Container(),
                         SizedBox(
                           height: 15,
                         ),
-                        Container(
-                          color: Colors.blueAccent,
-                          child: Column(
-                            children: [
-                              Align(
-                                alignment: Alignment.centerLeft,
-                                child: Text(
-                                  'Recommendations:',
-                                  style: TextStyle(
-                                    fontSize: 30,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.white,
-                                    fontStyle: FontStyle.italic,
-                                  ),
+                        detailCubit.recommendations.recommendations.isNotEmpty
+                            ? Container(
+                                color: Colors.blueAccent,
+                                child: Column(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: Text(
+                                        'Recommendations:',
+                                        style: TextStyle(
+                                          fontSize: 30,
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                          fontStyle: FontStyle.italic,
+                                        ),
+                                      ),
+                                    ),
+                                    RecommendationList(
+                                      recommendations:
+                                          detailCubit.recommendations,
+                                    ),
+                                  ],
                                 ),
-                              ),
-                              RecommendationList(
-                                recommendations: detailCubit.recommendations,
-                              ),
-                            ],
-                          ),
-                        ),
+                              )
+                            : Container(),
+                        detailCubit.reviews.reviews.isNotEmpty
+                            ? Container(
+                                child: Column(
+                                  children: [
+                                    Align(
+                                      alignment: Alignment.centerLeft,
+                                      child: detailSubtitle(
+                                        text: 'Reviews: ',
+                                        size: 30.0,
+                                      ),
+                                    ),
+                                    ReviewsList(
+                                      animeReviews: detailCubit.reviews,
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Container(),
                       ],
                     ),
                   ),

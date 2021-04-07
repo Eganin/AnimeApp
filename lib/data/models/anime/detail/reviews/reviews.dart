@@ -3,7 +3,7 @@ import 'package:anime_app/data/models/anime/detail/reviews/reviewer.dart';
 class Reviews {
   int malId;
   String url;
-  Null type;
+  String type;
   int helpfulCount;
   String date;
   Reviewer reviewer;

@@ -19,8 +19,8 @@ class EpisodeList extends StatelessWidget {
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
             return ListTile(
-              title: Text(episodes.episodes[index].title),
-              subtitle: Text(episodes.episodes[index].titleJapanese),
+              title: Text(episodes.episodes[index].title.toString()),
+              subtitle: Text(episodes.episodes[index].titleJapanese.toString()),
               leading: Text(episodes.episodes[index].episodeId.toString()),
             );
 
