@@ -4,9 +4,8 @@ import 'package:flutter/material.dart';
 class Character extends StatelessWidget {
   final String name;
   final String imageUrl;
-  final String role;
 
-  Character({this.name, this.imageUrl, this.role});
+  Character({this.name, this.imageUrl});
 
   @override
   Widget build(BuildContext context) {

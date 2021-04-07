@@ -23,7 +23,6 @@ class CharactersList extends StatelessWidget {
             return Character(
               name: character.name,
               imageUrl: character.imageUrl,
-              role: character.role,
             );
           }),
     );
