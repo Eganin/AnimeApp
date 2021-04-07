@@ -1,5 +1,8 @@
 import 'package:anime_app/data/cubit/state.dart';
 import 'package:anime_app/data/models/anime/detail/anime_detail_info.dart';
+import 'package:anime_app/data/models/anime/detail/episodes/anime_episodes.dart';
+import 'package:anime_app/data/models/anime/detail/recommendation/anime_recommendation.dart';
+import 'package:anime_app/data/models/anime/detail/reviews/anime_reviews.dart';
 import 'package:anime_app/data/models/characters/characters_detail_info.dart';
 import 'package:anime_app/data/services/anime_repository.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
@@ -10,6 +13,9 @@ class DetailAnimeCubit extends Cubit<DataState> {
 
   AnimeDetailInfo data;
   CharactersDetailInfo characters;
+  AnimeRecommendation recommendations;
+  AnimeReviews reviews;
+  AnimeEpisodes episodes;
 
   DetailAnimeCubit({this.repository}) : super(DataEmptyState());
 
@@ -23,7 +29,10 @@ class DetailAnimeCubit extends Cubit<DataState> {
         id: id,
       );
       data = _loadedData;
-      characters = await repository.getDetailInfoCharacters(id:id);
+      characters = await repository.getDetailInfoCharacters(id: id);
+      recommendations = await repository.getDetailInfoRecommendations(id: id);
+      reviews = await repository.getDetailInfoReviews(id: id);
+      episodes = await repository.getDetailInfoEpisodes(id: id);
 
       emit(DataLoadedState());
     } catch (e) {
@@ -31,7 +40,6 @@ class DetailAnimeCubit extends Cubit<DataState> {
       emit(DataErrorState());
     }
   }
-
 
   String getGenres() {
     String result = '';

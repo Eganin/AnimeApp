@@ -4,6 +4,7 @@ import 'package:anime_app/data/cubit/state.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
 import 'package:anime_app/ui/widgets/common/detail_subtitle.dart';
 import 'package:anime_app/ui/widgets/detailinfo/characters_info.dart';
+import 'package:anime_app/ui/widgets/detailinfo/episode_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -200,6 +201,23 @@ class _DetailInfoState extends State<DetailInfo> {
                             ],
                           ),
                         ),
+                        SizedBox(
+                          height: 15,
+                        ),
+                        Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: detailSubtitle(
+                                text: 'Episodes: ',
+                                size: 30.0,
+                              ),
+                            ),
+                            EpisodeList(
+                              episodes: detailCubit.episodes,
+                            ),
+                          ],
+                        )
                       ],
                     ),
                   ),
