@@ -4,6 +4,9 @@ import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/a
 import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
 import 'package:anime_app/data/cubit/detail_anime_cubit.dart';
 import 'package:anime_app/data/models/anime/detail/anime_detail_info.dart';
+import 'package:anime_app/data/models/anime/detail/episodes/anime_episodes.dart';
+import 'package:anime_app/data/models/anime/detail/recommendation/anime_recommendation.dart';
+import 'package:anime_app/data/models/anime/detail/reviews/anime_reviews.dart';
 import 'package:anime_app/data/models/characters/characters_detail_info.dart';
 import 'package:http/http.dart' as http;
 
@@ -49,6 +52,49 @@ class AnimeProvider {
     if (response.statusCode == 200) {
       final Map<String, dynamic> dataJson = json.decode(response.body);
       return CharactersDetailInfo.fromJson(dataJson);
+    } else {
+      throw ('${response.statusCode}');
+    }
+  }
+
+  Future<AnimeEpisodes> getDetailInfoAnimeEpisodes({int id}) async {
+    final url = Uri.https(
+        'api.jikan.moe', '/v3/${AnimeTypes.ANIME.value}/$id/episodes');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> dataJson = json.decode(response.body);
+      return AnimeEpisodes.fromJson(dataJson);
+    } else {
+      throw ('${response.statusCode}');
+    }
+  }
+
+  Future<AnimeRecommendation> getDetailInfoAnimeRecommendations(
+      {int id}) async {
+    final url = Uri.https(
+        'api.jikan.moe', '/v3/${AnimeTypes.ANIME.value}/$id/recommendations');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> dataJson = json.decode(response.body);
+      return AnimeRecommendation.fromJson(dataJson);
+    } else {
+      throw ('${response.statusCode}');
+    }
+  }
+
+  Future<AnimeReviews> getDetailInfoAnimeReviews({int id}) async {
+    final url =
+        Uri.https('api.jikan.moe', '/v3/${AnimeTypes.ANIME.value}/$id/reviews');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> dataJson = json.decode(response.body);
+      return AnimeReviews.fromJson(dataJson);
     } else {
       throw ('${response.statusCode}');
     }
