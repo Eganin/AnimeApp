@@ -2,6 +2,7 @@ import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/a
 import 'package:anime_app/data/cubit/detail_anime_cubit.dart';
 import 'package:anime_app/data/cubit/state.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
+import 'package:anime_app/ui/widgets/detailinfo/characters_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -75,8 +76,8 @@ class _DetailInfoState extends State<DetailInfo> {
               top: 10,
               left: 10,
               child: SizedBox(
-                width: 60,
-                height: 60,
+                width: closeTopContainer ? 0 : 60,
+                height:closeTopContainer ? 0 : 60,
                 child: Align(
                   alignment: Alignment.center,
                   child: Text(
@@ -113,7 +114,6 @@ class _DetailInfoState extends State<DetailInfo> {
                     scrollDirection: Axis.vertical,
                     padding: EdgeInsets.symmetric(
                       vertical: 20,
-                      horizontal: 20,
                     ),
                     children: [
                       Text(
@@ -180,6 +180,28 @@ class _DetailInfoState extends State<DetailInfo> {
                             color: Colors.redAccent,
                             fontSize: 15,
                             fontWeight: FontWeight.bold),
+                      ),
+                      Container(
+                        color: Colors.pinkAccent,
+                        child: Column(
+                          children: [
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: Text(
+                                'Characters:',
+                                style: TextStyle(
+                                  fontSize: 30,
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white,
+                                  fontStyle: FontStyle.italic,
+                                ),
+                              ),
+                            ),
+                            CharactersList(
+                              info: detailCubit.characters,
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),
