@@ -8,6 +8,7 @@ import 'package:anime_app/data/models/anime/detail/episodes/anime_episodes.dart'
 import 'package:anime_app/data/models/anime/detail/recommendation/anime_recommendation.dart';
 import 'package:anime_app/data/models/anime/detail/reviews/anime_reviews.dart';
 import 'package:anime_app/data/models/characters/characters_detail_info.dart';
+import 'package:anime_app/data/models/charactersdetail/characters.dart';
 import 'package:http/http.dart' as http;
 
 class AnimeProvider {
@@ -95,6 +96,19 @@ class AnimeProvider {
     if (response.statusCode == 200) {
       final Map<String, dynamic> dataJson = json.decode(response.body);
       return AnimeReviews.fromJson(dataJson);
+    } else {
+      throw ('${response.statusCode}');
+    }
+  }
+
+  Future<CharactersDetail> getDetailCharacters({int id}) async{
+    final url = Uri.https('api.jikan.moe', '/v3/character/$id');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> dataJson = json.decode(response.body);
+      return CharactersDetail.fromJson(dataJson);
     } else {
       throw ('${response.statusCode}');
     }

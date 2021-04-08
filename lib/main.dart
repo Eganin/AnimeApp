@@ -1,4 +1,5 @@
 import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
+import 'package:anime_app/ui/pages/character_page.dart';
 import 'package:anime_app/ui/pages/detail_page.dart';
 import 'package:anime_app/ui/pages/home_page.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +25,16 @@ class MyApp extends StatelessWidget {
           case '/detail':
             int id = settings.arguments;
             return MaterialPageRoute(
-                builder: (context) => DetailPage(id: id,));
+                builder: (context) => DetailPage(
+                      id: id,
+                    ));
+
+          case '/character':
+            int id = settings.arguments;
+            return MaterialPageRoute(
+                builder: (_) => CharacterPage(
+                      id: id,
+                    ));
 
           default:
             return MaterialPageRoute(builder: (context) => HomePage());
@@ -33,4 +43,9 @@ class MyApp extends StatelessWidget {
       home: HomePage(),
     );
   }
+}
+
+enum PageCharacter {
+  CHARACTERS,
+  ANIME,
 }

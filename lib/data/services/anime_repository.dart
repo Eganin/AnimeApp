@@ -4,6 +4,7 @@ import 'package:anime_app/data/models/anime/detail/episodes/anime_episodes.dart'
 import 'package:anime_app/data/models/anime/detail/recommendation/anime_recommendation.dart';
 import 'package:anime_app/data/models/anime/detail/reviews/anime_reviews.dart';
 import 'package:anime_app/data/models/characters/characters_detail_info.dart';
+import 'package:anime_app/data/models/charactersdetail/characters.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
 
 class AnimeRepository {
@@ -31,4 +32,7 @@ class AnimeRepository {
 
   Future<AnimeReviews> getDetailInfoReviews({int id}) =>
       _provider.getDetailInfoAnimeReviews(id: id);
+
+  Future<CharactersDetail> getDetailCharacters({int id}) =>
+      _provider.getDetailCharacters(id: id);
 }

@@ -3,7 +3,7 @@ import 'package:anime_app/data/cubit/detail_anime_cubit.dart';
 import 'package:anime_app/data/cubit/state.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
 import 'package:anime_app/ui/widgets/common/detail_subtitle.dart';
-import 'package:anime_app/ui/widgets/detailinfo/characters_info.dart';
+import 'package:anime_app/ui/widgets/detailinfo/characters_list.dart';
 import 'package:anime_app/ui/widgets/detailinfo/episode_list.dart';
 import 'package:anime_app/ui/widgets/detailinfo/recommendation_list.dart';
 import 'package:anime_app/ui/widgets/detailinfo/reviews_list.dart';
