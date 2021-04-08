@@ -4,19 +4,29 @@ import 'package:flutter/material.dart';
 class Character extends StatelessWidget {
   final String name;
   final String imageUrl;
+  final int id;
 
-  Character({this.name, this.imageUrl});
+  Character({this.name, this.imageUrl, this.id});
 
   @override
   Widget build(BuildContext context) {
-    Container container = Container(
-      margin: const EdgeInsets.only(right: 10),
-      child: ColorFiltered(
-        colorFilter: ColorFilter.mode(
-            Colors.black.withOpacity(0.4), BlendMode.srcOver),
-        child: Image.network(
-          imageUrl,
-          height: 180,
+    GestureDetector container = GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(
+          context,
+          '/detail',
+          arguments: id,
+        );
+      },
+      child: Container(
+        margin: const EdgeInsets.only(right: 10),
+        child: ColorFiltered(
+          colorFilter: ColorFilter.mode(
+              Colors.black.withOpacity(0.4), BlendMode.srcOver),
+          child: Image.network(
+            imageUrl,
+            height: 180,
+          ),
         ),
       ),
     );

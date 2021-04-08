@@ -13,29 +13,29 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class DetailInfo extends StatefulWidget {
-  Top post;
+  int id;
 
-  DetailInfo({this.post});
+  DetailInfo({this.id});
 
   @override
-  _DetailInfoState createState() => _DetailInfoState(post: post);
+  _DetailInfoState createState() => _DetailInfoState(id: id);
 }
 
 class _DetailInfoState extends State<DetailInfo> {
-  Top post;
+  int id;
   DetailAnimeCubit detailCubit;
 
   ScrollController controller = ScrollController();
   bool closeTopContainer = false;
   double topContainer = 0;
 
-  _DetailInfoState({this.post});
+  _DetailInfoState({this.id});
 
   @override
   void initState() {
     super.initState();
     detailCubit = BlocProvider.of<DetailAnimeCubit>(context);
-    detailCubit.fetchDetailData(type: AnimeTypes.ANIME, id: post.malId);
+    detailCubit.fetchDetailData(type: AnimeTypes.ANIME, id: id);
 
     controller.addListener(() {
       double value = controller.offset / 119;
@@ -108,7 +108,7 @@ class _DetailInfoState extends State<DetailInfo> {
                     alignment: Alignment.topCenter,
                     height: closeTopContainer ? 0 : categoryHeight,
                     child: Image.network(
-                      post.imageUrl,
+                      detailCubit.data.imageUrl,
                       fit: BoxFit.fitWidth,
                     ),
                   ),

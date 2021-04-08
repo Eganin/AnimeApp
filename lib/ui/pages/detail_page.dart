@@ -8,10 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailPage extends StatelessWidget {
-  final Top post;
+  final int id;
   final repository = AnimeRepository();
 
-  DetailPage({this.post});
+  DetailPage({this.id});
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +22,7 @@ class DetailPage extends StatelessWidget {
           backgroundColor: Colors.white,
           appBar: getAppBar(),
           body: DetailInfo(
-            post: post,
+            id: id,
           ),
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.star),

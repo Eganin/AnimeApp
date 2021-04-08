@@ -22,9 +22,9 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => HomePage());
 
           case '/detail':
-            Top post = settings.arguments;
+            int id = settings.arguments;
             return MaterialPageRoute(
-                builder: (context) => DetailPage(post: post));
+                builder: (context) => DetailPage(id: id,));
 
           default:
             return MaterialPageRoute(builder: (context) => HomePage());

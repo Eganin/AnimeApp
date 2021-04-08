@@ -24,6 +24,7 @@ class RecommendationList extends StatelessWidget {
             return Character(
               name: rec.title,
               imageUrl: rec.imageUrl,
+              id: rec.malId,
             );
           }),
     );

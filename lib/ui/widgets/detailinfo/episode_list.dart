@@ -10,7 +10,13 @@ class EpisodeList extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       height: 300,
-      child: ListView.builder(
+      child: ListView.separated(
+          separatorBuilder: (context, index) {
+            return Divider(
+              height: 20,
+              thickness: 2,
+            );
+          },
           shrinkWrap: true,
           padding: EdgeInsets.symmetric(
             horizontal: 20,
@@ -23,7 +29,6 @@ class EpisodeList extends StatelessWidget {
               subtitle: Text(episodes.episodes[index].titleJapanese.toString()),
               leading: Text(episodes.episodes[index].episodeId.toString()),
             );
-
           }),
     );
   }

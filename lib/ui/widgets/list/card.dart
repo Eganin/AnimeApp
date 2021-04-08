@@ -10,7 +10,7 @@ class AnimeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/detail', arguments: post);
+        Navigator.pushNamed(context, '/detail', arguments: post.malId);
       },
       child: Container(
           height: 150,
