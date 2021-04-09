@@ -35,7 +35,7 @@ class Character extends StatelessWidget {
               Colors.black.withOpacity(0.4), BlendMode.srcOver),
           child: Image.network(
             imageUrl,
-            height: 180,
+            height: 176,
           ),
         ),
       ),

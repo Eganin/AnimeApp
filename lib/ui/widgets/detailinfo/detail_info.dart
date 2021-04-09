@@ -109,7 +109,6 @@ class _DetailInfoState extends State<DetailInfo> {
                     height: closeTopContainer ? 0 : categoryHeight,
                     child: Image.network(
                       detailCubit.data.imageUrl,
-                      fit: BoxFit.fitWidth,
                     ),
                   ),
                 ),

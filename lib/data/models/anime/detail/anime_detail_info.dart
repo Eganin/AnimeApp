@@ -98,7 +98,7 @@ class AnimeDetailInfo {
     aired = json['aired'] != null ? new Aired.fromJson(json['aired']) : null;
     duration = json['duration'];
     rating = json['rating'];
-    score = json['score'].toDouble();
+    score = json['score'] != null ? json['score'].toDouble() : 0.0;
     scoredBy = json['scored_by'];
     rank = json['rank'];
     popularity = json['popularity'];

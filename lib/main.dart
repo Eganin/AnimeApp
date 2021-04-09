@@ -48,4 +48,5 @@ class MyApp extends StatelessWidget {
 enum PageCharacter {
   CHARACTERS,
   ANIME,
+  OTHER,
 }
