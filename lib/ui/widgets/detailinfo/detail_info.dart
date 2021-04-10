@@ -168,11 +168,16 @@ class _DetailInfoState extends State<DetailInfo> {
                         SizedBox(
                           height: 5,
                         ),
-                        detailSubtitle(
-                          text:
-                              'Episodes : ${detailCubit.data.episodes == null ? 'No Info' : detailCubit.data.episodes.toString()}',
-                          size: 17.0,
-                        ),
+                        type == AnimeTypes.ANIME
+                            ? detailSubtitle(
+                                text:
+                                    'Episodes : ${detailCubit.data.episodes == null ? 'No Info' : detailCubit.data.episodes}',
+                                size: 17.0,
+                              )
+                            : detailSubtitle(
+                                text:
+                                    'Chapters : ${detailCubit.data.chapters == null ? 'No Info' : detailCubit.data.chapters}',
+                              ),
                         SizedBox(
                           height: 5,
                         ),

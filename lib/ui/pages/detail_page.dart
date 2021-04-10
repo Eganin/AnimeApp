@@ -9,33 +9,25 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailPage extends StatelessWidget {
-  ScreenArguments data = ScreenArguments();
+  ScreenArguments data;
   final repository = AnimeRepository();
-  int id;
 
-  DetailPage({this.data, this.id});
+  DetailPage({this.data});
 
   @override
   Widget build(BuildContext context) {
-    print(id);
+    print(data.id);
     print('-----------');
-    print('-----------');
-    //print(data.id);
     return BlocProvider<DetailAnimeCubit>(
       create: (context) => DetailAnimeCubit(repository: repository),
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: getAppBar(),
-          body: data == null
-              ? DetailInfo(
-                  id: id,
-                  type: data.type,
-                )
-              : DetailInfo(
-                  id: data.id,
-                  type: data.type,
-                ),
+          body: DetailInfo(
+            id: data.id,
+            type: data.type,
+          ),
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.star),
             backgroundColor: Colors.pinkAccent,

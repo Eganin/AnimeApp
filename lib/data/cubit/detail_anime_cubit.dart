@@ -27,7 +27,7 @@ class DetailAnimeCubit extends Cubit<DataState> {
         id: id,
       );
       data = _loadedData;
-      characters = await repository.getDetailInfoCharacters(id: id);
+      characters = await repository.getDetailInfoCharactersAnime(id: id);
       recommendations = await repository.getDetailInfoRecommendations(id: id);
       reviews = await repository.getDetailInfoReviews(id: id);
       episodes = await repository.getDetailInfoEpisodes(id: id);
@@ -45,10 +45,9 @@ class DetailAnimeCubit extends Cubit<DataState> {
       data = await repository.getMangaDetailInfo(
         id: id,
       );
-      characters = await repository.getDetailInfoCharacters(id: id);
-      recommendations = await repository.getDetailInfoRecommendations(id: id);
-      reviews = await repository.getDetailInfoReviews(id: id);
-      //episodes = await repository.getDetailInfoEpisodes(id: id);
+      characters = await repository.getDetailInfoCharactersManga(id: id);
+      recommendations = await repository.getDetailInfoMangaRecommendations(id: id);
+      reviews = await repository.getDetailInfoMangaReviews(id: id);
 
       emit(DataLoadedState());
     } catch (e) {

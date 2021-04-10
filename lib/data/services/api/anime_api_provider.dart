@@ -72,6 +72,20 @@ class AnimeProvider {
     }
   }
 
+  Future<CharactersDetailInfo> getDetailInfoCharactersManga({int id}) async {
+    final url = Uri.https(
+        'api.jikan.moe', '/v3/${AnimeTypes.MANGA.value}/$id/characters');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> dataJson = json.decode(response.body);
+      return CharactersDetailInfo.fromJson(dataJson);
+    } else {
+      throw ('${response.statusCode}');
+    }
+  }
+
   Future<AnimeEpisodes> getDetailInfoAnimeEpisodes({int id}) async {
     final url = Uri.https(
         'api.jikan.moe', '/v3/${AnimeTypes.ANIME.value}/$id/episodes');
@@ -101,9 +115,38 @@ class AnimeProvider {
     }
   }
 
+  Future<AnimeRecommendation> getDetailInfoMangaRecommendations(
+      {int id}) async {
+    final url = Uri.https(
+        'api.jikan.moe', '/v3/${AnimeTypes.MANGA.value}/$id/recommendations');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> dataJson = json.decode(response.body);
+      return AnimeRecommendation.fromJson(dataJson);
+    } else {
+      throw ('${response.statusCode}');
+    }
+  }
+
   Future<AnimeReviews> getDetailInfoAnimeReviews({int id}) async {
     final url =
         Uri.https('api.jikan.moe', '/v3/${AnimeTypes.ANIME.value}/$id/reviews');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> dataJson = json.decode(response.body);
+      return AnimeReviews.fromJson(dataJson);
+    } else {
+      throw ('${response.statusCode}');
+    }
+  }
+
+  Future<AnimeReviews> getDetailInfoMangaReviews({int id}) async {
+    final url =
+    Uri.https('api.jikan.moe', '/v3/${AnimeTypes.ANIME.value}/$id/reviews');
 
     final response = await http.get(url);
 

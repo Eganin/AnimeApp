@@ -26,8 +26,12 @@ class AnimeRepository {
         id: id,
       );
 
-  Future<CharactersDetailInfo> getDetailInfoCharacters({int id}) =>
+  Future<CharactersDetailInfo> getDetailInfoCharactersAnime({int id}) =>
       _provider.getDetailInfoCharacters(id: id);
+
+  Future<CharactersDetailInfo> getDetailInfoCharactersManga({int id}) =>
+      _provider.getDetailInfoCharactersManga(id: id);
+
 
   Future<AnimeEpisodes> getDetailInfoEpisodes({int id}) =>
       _provider.getDetailInfoAnimeEpisodes(id: id);
@@ -37,6 +41,12 @@ class AnimeRepository {
 
   Future<AnimeReviews> getDetailInfoReviews({int id}) =>
       _provider.getDetailInfoAnimeReviews(id: id);
+
+  Future<AnimeRecommendation> getDetailInfoMangaRecommendations({int id}) =>
+      _provider.getDetailInfoMangaRecommendations(id: id);
+
+  Future<AnimeReviews> getDetailInfoMangaReviews({int id}) =>
+      _provider.getDetailInfoMangaReviews(id: id);
 
   Future<CharactersDetail> getDetailCharacters({int id}) =>
       _provider.getDetailCharacters(id: id);
