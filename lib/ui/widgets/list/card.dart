@@ -1,16 +1,26 @@
 import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
+import 'package:anime_app/data/services/api/anime_api_provider.dart';
+import 'package:anime_app/ui/utils/screen_arguments.dart';
 import 'package:flutter/material.dart';
 
 class AnimeCard extends StatelessWidget {
   final Top post;
+  final AnimeTypes type;
 
-  AnimeCard({this.post});
+  AnimeCard({
+    this.post,
+    this.type,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/detail', arguments: post.malId);
+        Navigator.pushNamed(context, '/detail',
+            arguments: ScreenArguments(
+              id: post.malId,
+              type: type,
+            ));
       },
       child: Container(
           height: 150,

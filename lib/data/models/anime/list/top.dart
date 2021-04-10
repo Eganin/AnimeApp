@@ -10,6 +10,7 @@ class Top {
   String endDate;
   int members;
   double score;
+  int volumes = 0;
 
   Top(
       {this.malId,
@@ -22,7 +23,8 @@ class Top {
         this.startDate,
         this.endDate,
         this.members,
-        this.score});
+        this.score,
+      this.volumes});
 
   Top.fromJson(Map<String, dynamic> json) {
     malId = json['mal_id'];
@@ -36,6 +38,7 @@ class Top {
     endDate = json['end_date'];
     members = json['members'];
     score = json['score'].toDouble();
+    volumes = json['volumes'];
   }
 
   Map<String, dynamic> toJson() {
@@ -51,6 +54,7 @@ class Top {
     data['end_date'] = this.endDate;
     data['members'] = this.members;
     data['score'] = this.score;
+    data['volumes'] = this.volumes;
     return data;
   }
 }

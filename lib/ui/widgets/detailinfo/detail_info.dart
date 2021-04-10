@@ -14,28 +14,47 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class DetailInfo extends StatefulWidget {
   int id;
+  AnimeTypes type = AnimeTypes.ANIME;
 
-  DetailInfo({this.id});
+  DetailInfo({
+    this.id,
+    this.type,
+  });
 
   @override
-  _DetailInfoState createState() => _DetailInfoState(id: id);
+  _DetailInfoState createState() => _DetailInfoState(
+        id: id,
+        type: type,
+      );
 }
 
 class _DetailInfoState extends State<DetailInfo> {
   int id;
+  AnimeTypes type;
   DetailAnimeCubit detailCubit;
 
   ScrollController controller = ScrollController();
   bool closeTopContainer = false;
   double topContainer = 0;
 
-  _DetailInfoState({this.id});
+  _DetailInfoState({
+    this.id,
+    this.type,
+  });
 
   @override
   void initState() {
     super.initState();
     detailCubit = BlocProvider.of<DetailAnimeCubit>(context);
-    detailCubit.fetchDetailData(type: AnimeTypes.ANIME, id: id);
+    if (type == AnimeTypes.ANIME) {
+      detailCubit.fetchAnimeDetailData(
+        id: id,
+      );
+    } else {
+      detailCubit.fetchMangaDetailData(
+        id: id,
+      );
+    }
 
     controller.addListener(() {
       double value = controller.offset / 119;
@@ -219,21 +238,23 @@ class _DetailInfoState extends State<DetailInfo> {
                         SizedBox(
                           height: 15,
                         ),
-                        detailCubit.episodes.episodes.isNotEmpty
-                            ? Column(
-                                children: [
-                                  Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: detailSubtitle(
-                                      text: 'Episodes: ',
-                                      size: 30.0,
-                                    ),
-                                  ),
-                                  EpisodeList(
-                                    episodes: detailCubit.episodes,
-                                  ),
-                                ],
-                              )
+                        detailCubit.episodes != null
+                            ? detailCubit.episodes.episodes.isNotEmpty
+                                ? Column(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: detailSubtitle(
+                                          text: 'Episodes: ',
+                                          size: 30.0,
+                                        ),
+                                      ),
+                                      EpisodeList(
+                                        episodes: detailCubit.episodes,
+                                      ),
+                                    ],
+                                  )
+                                : Container()
                             : Container(),
                         SizedBox(
                           height: 15,
@@ -258,6 +279,7 @@ class _DetailInfoState extends State<DetailInfo> {
                                     RecommendationList(
                                       recommendations:
                                           detailCubit.recommendations,
+                                      type: type,
                                     ),
                                   ],
                                 ),

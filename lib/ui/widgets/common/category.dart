@@ -9,15 +9,16 @@ class Category extends StatelessWidget {
   final Color color;
   final String title;
   final String subtitle;
+  final AnimeTypes type;
 
-  Category({this.height,this.color,this.title,this.subtitle});
+  Category({this.height,this.color,this.title,this.subtitle,this.type,});
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
         BlocProvider.of<MainAnimeCubit>(context).fetchAnime(
-          type: AnimeTypes.ANIME,
+          type: type,
           subtype: getSybtypeByName(name: title),
         );
       },

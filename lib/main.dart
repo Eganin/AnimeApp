@@ -2,6 +2,7 @@ import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/a
 import 'package:anime_app/ui/pages/character_page.dart';
 import 'package:anime_app/ui/pages/detail_page.dart';
 import 'package:anime_app/ui/pages/home_page.dart';
+import 'package:anime_app/ui/utils/screen_arguments.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -23,10 +24,10 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(builder: (context) => HomePage());
 
           case '/detail':
-            int id = settings.arguments;
+            ScreenArguments arguments = settings.arguments;
             return MaterialPageRoute(
                 builder: (context) => DetailPage(
-                      id: id,
+                      data: arguments,
                     ));
 
           case '/character':

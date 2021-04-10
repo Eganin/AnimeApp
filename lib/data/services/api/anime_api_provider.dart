@@ -9,6 +9,7 @@ import 'package:anime_app/data/models/anime/detail/recommendation/anime_recommen
 import 'package:anime_app/data/models/anime/detail/reviews/anime_reviews.dart';
 import 'package:anime_app/data/models/characters/characters_detail_info.dart';
 import 'package:anime_app/data/models/charactersdetail/characters.dart';
+import 'package:anime_app/data/models/manga/manga_detail_info.dart';
 import 'package:http/http.dart' as http;
 
 class AnimeProvider {
@@ -31,14 +32,27 @@ class AnimeProvider {
   }
 
   Future<AnimeDetailInfo> getDetailInfo(
-      {AnimeTypes type = AnimeTypes.ANIME, int id}) async {
-    final url = Uri.https('api.jikan.moe', '/v3/${type.value}/$id');
+      {int id}) async {
+    final url = Uri.https('api.jikan.moe', '/v3/${AnimeTypes.ANIME.value}/$id');
 
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> dataJson = json.decode(response.body);
       return AnimeDetailInfo.fromJson(dataJson);
+    } else {
+      throw ('${response.statusCode}');
+    }
+  }
+
+  Future<MangaDetailInfo> getMangaDetailInfo({int id}) async{
+    final url = Uri.https('api.jikan.moe', '/v3/${AnimeTypes.MANGA.value}/$id');
+
+    final response = await http.get(url);
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> dataJson = json.decode(response.body);
+      return MangaDetailInfo.fromJson(dataJson);
     } else {
       throw ('${response.statusCode}');
     }
@@ -101,7 +115,7 @@ class AnimeProvider {
     }
   }
 
-  Future<CharactersDetail> getDetailCharacters({int id}) async{
+  Future<CharactersDetail> getDetailCharacters({int id}) async {
     final url = Uri.https('api.jikan.moe', '/v3/character/$id');
 
     final response = await http.get(url);
@@ -113,9 +127,13 @@ class AnimeProvider {
       throw ('${response.statusCode}');
     }
   }
+
 }
 
-enum AnimeTypes { ANIME, MANGA, PEOPLE, CHARACTERS }
+enum AnimeTypes {
+  ANIME,
+  MANGA,
+}
 
 extension AnimeTypesExtension on AnimeTypes {
   String get value {
@@ -125,12 +143,6 @@ extension AnimeTypesExtension on AnimeTypes {
 
       case AnimeTypes.MANGA:
         return 'manga';
-
-      case AnimeTypes.CHARACTERS:
-        return 'characters';
-
-      case AnimeTypes.PEOPLE:
-        return 'people';
     }
   }
 }

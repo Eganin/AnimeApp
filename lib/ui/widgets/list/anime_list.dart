@@ -89,6 +89,7 @@ class _AnimeListState extends State<AnimeList> {
                                   alignment: Alignment.topCenter,
                                   child: AnimeCard(
                                     post: animeCubit.itemsData[index],
+                                    type : animeCubit.lastType,
                                   )),
                             ),
                           );
@@ -99,14 +100,26 @@ class _AnimeListState extends State<AnimeList> {
         }
 
         if (state is DataErrorState) {
-          return Center(
-            child: Text(
-              'Error loaded data',
-              style: TextStyle(
-                fontSize: 20,
+          return Column(children: [
+            AnimatedOpacity(
+              duration: const Duration(milliseconds: 200),
+              opacity: closeTopContainer ? 0 : 1,
+              child: AnimatedContainer(
+                  duration: const Duration(milliseconds: 200),
+                  width: size.width,
+                  alignment: Alignment.topCenter,
+                  height: closeTopContainer ? 0 : categoryHeight,
+                  child: categoriesScroller),
+            ),
+            Center(
+              child: Text(
+                'Error loaded data',
+                style: TextStyle(
+                  fontSize: 20,
+                ),
               ),
             ),
-          );
+          ]);
         }
 
         if (state is DataLoadingState) {

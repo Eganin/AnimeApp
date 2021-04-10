@@ -4,14 +4,14 @@ import 'package:anime_app/data/models/anime/detail/episodes/anime_episodes.dart'
 import 'package:anime_app/data/models/anime/detail/recommendation/anime_recommendation.dart';
 import 'package:anime_app/data/models/anime/detail/reviews/anime_reviews.dart';
 import 'package:anime_app/data/models/characters/characters_detail_info.dart';
+import 'package:anime_app/data/models/data.dart';
 import 'package:anime_app/data/services/anime_repository.dart';
-import 'package:anime_app/data/services/api/anime_api_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailAnimeCubit extends Cubit<DataState> {
   final AnimeRepository repository;
 
-  AnimeDetailInfo data;
+  Data data;
   CharactersDetailInfo characters;
   AnimeRecommendation recommendations;
   AnimeReviews reviews;
@@ -19,13 +19,11 @@ class DetailAnimeCubit extends Cubit<DataState> {
 
   DetailAnimeCubit({this.repository}) : super(DataEmptyState());
 
-  Future<void> fetchDetailData(
-      {AnimeTypes type = AnimeTypes.ANIME, int id}) async {
+  Future<void> fetchAnimeDetailData({int id}) async {
     try {
       emit(DataLoadingState());
 
       final AnimeDetailInfo _loadedData = await repository.getAnimeDetailInfo(
-        type: type,
         id: id,
       );
       data = _loadedData;
@@ -33,6 +31,24 @@ class DetailAnimeCubit extends Cubit<DataState> {
       recommendations = await repository.getDetailInfoRecommendations(id: id);
       reviews = await repository.getDetailInfoReviews(id: id);
       episodes = await repository.getDetailInfoEpisodes(id: id);
+
+      emit(DataLoadedState());
+    } catch (e) {
+      print(e.toString());
+      emit(DataErrorState());
+    }
+  }
+
+  Future<void> fetchMangaDetailData({int id}) async {
+    try {
+      emit(DataLoadingState());
+      data = await repository.getMangaDetailInfo(
+        id: id,
+      );
+      characters = await repository.getDetailInfoCharacters(id: id);
+      recommendations = await repository.getDetailInfoRecommendations(id: id);
+      reviews = await repository.getDetailInfoReviews(id: id);
+      //episodes = await repository.getDetailInfoEpisodes(id: id);
 
       emit(DataLoadedState());
     } catch (e) {

@@ -1,4 +1,6 @@
+import 'package:anime_app/data/services/api/anime_api_provider.dart';
 import 'package:anime_app/main.dart';
+import 'package:anime_app/ui/utils/screen_arguments.dart';
 import 'package:anime_app/ui/widgets/common/detail_subtitle.dart';
 import 'package:flutter/material.dart';
 
@@ -7,20 +9,24 @@ class Character extends StatelessWidget {
   final String imageUrl;
   final int id;
   final PageCharacter flag;
+  final AnimeTypes type;
 
-  Character({this.name, this.imageUrl, this.id , this.flag});
+  Character({this.name, this.imageUrl, this.id, this.flag, this.type});
 
   @override
   Widget build(BuildContext context) {
     GestureDetector container = GestureDetector(
       onTap: () {
-        if(flag == PageCharacter.ANIME){
+        if (flag == PageCharacter.ANIME) {
           Navigator.pushNamed(
             context,
             '/detail',
-            arguments: id,
+            arguments: ScreenArguments(
+              id: id,
+              type: type,
+            ),
           );
-        }else if(flag == PageCharacter.CHARACTERS){
+        } else if (flag == PageCharacter.CHARACTERS) {
           Navigator.pushNamed(
             context,
             '/character',

@@ -1,8 +1,9 @@
 import 'package:anime_app/data/models/anime/detail/aired.dart';
 import 'package:anime_app/data/models/anime/detail/other_data.dart';
 import 'package:anime_app/data/models/anime/detail/related.dart';
+import 'package:anime_app/data/models/data.dart';
 
-class AnimeDetailInfo {
+class AnimeDetailInfo extends Data{
   String requestHash;
   bool requestCached;
   int requestCacheExpiry;
