@@ -8,7 +8,7 @@ class CategoriesScroller extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final double categoryHeight =
-        MediaQuery.of(context).size.height * 0.25 - 50;
+        MediaQuery.of(context).size.height * 0.30 - 50;
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,

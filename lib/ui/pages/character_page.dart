@@ -18,7 +18,6 @@ class CharacterPage extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: getAppBar(),
           body: CharacterInfo(
             id: id,
           ),

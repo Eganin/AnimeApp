@@ -10,6 +10,7 @@ import 'package:anime_app/data/models/anime/detail/reviews/anime_reviews.dart';
 import 'package:anime_app/data/models/characters/characters_detail_info.dart';
 import 'package:anime_app/data/models/charactersdetail/characters.dart';
 import 'package:anime_app/data/models/manga/manga_detail_info.dart';
+import 'package:anime_app/data/models/search/search_data.dart';
 import 'package:http/http.dart' as http;
 
 class AnimeProvider {
@@ -31,8 +32,31 @@ class AnimeProvider {
     }
   }
 
-  Future<AnimeDetailInfo> getDetailInfo(
-      {int id}) async {
+  Future<List<Results>> getSearchData(
+      {String query, AnimeTypes type, int page}) async {
+    Map<String, String> params = {
+      'q': query,
+      'page': page.toString(),
+    };
+
+    final url = Uri.https(
+      'api.jikan.moe',
+      '/v3/search/${type.value}',
+      params,
+    );
+
+    final response = await http.get(url);
+    print('${url.toString()}');
+
+    if (response.statusCode == 200) {
+      final Map<String, dynamic> dataJson = json.decode(response.body);
+      return SearchData.fromJson(dataJson).results;
+    } else {
+      throw ('${url.toString()}');
+    }
+  }
+
+  Future<AnimeDetailInfo> getDetailInfo({int id}) async {
     final url = Uri.https('api.jikan.moe', '/v3/${AnimeTypes.ANIME.value}/$id');
 
     final response = await http.get(url);
@@ -45,7 +69,7 @@ class AnimeProvider {
     }
   }
 
-  Future<MangaDetailInfo> getMangaDetailInfo({int id}) async{
+  Future<MangaDetailInfo> getMangaDetailInfo({int id}) async {
     final url = Uri.https('api.jikan.moe', '/v3/${AnimeTypes.MANGA.value}/$id');
 
     final response = await http.get(url);
@@ -146,7 +170,7 @@ class AnimeProvider {
 
   Future<AnimeReviews> getDetailInfoMangaReviews({int id}) async {
     final url =
-    Uri.https('api.jikan.moe', '/v3/${AnimeTypes.ANIME.value}/$id/reviews');
+        Uri.https('api.jikan.moe', '/v3/${AnimeTypes.ANIME.value}/$id/reviews');
 
     final response = await http.get(url);
 
@@ -170,7 +194,6 @@ class AnimeProvider {
       throw ('${response.statusCode}');
     }
   }
-
 }
 
 enum AnimeTypes {

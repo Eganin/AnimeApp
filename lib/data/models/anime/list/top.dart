@@ -1,4 +1,6 @@
-class Top {
+import 'package:anime_app/data/models/data_card.dart';
+
+class Top extends DataCard{
   int malId;
   int rank;
   String title;

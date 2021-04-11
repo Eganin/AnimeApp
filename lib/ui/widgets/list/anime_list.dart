@@ -41,7 +41,7 @@ class _AnimeListState extends State<AnimeList> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final double categoryHeight = size.height * 0.25;
+    final double categoryHeight = size.height * 0.30;
 
     return BlocBuilder<MainAnimeCubit, DataState>(
       builder: (context, state) {
@@ -101,16 +101,7 @@ class _AnimeListState extends State<AnimeList> {
 
         if (state is DataErrorState) {
           return Column(children: [
-            AnimatedOpacity(
-              duration: const Duration(milliseconds: 200),
-              opacity: closeTopContainer ? 0 : 1,
-              child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  width: size.width,
-                  alignment: Alignment.topCenter,
-                  height: closeTopContainer ? 0 : categoryHeight,
-                  child: categoriesScroller),
-            ),
+            categoriesScroller,
             Center(
               child: Text(
                 'Error loaded data',

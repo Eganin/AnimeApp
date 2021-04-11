@@ -1,6 +1,7 @@
 import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
+import 'package:anime_app/data/models/data_card.dart';
 
-class AnimeData {
+class AnimeData{
   String requestHash;
   bool requestCached;
   int requestCacheExpiry;

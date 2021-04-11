@@ -1,4 +1,5 @@
 import 'package:anime_app/data/cubit/state.dart';
+import 'package:anime_app/data/models/data_card.dart';
 import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
 import 'package:anime_app/data/services/anime_repository.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
@@ -12,7 +13,7 @@ class MainAnimeCubit extends Cubit<DataState> {
   AnimeTypes lastType;
   Subtype lastSubtype;
 
-  List<Top> itemsData = [];
+  List<DataCard> itemsData = [];
 
   bool loadedRequest = false;
 
@@ -29,7 +30,7 @@ class MainAnimeCubit extends Cubit<DataState> {
       lastSubtype = subtype;
       _page = 1;
 
-      final List<Top> _loadedData = await repository.getAnimeData(
+      final List<DataCard> _loadedData = await repository.getAnimeData(
         type: type,
         page: _page,
         subtype: subtype,
@@ -43,12 +44,29 @@ class MainAnimeCubit extends Cubit<DataState> {
     }
   }
 
+  Future<void> fetchSearch({String query}) async {
+    try {
+      emit(DataLoadingState());
+
+      _page=1;
+      itemsData = await repository.getSearchData(
+        query: query,
+        page: _page,
+        type: lastType,
+      );
+      emit(DataLoadedState());
+    } catch (e) {
+      print(e.toString());
+      emit(DataErrorState());
+    }
+  }
+
   Future<void> loadedAnime() async {
     if (!loadedRequest) {
       _page++;
       loadedRequest = true;
       try {
-        final List<Top> _loadedData = await repository.getAnimeData(
+        final List<DataCard> _loadedData = await repository.getAnimeData(
           type: lastType,
           page: _page,
           subtype: lastSubtype,
