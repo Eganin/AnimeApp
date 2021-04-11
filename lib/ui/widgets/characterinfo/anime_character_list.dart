@@ -1,4 +1,5 @@
 import 'package:anime_app/data/models/charactersdetail/characters.dart';
+import 'package:anime_app/data/services/api/anime_api_provider.dart';
 import 'package:anime_app/main.dart';
 import 'package:anime_app/ui/widgets/detailinfo/character.dart';
 import 'package:flutter/material.dart';
@@ -25,7 +26,8 @@ class AnimeCharactersList extends StatelessWidget {
               name: character.name,
               imageUrl: character.imageUrl,
               id: character.malId,
-              flag: PageCharacter.OTHER,
+              flag: PageCharacter.ANIME,
+              type: AnimeTypes.ANIME,
             );
           }),
     );

@@ -105,7 +105,7 @@ class _DetailInfoState extends State<DetailInfo> {
                       child: Align(
                         alignment: Alignment.center,
                         child: Text(
-                          "${detailCubit.data.rating.substring(0, 6)}",
+                          "${detailCubit.data.rating}",
                           style: TextStyle(
                             fontSize: 17,
                             color: Colors.white,
