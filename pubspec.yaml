@@ -32,6 +32,9 @@ dependencies:
   flutter_bloc: ^7.0.0
   flutter_spinkit: ^5.0.0
   flutter_rating_bar: ^1.1.0
+  provider: ^5.0.0
+  path_provider: ^2.0.1
+  sqflite: ^2.0.0+3
 
 dev_dependencies:
   flutter_test:
