@@ -1,5 +1,6 @@
 import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
 import 'package:anime_app/data/cubit/detail_anime_cubit.dart';
+import 'package:anime_app/data/db/models/favourite.dart';
 import 'package:anime_app/data/services/anime_repository.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
 import 'package:anime_app/ui/utils/screen_arguments.dart';
@@ -30,7 +31,9 @@ class DetailPage extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.star),
             backgroundColor: Colors.pinkAccent,
-            onPressed: () {},
+            onPressed: () {
+              repository.insertFavouriteAnime(favouriteAnime: Favourite(id: null,malId: data.id,type: data.type.value,));
+            },
           ),
         ),
       ),

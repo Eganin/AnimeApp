@@ -1,8 +1,9 @@
 class Favourite {
-  int id;
+  int id = null;
   int malId;
-  String type;
-  String name;
+  String type ='anime';
+  String imageUrl ='';
+  String name='';
 
   Favourite({this.id, this.malId, this.type, this.name});
 
@@ -12,6 +13,7 @@ class Favourite {
     map['malId'] = malId;
     map['type'] = type;
     map['name'] = name;
+    map['image_url'] = imageUrl;
     return map;
   }
 
@@ -20,5 +22,6 @@ class Favourite {
     malId = map['malId'];
     type = map['type'];
     name = map['name'];
+    imageUrl = map['image_url'];
   }
 }

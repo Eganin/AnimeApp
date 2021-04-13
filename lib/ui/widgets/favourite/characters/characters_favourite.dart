@@ -1,11 +1,12 @@
+import 'package:anime_app/data/services/anime_repository.dart';
 import 'package:flutter/material.dart';
 
-class CharactersFavourite extends StatefulWidget {
-  @override
-  _CharactersFavouriteState createState() => _CharactersFavouriteState();
-}
+class CharactersFavourite extends StatelessWidget {
 
-class _CharactersFavouriteState extends State<CharactersFavourite> {
+  final AnimeRepository repository;
+
+  CharactersFavourite({this.repository});
+
   @override
   Widget build(BuildContext context) {
     return Container();

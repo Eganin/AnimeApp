@@ -1,4 +1,5 @@
 import 'package:anime_app/data/cubit/detail_characters_cubit.dart';
+import 'package:anime_app/data/db/models/favourite.dart';
 import 'package:anime_app/data/services/anime_repository.dart';
 import 'package:anime_app/ui/widgets/characterinfo/character_info.dart';
 import 'package:anime_app/ui/widgets/common/app_bar.dart';
@@ -24,7 +25,15 @@ class CharacterPage extends StatelessWidget {
           floatingActionButton: FloatingActionButton(
             child: Icon(Icons.star),
             backgroundColor: Colors.pinkAccent,
-            onPressed: () {},
+            onPressed: () {
+              repository.insertFavouriteCharacter(
+                favouriteCharacter: Favourite(
+                  id: null,
+                  malId: id,
+                  type: 'character',
+                ),
+              );
+            },
           ),
         ),
       ),

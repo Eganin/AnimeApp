@@ -10,7 +10,7 @@ class AppBarAnimeApp extends StatefulWidget implements PreferredSizeWidget {
       );
 
   AppBarAnimeApp({Key key, AnimeRepository repository})
-      : preferredSize = Size.fromWidth(kToolbarHeight),
+      : preferredSize = Size.fromHeight(kToolbarHeight),
         repository = repository,
         super(key: key);
 
@@ -39,8 +39,8 @@ class _AppBarAnimeAppState extends State<AppBarAnimeApp> {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 2,
-      backgroundColor: Colors.white,
-      foregroundColor: Colors.white,
+      backgroundColor: Colors.blue,
+      foregroundColor: Colors.blue,
       title: AnimatedOpacity(
         opacity: _closeContainer ? 0 : 1,
         duration: const Duration(milliseconds: 250),
@@ -54,7 +54,7 @@ class _AppBarAnimeAppState extends State<AppBarAnimeApp> {
               _animeCubit.fetchSearch(
                 query: text,
               );
-              _controller.text='';
+              //_controller.text='';
             },
             decoration: InputDecoration(
               fillColor: Colors.white,
@@ -65,10 +65,6 @@ class _AppBarAnimeAppState extends State<AppBarAnimeApp> {
             ),
           ),
         ),
-      ),
-      leading: Icon(
-        Icons.menu,
-        color: Colors.black,
       ),
       actions: <Widget>[
         IconButton(

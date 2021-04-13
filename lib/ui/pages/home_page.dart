@@ -15,10 +15,8 @@ class HomePage extends StatelessWidget {
       child: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.white,
-          appBar: AppBar(
-            title: AppBarAnimeApp(
-              repository: repository,
-            ),
+          appBar: AppBarAnimeApp(
+            repository: repository,
           ),
           drawer: Drawer(
             child: ListView(
@@ -35,6 +33,7 @@ class HomePage extends StatelessWidget {
                   onTap: () => Navigator.pushNamed(
                     context,
                     '/favourite/anime',
+                    arguments: repository,
                   ),
                 ),
                 ListTile(
@@ -42,6 +41,7 @@ class HomePage extends StatelessWidget {
                   onTap: () => Navigator.pushNamed(
                     context,
                     '/favourite/characters',
+                    arguments: repository,
                   ),
                 ),
               ],

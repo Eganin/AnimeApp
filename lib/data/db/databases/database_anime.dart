@@ -16,6 +16,7 @@ class DBAnimeProvider {
   String animeColumnMalId = 'malId';
   String animeColumnName = 'name';
   String animeColumnType = 'type';
+  String animeImageUrl = 'image_url';
 
   Future<Database> get database async {
     if (_database != null) return _database;
@@ -33,7 +34,7 @@ class DBAnimeProvider {
 
   void _createDB(Database db, int version) async {
     await db.execute(
-      'CREATE TABLE $animeTable ($animeColumnId INTEGER PRIMARY KEY AUTOINCREMENT, $animeColumnMalId INTEGER , $animeColumnType TEXT , $animeColumnName TEXT)',
+      'CREATE TABLE $animeTable ($animeColumnId INTEGER PRIMARY KEY AUTOINCREMENT, $animeColumnMalId INTEGER , $animeColumnType TEXT , $animeColumnName TEXT , $animeImageUrl TEXT)',
     );
   }
 

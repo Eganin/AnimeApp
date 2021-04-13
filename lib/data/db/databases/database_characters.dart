@@ -15,6 +15,7 @@ class DBCharactersProvider {
   String characterColumnMalId = 'malId';
   String characterColumnName = 'name';
   String characterColumnType = 'type';
+  String characterImageUrl = 'image_url';
 
   Future<Database> get databaes async {
     if (_database != null) return _database;
@@ -32,7 +33,7 @@ class DBCharactersProvider {
 
   void _createDB(Database db, int version) async {
     await db.execute(
-      'CREATE TABLE $characterTable ($characterColumnId INTEGER PRIMARY KEY AUTOINCREMENT, $characterColumnMalId INTEGER , $characterColumnType TEXT , $characterColumnName TEXT)',
+      'CREATE TABLE $characterTable ($characterColumnId INTEGER PRIMARY KEY AUTOINCREMENT, $characterColumnMalId INTEGER , $characterColumnType TEXT , $characterColumnName TEXT , $characterImageUrl TEXT )',
     );
   }
 

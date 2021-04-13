@@ -1,4 +1,5 @@
 import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
+import 'package:anime_app/data/services/anime_repository.dart';
 import 'package:anime_app/ui/pages/character_page.dart';
 import 'package:anime_app/ui/pages/detail_page.dart';
 import 'package:anime_app/ui/pages/home_page.dart';
@@ -40,13 +41,19 @@ class MyApp extends StatelessWidget {
                     ));
 
           case '/favourite/anime':
+            AnimeRepository repository = settings.arguments;
             return MaterialPageRoute(
-              builder: (_) => AnimeFavourites(),
+              builder: (_) => AnimeFavourites(
+                repository: repository,
+              ),
             );
 
           case '/favourite/characters':
+            AnimeRepository repository = settings.arguments;
             return MaterialPageRoute(
-              builder: (_) => CharactersFavourite(),
+              builder: (_) => CharactersFavourite(
+                repository: repository,
+              ),
             );
 
           default:
