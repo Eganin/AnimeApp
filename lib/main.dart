@@ -3,6 +3,8 @@ import 'package:anime_app/ui/pages/character_page.dart';
 import 'package:anime_app/ui/pages/detail_page.dart';
 import 'package:anime_app/ui/pages/home_page.dart';
 import 'package:anime_app/ui/utils/screen_arguments.dart';
+import 'package:anime_app/ui/widgets/favourite/anime/anime_favourite.dart';
+import 'package:anime_app/ui/widgets/favourite/characters/characters_favourite.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -36,6 +38,16 @@ class MyApp extends StatelessWidget {
                 builder: (_) => CharacterPage(
                       id: id,
                     ));
+
+          case '/favourite/anime':
+            return MaterialPageRoute(
+              builder: (_) => AnimeFavourites(),
+            );
+
+          case '/favourite/characters':
+            return MaterialPageRoute(
+              builder: (_) => CharactersFavourite(),
+            );
 
           default:
             return MaterialPageRoute(builder: (context) => HomePage());
