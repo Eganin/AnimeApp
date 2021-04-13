@@ -1,4 +1,6 @@
 import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
+import 'package:anime_app/data/db/databases/database_anime.dart';
+import 'package:anime_app/data/db/databases/database_characters.dart';
 import 'package:anime_app/data/models/anime/detail/anime_detail_info.dart';
 import 'package:anime_app/data/models/anime/detail/episodes/anime_episodes.dart';
 import 'package:anime_app/data/models/anime/detail/recommendation/anime_recommendation.dart';
@@ -8,9 +10,13 @@ import 'package:anime_app/data/models/charactersdetail/characters.dart';
 import 'package:anime_app/data/models/manga/manga_detail_info.dart';
 import 'package:anime_app/data/models/search/search_data.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
+import 'package:anime_app/data/db/models/favourite.dart';
 
 class AnimeRepository {
   AnimeProvider _provider = AnimeProvider();
+
+  DBAnimeProvider _animeDBprovider = DBAnimeProvider.db;
+  DBCharactersProvider _charactersDBProvider = DBCharactersProvider.db;
 
   Future<List<Top>> getAnimeData({
     AnimeTypes type = AnimeTypes.ANIME,
@@ -19,7 +25,8 @@ class AnimeRepository {
   }) =>
       _provider.getAnime(type: type, page: page, subtype: subtype);
 
-  Future<List<Results>> getSearchData({String query, AnimeTypes type, int page}) =>
+  Future<List<Results>> getSearchData(
+          {String query, AnimeTypes type, int page}) =>
       _provider.getSearchData(
         query: query,
         type: type,
@@ -57,4 +64,30 @@ class AnimeRepository {
 
   Future<CharactersDetail> getDetailCharacters({int id}) =>
       _provider.getDetailCharacters(id: id);
+
+  Future<List<Favourite>> getFavouriteAnime() =>
+      _animeDBprovider.getFavouritesAnime();
+
+  Future<List<Favourite>> getFavouriteCharacters() =>
+      _charactersDBProvider.getFavouritesCharacters();
+
+  Future<int> deleteFavouriteAnime({int id}) =>
+      _animeDBprovider.deleteFavouriteAnime(
+        id: id,
+      );
+
+  Future<int> deleteFavouriteCharacter({int id}) =>
+      _charactersDBProvider.deleteFavouriteCharacter(
+        id: id,
+      );
+
+  Future<void> insertFavouriteCharacter({Favourite favouriteCharacter}) =>
+      _charactersDBProvider.insertFavouriteCharacter(
+        favouriteCharacter: favouriteCharacter,
+      );
+
+  Future<void> insertFavouriteAnime({Favourite favouriteAnime}) =>
+      _animeDBprovider.insertFavouriteAnime(
+        favouriteAnime: favouriteAnime,
+      );
 }

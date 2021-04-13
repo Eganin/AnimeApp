@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
-
   final repository = AnimeRepository();
 
   @override
@@ -17,14 +16,34 @@ class HomePage extends StatelessWidget {
         child: Scaffold(
           backgroundColor: Colors.white,
           appBar: AppBar(
-            title: AppBarAnimeApp(repository: repository,),
+            title: AppBarAnimeApp(
+              repository: repository,
+            ),
           ),
-
+          drawer: Drawer(
+            child: ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                DrawerHeader(
+                  child: Text('AnimeApp'),
+                  decoration: BoxDecoration(
+                    color: Colors.blue,
+                  ),
+                ),
+                ListTile(
+                  title: Text('Favourite Anime'),
+                  onTap: () {},
+                ),
+                ListTile(
+                  title: Text('Favourite Characters'),
+                  onTap: () {},
+                ),
+              ],
+            ),
+          ),
           body: AnimeList(),
         ),
       ),
     );
   }
-
 }
-
