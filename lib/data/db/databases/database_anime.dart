@@ -33,22 +33,22 @@ class DBAnimeProvider {
 
   void _createDB(Database db, int version) async {
     await db.execute(
-      'CREATE TABLE $animeTable($animeColumnId INTEGER PRIMARY KEY AUTOINCREMENT, $animeColumnMalId INTEGER , $animeColumnType TEXT , $animeColumnName TEXT)',
+      'CREATE TABLE $animeTable ($animeColumnId INTEGER PRIMARY KEY AUTOINCREMENT, $animeColumnMalId INTEGER , $animeColumnType TEXT , $animeColumnName TEXT)',
     );
   }
 
-  Future<List<FavouriteAnime>> getFavouritesAnime() async {
+  Future<List<Favourite>> getFavouritesAnime() async {
     Database db = await this.database;
     final List<Map<String, dynamic>> animeMapList = await db.query(animeTable);
-    final List<FavouriteAnime> animeList = [];
+    final List<Favourite> animeList = [];
     animeMapList.forEach((favouriteMap) {
-      animeList.add(FavouriteAnime.fromMap(favouriteMap));
+      animeList.add(Favourite.fromMap(favouriteMap));
     });
 
     return animeList;
   }
 
-  Future<void> insertFavouriteAnime(FavouriteAnime favouriteAnime) async {
+  Future<void> insertFavouriteAnime({Favourite favouriteAnime}) async {
     Database db = await this.database;
     db.insert(animeTable, favouriteAnime.toMap());
   }

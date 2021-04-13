@@ -1,10 +1,10 @@
-class FavouriteAnime {
+class Favourite {
   int id;
   int malId;
   String type;
   String name;
 
-  FavouriteAnime({this.id, this.malId, this.type, this.name});
+  Favourite({this.id, this.malId, this.type, this.name});
 
   Map<String, dynamic> toMap() {
     final map = Map<String, dynamic>();
@@ -15,7 +15,7 @@ class FavouriteAnime {
     return map;
   }
 
-  FavouriteAnime.fromMap(Map<String, dynamic> map) {
+  Favourite.fromMap(Map<String, dynamic> map) {
     id = map['id'];
     malId = map['malId'];
     type = map['type'];
