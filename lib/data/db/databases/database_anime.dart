@@ -34,7 +34,7 @@ class DBAnimeProvider {
 
   void _createDB(Database db, int version) async {
     await db.execute(
-      'CREATE TABLE $animeTable ($animeColumnId INTEGER PRIMARY KEY AUTOINCREMENT, $animeColumnMalId INTEGER , $animeColumnType TEXT , $animeColumnName TEXT , $animeImageUrl TEXT)',
+      'CREATE TABLE $animeTable ($animeColumnId INTEGER PRIMARY KEY AUTOINCREMENT, $animeColumnMalId INTEGER UNIQUE , $animeColumnType TEXT , $animeColumnName TEXT , $animeImageUrl TEXT)',
     );
   }
 

@@ -1,11 +1,9 @@
-import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
 import 'package:anime_app/data/services/anime_repository.dart';
 import 'package:anime_app/ui/pages/character_page.dart';
 import 'package:anime_app/ui/pages/detail_page.dart';
 import 'package:anime_app/ui/pages/home_page.dart';
 import 'package:anime_app/ui/utils/screen_arguments.dart';
 import 'package:anime_app/ui/widgets/favourite/anime/anime_favourite.dart';
-import 'package:anime_app/ui/widgets/favourite/characters/characters_favourite.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -34,10 +32,10 @@ class MyApp extends StatelessWidget {
                     ));
 
           case '/character':
-            int id = settings.arguments;
+            ScreenArguments arguments = settings.arguments;
             return MaterialPageRoute(
                 builder: (_) => CharacterPage(
-                      id: id,
+                      arguments: arguments,
                     ));
 
           case '/favourite/anime':
@@ -45,14 +43,16 @@ class MyApp extends StatelessWidget {
             return MaterialPageRoute(
               builder: (_) => AnimeFavourites(
                 repository: repository,
+                type: PageCharacter.ANIME,
               ),
             );
 
           case '/favourite/characters':
             AnimeRepository repository = settings.arguments;
             return MaterialPageRoute(
-              builder: (_) => CharactersFavourite(
+              builder: (_) => AnimeFavourites(
                 repository: repository,
+                type: PageCharacter.CHARACTERS,
               ),
             );
 
@@ -69,4 +69,19 @@ enum PageCharacter {
   CHARACTERS,
   ANIME,
   OTHER,
+}
+
+extension ExtensionPageCHaracter on PageCharacter {
+  String get value {
+    switch (this) {
+      case PageCharacter.ANIME:
+        return 'anime';
+
+      case PageCharacter.CHARACTERS:
+        return 'characters';
+
+      case PageCharacter.OTHER:
+        return 'other';
+    }
+  }
 }

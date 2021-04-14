@@ -54,7 +54,7 @@ class _AppBarAnimeAppState extends State<AppBarAnimeApp> {
               _animeCubit.fetchSearch(
                 query: text,
               );
-              //_controller.text='';
+              _controller.text='';
             },
             decoration: InputDecoration(
               fillColor: Colors.white,

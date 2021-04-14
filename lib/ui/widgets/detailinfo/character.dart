@@ -24,13 +24,17 @@ class Character extends StatelessWidget {
             arguments: ScreenArguments(
               id: id,
               type: type,
+              imageUrl: imageUrl,
             ),
           );
         } else if (flag == PageCharacter.CHARACTERS) {
           Navigator.pushNamed(
             context,
             '/character',
-            arguments: id,
+            arguments: ScreenArguments(
+              id: id,
+              imageUrl: imageUrl,
+            ),
           );
         }
       },

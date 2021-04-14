@@ -21,6 +21,7 @@ class AnimeCard extends StatelessWidget {
             arguments: ScreenArguments(
               id: post.malId,
               type: type,
+              imageUrl: post.imageUrl,
             ));
       },
       child: Container(
