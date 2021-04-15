@@ -80,4 +80,9 @@ class AnimeRepository {
       _animeDBprovider.insertFavourite(
         favourite: favourite,
       );
+
+  Future<int> getFavouriteById({int id}) =>
+      _animeDBprovider.getFavouriteById(
+        id: id,
+      );
 }

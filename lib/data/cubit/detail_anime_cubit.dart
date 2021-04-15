@@ -1,4 +1,5 @@
 import 'package:anime_app/data/cubit/state.dart';
+import 'package:anime_app/data/db/models/favourite.dart';
 import 'package:anime_app/data/models/anime/detail/anime_detail_info.dart';
 import 'package:anime_app/data/models/anime/detail/episodes/anime_episodes.dart';
 import 'package:anime_app/data/models/anime/detail/recommendation/anime_recommendation.dart';
@@ -6,6 +7,7 @@ import 'package:anime_app/data/models/anime/detail/reviews/anime_reviews.dart';
 import 'package:anime_app/data/models/characters/characters_detail_info.dart';
 import 'package:anime_app/data/models/data.dart';
 import 'package:anime_app/data/services/anime_repository.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailAnimeCubit extends Cubit<DataState> {
@@ -16,6 +18,8 @@ class DetailAnimeCubit extends Cubit<DataState> {
   AnimeRecommendation recommendations;
   AnimeReviews reviews;
   AnimeEpisodes episodes;
+  IconData imageFloatingData = Icons.star;
+  bool isDeleteFavourite;
 
   DetailAnimeCubit({this.repository}) : super(DataEmptyState());
 
@@ -46,7 +50,8 @@ class DetailAnimeCubit extends Cubit<DataState> {
         id: id,
       );
       characters = await repository.getDetailInfoCharactersManga(id: id);
-      recommendations = await repository.getDetailInfoMangaRecommendations(id: id);
+      recommendations =
+          await repository.getDetailInfoMangaRecommendations(id: id);
       reviews = await repository.getDetailInfoMangaReviews(id: id);
 
       emit(DataLoadedState());
@@ -54,6 +59,30 @@ class DetailAnimeCubit extends Cubit<DataState> {
       print(e.toString());
       emit(DataErrorState());
     }
+  }
+
+  Future<void> isExistsFavourite({int id}) async {
+    int result = await repository.getFavouriteById(
+      id: id,
+    );
+    if (result == null) {
+      isDeleteFavourite = false;
+      imageFloatingData = Icons.star;
+    } else {
+      isDeleteFavourite = true;
+      imageFloatingData = Icons.close;
+    }
+  }
+
+  Future<void> insertNewFavourite({Favourite favourite}) {
+    repository.insertFavourite(
+      favourite: favourite,
+    );
+  }
+
+  Future<void> deleteFavourite({int id}) async {
+    imageFloatingData = Icons.star;
+    repository.deleteFavourite(id: id);
   }
 
   String getGenres() {

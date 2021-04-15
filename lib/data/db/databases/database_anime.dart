@@ -56,7 +56,7 @@ class DBAnimeProvider {
   Future<List<Favourite>> getFavouritesManga() async {
     Database db = await this.database;
     final List<Map<String, dynamic>> animeMapList =
-    await db.query(table, where: '$columnType = ?', whereArgs: [
+        await db.query(table, where: '$columnType = ?', whereArgs: [
       PageCharacter.MANGA.value,
     ]);
     final List<Favourite> animeList = [];
@@ -70,7 +70,7 @@ class DBAnimeProvider {
   Future<List<Favourite>> getFavouritesCharacters() async {
     Database db = await this.database;
     final List<Map<String, dynamic>> animeMapList =
-    await db.query(table, where: '$columnType = ?', whereArgs: [
+        await db.query(table, where: '$columnType = ?', whereArgs: [
       PageCharacter.CHARACTERS.value,
     ]);
     final List<Favourite> animeList = [];
@@ -79,6 +79,19 @@ class DBAnimeProvider {
     });
 
     return animeList;
+  }
+
+  Future<int> getFavouriteById({int id}) async {
+    Database db = await this.database;
+    final List<Map<String, dynamic>> favouriteMapper =
+        await db.query(table, where: '$columnMalId = ?', whereArgs: [
+      id,
+    ]);
+    if (favouriteMapper == null || favouriteMapper.isEmpty) {
+      return null;
+    } else {
+      return Favourite.fromMap(favouriteMapper[0]).malId;
+    }
   }
 
   Future<void> insertFavourite({Favourite favourite}) async {
@@ -91,7 +104,7 @@ class DBAnimeProvider {
 
     return await db.delete(
       table,
-      where: '$columnId = ?',
+      where: '$columnMalId = ?',
       whereArgs: [id],
     );
   }
