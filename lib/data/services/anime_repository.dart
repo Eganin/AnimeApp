@@ -1,6 +1,5 @@
 import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
 import 'package:anime_app/data/db/databases/database_anime.dart';
-import 'package:anime_app/data/db/databases/database_characters.dart';
 import 'package:anime_app/data/models/anime/detail/anime_detail_info.dart';
 import 'package:anime_app/data/models/anime/detail/episodes/anime_episodes.dart';
 import 'package:anime_app/data/models/anime/detail/recommendation/anime_recommendation.dart';
@@ -16,7 +15,6 @@ class AnimeRepository {
   AnimeProvider _provider = AnimeProvider();
 
   DBAnimeProvider _animeDBprovider = DBAnimeProvider.db;
-  DBCharactersProvider _charactersDBProvider = DBCharactersProvider.db;
 
   Future<List<Top>> getAnimeData({
     AnimeTypes type = AnimeTypes.ANIME,
@@ -69,25 +67,17 @@ class AnimeRepository {
       _animeDBprovider.getFavouritesAnime();
 
   Future<List<Favourite>> getFavouriteCharacters() =>
-      _charactersDBProvider.getFavouritesCharacters();
+      _animeDBprovider.getFavouritesCharacters();
 
-  Future<int> deleteFavouriteAnime({int id}) =>
-      _animeDBprovider.deleteFavouriteAnime(
+  Future<List<Favourite>> getFavouriteManga() =>
+      _animeDBprovider.getFavouritesManga();
+
+  Future<int> deleteFavourite({int id}) => _animeDBprovider.deleteFavourite(
         id: id,
       );
 
-  Future<int> deleteFavouriteCharacter({int id}) =>
-      _charactersDBProvider.deleteFavouriteCharacter(
-        id: id,
-      );
-
-  Future<void> insertFavouriteCharacter({Favourite favouriteCharacter}) =>
-      _charactersDBProvider.insertFavouriteCharacter(
-        favouriteCharacter: favouriteCharacter,
-      );
-
-  Future<void> insertFavouriteAnime({Favourite favouriteAnime}) =>
-      _animeDBprovider.insertFavouriteAnime(
-        favouriteAnime: favouriteAnime,
+  Future<void> insertFavourite({Favourite favourite}) =>
+      _animeDBprovider.insertFavourite(
+        favourite: favourite,
       );
 }

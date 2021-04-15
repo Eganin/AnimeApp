@@ -23,7 +23,6 @@ class MyApp extends StatelessWidget {
         switch (settings.name) {
           case '/':
             return MaterialPageRoute(builder: (context) => HomePage());
-
           case '/detail':
             ScreenArguments arguments = settings.arguments;
             return MaterialPageRoute(
@@ -47,6 +46,14 @@ class MyApp extends StatelessWidget {
               ),
             );
 
+          case '/favourite/manga':
+            AnimeRepository repository = settings.arguments;
+            return MaterialPageRoute(
+                builder: (_) => AnimeFavourites(
+                      repository: repository,
+                      type: PageCharacter.MANGA,
+                    ));
+
           case '/favourite/characters':
             AnimeRepository repository = settings.arguments;
             return MaterialPageRoute(
@@ -68,6 +75,7 @@ class MyApp extends StatelessWidget {
 enum PageCharacter {
   CHARACTERS,
   ANIME,
+  MANGA,
   OTHER,
 }
 
@@ -79,6 +87,9 @@ extension ExtensionPageCHaracter on PageCharacter {
 
       case PageCharacter.CHARACTERS:
         return 'characters';
+
+      case PageCharacter.MANGA:
+        return 'manga';
 
       case PageCharacter.OTHER:
         return 'other';

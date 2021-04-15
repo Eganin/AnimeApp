@@ -31,12 +31,23 @@ class DetailPage extends StatelessWidget {
             child: Icon(Icons.star),
             backgroundColor: Colors.pinkAccent,
             onPressed: () {
-              repository.insertFavouriteAnime(
-                  favouriteAnime: Favourite(
-                id: null,
-                malId: data.id,
-                imageUrl: data.imageUrl,
-              ));
+              if (data.type == AnimeTypes.ANIME) {
+                repository.insertFavourite(
+                    favourite: Favourite(
+                  id: null,
+                  malId: data.id,
+                  imageUrl: data.imageUrl,
+                  type: PageCharacter.ANIME.value,
+                ));
+              } else {
+                repository.insertFavourite(
+                    favourite: Favourite(
+                      id: null,
+                      malId: data.id,
+                      imageUrl: data.imageUrl,
+                      type: PageCharacter.MANGA.value,
+                    ));
+              }
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text('Added to favourite'),
               ));

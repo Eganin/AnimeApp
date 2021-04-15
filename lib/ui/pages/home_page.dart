@@ -29,10 +29,18 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  title: Text('Favourite Anime and Manga'),
+                  title: Text('Favourite Anime '),
                   onTap: () => Navigator.pushNamed(
                     context,
                     '/favourite/anime',
+                    arguments: repository,
+                  ),
+                ),
+                ListTile(
+                  title: Text('Favourite  Manga'),
+                  onTap: () => Navigator.pushNamed(
+                    context,
+                    '/favourite/manga',
                     arguments: repository,
                   ),
                 ),

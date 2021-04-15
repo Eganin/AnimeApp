@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:anime_app/data/db/models/favourite.dart';
+import 'package:anime_app/main.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -11,12 +12,12 @@ class DBAnimeProvider {
 
   static Database _database;
 
-  String animeTable = 'Anime';
-  String animeColumnId = 'id';
-  String animeColumnMalId = 'malId';
-  String animeColumnName = 'name';
-  String animeColumnType = 'type';
-  String animeImageUrl = 'image_url';
+  String table = 'Anime';
+  String columnId = 'id';
+  String columnMalId = 'malId';
+  String columnName = 'name';
+  String columnType = 'type';
+  String columnImageUrl = 'image_url';
 
   Future<Database> get database async {
     if (_database != null) return _database;
@@ -34,13 +35,16 @@ class DBAnimeProvider {
 
   void _createDB(Database db, int version) async {
     await db.execute(
-      'CREATE TABLE $animeTable ($animeColumnId INTEGER PRIMARY KEY AUTOINCREMENT, $animeColumnMalId INTEGER UNIQUE , $animeColumnType TEXT , $animeColumnName TEXT , $animeImageUrl TEXT)',
+      'CREATE TABLE $table ($columnId INTEGER PRIMARY KEY AUTOINCREMENT, $columnMalId INTEGER UNIQUE , $columnType TEXT , $columnName TEXT , $columnImageUrl TEXT)',
     );
   }
 
   Future<List<Favourite>> getFavouritesAnime() async {
     Database db = await this.database;
-    final List<Map<String, dynamic>> animeMapList = await db.query(animeTable);
+    final List<Map<String, dynamic>> animeMapList =
+        await db.query(table, where: '$columnType = ?', whereArgs: [
+      PageCharacter.ANIME.value,
+    ]);
     final List<Favourite> animeList = [];
     animeMapList.forEach((favouriteMap) {
       animeList.add(Favourite.fromMap(favouriteMap));
@@ -49,17 +53,45 @@ class DBAnimeProvider {
     return animeList;
   }
 
-  Future<void> insertFavouriteAnime({Favourite favouriteAnime}) async {
+  Future<List<Favourite>> getFavouritesManga() async {
     Database db = await this.database;
-    db.insert(animeTable, favouriteAnime.toMap());
+    final List<Map<String, dynamic>> animeMapList =
+    await db.query(table, where: '$columnType = ?', whereArgs: [
+      PageCharacter.MANGA.value,
+    ]);
+    final List<Favourite> animeList = [];
+    animeMapList.forEach((favouriteMap) {
+      animeList.add(Favourite.fromMap(favouriteMap));
+    });
+
+    return animeList;
   }
 
-  Future<int> deleteFavouriteAnime({int id}) async {
+  Future<List<Favourite>> getFavouritesCharacters() async {
+    Database db = await this.database;
+    final List<Map<String, dynamic>> animeMapList =
+    await db.query(table, where: '$columnType = ?', whereArgs: [
+      PageCharacter.CHARACTERS.value,
+    ]);
+    final List<Favourite> animeList = [];
+    animeMapList.forEach((favouriteMap) {
+      animeList.add(Favourite.fromMap(favouriteMap));
+    });
+
+    return animeList;
+  }
+
+  Future<void> insertFavourite({Favourite favourite}) async {
+    Database db = await this.database;
+    db.insert(table, favourite.toMap());
+  }
+
+  Future<int> deleteFavourite({int id}) async {
     Database db = await this.database;
 
     return await db.delete(
-      animeTable,
-      where: '$animeColumnId = ?',
+      table,
+      where: '$columnId = ?',
       whereArgs: [id],
     );
   }

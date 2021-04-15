@@ -1,4 +1,3 @@
-import 'package:anime_app/data/db/databases/database_anime.dart';
 import 'package:anime_app/data/db/models/favourite.dart';
 import 'package:anime_app/data/services/anime_repository.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
@@ -22,8 +21,10 @@ class AnimeFavourites extends StatelessWidget {
     Future<List<Favourite>> data;
     if (type == PageCharacter.ANIME) {
       data = repository.getFavouriteAnime();
-    } else {
+    } else if (type == PageCharacter.CHARACTERS) {
       data = repository.getFavouriteCharacters();
+    } else {
+      data = repository.getFavouriteManga();
     }
 
     return Scaffold(
@@ -141,7 +142,7 @@ class AnimeFavourites extends StatelessWidget {
               type: AnimeTypes.ANIME,
             ),
           );
-        } else {
+        } else if(type == PageCharacter.CHARACTERS) {
           Favourite character = data[index - 1];
           Navigator.pushNamed(
             context,
@@ -149,6 +150,17 @@ class AnimeFavourites extends StatelessWidget {
             arguments: ScreenArguments(
               id: character.malId,
               imageUrl: character.imageUrl,
+            ),
+          );
+        }else{
+          Favourite manga = data[index - 1];
+          Navigator.pushNamed(
+            context,
+            '/detail',
+            arguments: ScreenArguments(
+              id: manga.malId,
+              imageUrl: manga.imageUrl,
+              type: AnimeTypes.MANGA,
             ),
           );
         }

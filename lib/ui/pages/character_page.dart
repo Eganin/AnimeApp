@@ -27,12 +27,13 @@ class CharacterPage extends StatelessWidget {
             child: Icon(Icons.star),
             backgroundColor: Colors.pinkAccent,
             onPressed: () {
-              repository.insertFavouriteCharacter(
-                  favouriteCharacter: Favourite(
-                    id: null,
-                    malId: arguments.id,
-                    imageUrl: arguments.imageUrl,
-                  ));
+              repository.insertFavourite(
+                  favourite: Favourite(
+                id: null,
+                malId: arguments.id,
+                imageUrl: arguments.imageUrl,
+                type: PageCharacter.CHARACTERS.value,
+              ));
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                 content: Text('Added to favourite'),
               ));
