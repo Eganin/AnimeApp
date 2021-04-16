@@ -1,7 +1,9 @@
 import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
 import 'package:anime_app/data/cubit/detail_anime_cubit.dart';
 import 'package:anime_app/data/cubit/state.dart';
+import 'package:anime_app/data/db/models/favourite.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
+import 'package:anime_app/main.dart';
 import 'package:anime_app/ui/widgets/common/detail_subtitle.dart';
 import 'package:anime_app/ui/widgets/detailinfo/characters_list.dart';
 import 'package:anime_app/ui/widgets/detailinfo/episode_list.dart';
@@ -92,233 +94,288 @@ class _DetailInfoState extends State<DetailInfo> {
         );
       }
 
-      if (state is DataLoadedState) {
-        return Stack(
-          children: [
-            detailCubit.data.rating != null
-                ? Positioned(
-                    top: 10,
-                    left: 10,
-                    child: SizedBox(
-                      width: closeTopContainer ? 0 : 60,
-                      height: closeTopContainer ? 0 : 60,
-                      child: Align(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "${detailCubit.data.rating}",
-                          style: TextStyle(
-                            fontSize: 17,
-                            color: Colors.white,
-                            backgroundColor: Colors.black87,
+      if (state is DataLoadedState || state is DataUpdateDb) {
+        return Scaffold(
+          body: Stack(
+            children: [
+              detailCubit.data.rating != null
+                  ? Positioned(
+                      top: 10,
+                      left: 10,
+                      child: SizedBox(
+                        width: closeTopContainer ? 0 : 60,
+                        height: closeTopContainer ? 0 : 60,
+                        child: Align(
+                          alignment: Alignment.center,
+                          child: Text(
+                            "${detailCubit.data.rating}",
+                            style: TextStyle(
+                              fontSize: 17,
+                              color: Colors.white,
+                              backgroundColor: Colors.black87,
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  )
-                : Container(),
-            Column(
-              children: [
-                AnimatedOpacity(
-                  opacity: closeTopContainer ? 0 : 1,
-                  duration: const Duration(milliseconds: 250),
-                  child: AnimatedContainer(
+                    )
+                  : Container(),
+              Column(
+                children: [
+                  AnimatedOpacity(
+                    opacity: closeTopContainer ? 0 : 1,
                     duration: const Duration(milliseconds: 250),
-                    width: size.width,
-                    alignment: Alignment.topCenter,
-                    height: closeTopContainer ? 0 : categoryHeight,
-                    child: Image.network(
-                      detailCubit.data.imageUrl,
+                    child: AnimatedContainer(
+                      duration: const Duration(milliseconds: 250),
+                      width: size.width,
+                      alignment: Alignment.topCenter,
+                      height: closeTopContainer ? 0 : categoryHeight,
+                      child: Image.network(
+                        detailCubit.data.imageUrl,
+                      ),
                     ),
                   ),
-                ),
-                Expanded(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                    ),
-                    child: ListView(
-                      controller: controller,
-                      physics: BouncingScrollPhysics(),
-                      scrollDirection: Axis.vertical,
-                      padding: EdgeInsets.symmetric(
-                        vertical: 20,
+                  Expanded(
+                    child: Container(
+                      margin: const EdgeInsets.symmetric(
+                        horizontal: 20,
                       ),
-                      children: [
-                        detailCubit.data.title != null
-                            ? detailSubtitle(
-                                text: detailCubit.data.title,
-                                size: 32.0,
-                              )
-                            : Container(),
-                        SizedBox(
-                          height: 10,
+                      child: ListView(
+                        controller: controller,
+                        physics: BouncingScrollPhysics(),
+                        scrollDirection: Axis.vertical,
+                        padding: EdgeInsets.symmetric(
+                          vertical: 20,
                         ),
-                        detailCubit.data.score != null
-                            ? Align(
-                                alignment: Alignment.center,
-                                child: FlutterRatingBarIndicator(
-                                  fillColor: Colors.lightBlueAccent,
-                                  rating: detailCubit.data.score,
-                                  itemCount: 10,
-                                  itemSize: 20.0,
-                                  emptyColor: Colors.amber.withAlpha(50),
+                        children: [
+                          detailCubit.data.title != null
+                              ? detailSubtitle(
+                                  text: detailCubit.data.title,
+                                  size: 32.0,
+                                )
+                              : Container(),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          detailCubit.data.score != null
+                              ? Align(
+                                  alignment: Alignment.center,
+                                  child: FlutterRatingBarIndicator(
+                                    fillColor: Colors.lightBlueAccent,
+                                    rating: detailCubit.data.score,
+                                    itemCount: 10,
+                                    itemSize: 20.0,
+                                    emptyColor: Colors.amber.withAlpha(50),
+                                  ),
+                                )
+                              : Container(),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          type == AnimeTypes.ANIME
+                              ? detailSubtitle(
+                                  text:
+                                      'Episodes : ${detailCubit.data.episodes == null ? 'No Info' : detailCubit.data.episodes}',
+                                  size: 17.0,
+                                )
+                              : detailSubtitle(
+                                  text:
+                                      'Chapters : ${detailCubit.data.chapters == null ? 'No Info' : detailCubit.data.chapters}',
                                 ),
-                              )
-                            : Container(),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        type == AnimeTypes.ANIME
-                            ? detailSubtitle(
-                                text:
-                                    'Episodes : ${detailCubit.data.episodes == null ? 'No Info' : detailCubit.data.episodes}',
-                                size: 17.0,
-                              )
-                            : detailSubtitle(
-                                text:
-                                    'Chapters : ${detailCubit.data.chapters == null ? 'No Info' : detailCubit.data.chapters}',
-                              ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        detailCubit.data.status != null
-                            ? detailSubtitle(
-                                text: "Status : ${detailCubit.data.status}",
-                                size: 17.0,
-                              )
-                            : Container(),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        detailCubit.data.source != null
-                            ? detailSubtitle(
-                                text: "Source : ${detailCubit.data.source}",
-                                size: 17.0,
-                              )
-                            : Container(),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        detailCubit.data.duration != null
-                            ? detailSubtitle(
-                                text: "Duration : ${detailCubit.data.duration}",
-                                size: 17.0,
-                              )
-                            : Container(),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        detailSubtitle(
-                          text: detailCubit.getGenres(),
-                          size: 15.0,
-                          color: Colors.redAccent,
-                        ),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        detailCubit.characters.characters.isNotEmpty
-                            ? Container(
-                                color: Colors.pinkAccent,
-                                child: Column(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        'Characters:',
-                                        style: TextStyle(
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          fontStyle: FontStyle.italic,
+                          SizedBox(
+                            height: 5,
+                          ),
+                          detailCubit.data.status != null
+                              ? detailSubtitle(
+                                  text: "Status : ${detailCubit.data.status}",
+                                  size: 17.0,
+                                )
+                              : Container(),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          detailCubit.data.source != null
+                              ? detailSubtitle(
+                                  text: "Source : ${detailCubit.data.source}",
+                                  size: 17.0,
+                                )
+                              : Container(),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          detailCubit.data.duration != null
+                              ? detailSubtitle(
+                                  text:
+                                      "Duration : ${detailCubit.data.duration}",
+                                  size: 17.0,
+                                )
+                              : Container(),
+                          SizedBox(
+                            height: 5,
+                          ),
+                          detailSubtitle(
+                            text: detailCubit.getGenres(),
+                            size: 15.0,
+                            color: Colors.redAccent,
+                          ),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          detailCubit.characters.characters.isNotEmpty
+                              ? Container(
+                                  color: Colors.pinkAccent,
+                                  child: Column(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'Characters:',
+                                          style: TextStyle(
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                            fontStyle: FontStyle.italic,
+                                          ),
                                         ),
                                       ),
-                                    ),
-                                    CharactersList(
-                                      info: detailCubit.characters,
-                                    ),
-                                  ],
-                                ),
-                              )
-                            : Container(),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        detailCubit.episodes != null
-                            ? detailCubit.episodes.episodes.isNotEmpty
-                                ? Column(
+                                      CharactersList(
+                                        info: detailCubit.characters,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : Container(),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          detailCubit.episodes != null
+                              ? detailCubit.episodes.episodes.isNotEmpty
+                                  ? Column(
+                                      children: [
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: detailSubtitle(
+                                            text: 'Episodes: ',
+                                            size: 30.0,
+                                          ),
+                                        ),
+                                        EpisodeList(
+                                          episodes: detailCubit.episodes,
+                                        ),
+                                      ],
+                                    )
+                                  : Container()
+                              : Container(),
+                          SizedBox(
+                            height: 15,
+                          ),
+                          detailCubit.recommendations.recommendations.isNotEmpty
+                              ? Container(
+                                  color: Colors.blueAccent,
+                                  child: Column(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.centerLeft,
+                                        child: Text(
+                                          'Recommendations:',
+                                          style: TextStyle(
+                                            fontSize: 30,
+                                            fontWeight: FontWeight.bold,
+                                            color: Colors.white,
+                                            fontStyle: FontStyle.italic,
+                                          ),
+                                        ),
+                                      ),
+                                      RecommendationList(
+                                        recommendations:
+                                            detailCubit.recommendations,
+                                        type: type,
+                                      ),
+                                    ],
+                                  ),
+                                )
+                              : Container(),
+                          detailCubit.reviews.reviews.isNotEmpty
+                              ? Container(
+                                  child: Column(
                                     children: [
                                       Align(
                                         alignment: Alignment.centerLeft,
                                         child: detailSubtitle(
-                                          text: 'Episodes: ',
+                                          text: 'Reviews: ',
                                           size: 30.0,
                                         ),
                                       ),
-                                      EpisodeList(
-                                        episodes: detailCubit.episodes,
+                                      ReviewsList(
+                                        animeReviews: detailCubit.reviews,
                                       ),
                                     ],
-                                  )
-                                : Container()
-                            : Container(),
-                        SizedBox(
-                          height: 15,
-                        ),
-                        detailCubit.recommendations.recommendations.isNotEmpty
-                            ? Container(
-                                color: Colors.blueAccent,
-                                child: Column(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: Text(
-                                        'Recommendations:',
-                                        style: TextStyle(
-                                          fontSize: 30,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white,
-                                          fontStyle: FontStyle.italic,
-                                        ),
-                                      ),
-                                    ),
-                                    RecommendationList(
-                                      recommendations:
-                                          detailCubit.recommendations,
-                                      type: type,
-                                    ),
-                                  ],
-                                ),
-                              )
-                            : Container(),
-                        detailCubit.reviews.reviews.isNotEmpty
-                            ? Container(
-                                child: Column(
-                                  children: [
-                                    Align(
-                                      alignment: Alignment.centerLeft,
-                                      child: detailSubtitle(
-                                        text: 'Reviews: ',
-                                        size: 30.0,
-                                      ),
-                                    ),
-                                    ReviewsList(
-                                      animeReviews: detailCubit.reviews,
-                                    ),
-                                  ],
-                                ),
-                              )
-                            : Container(),
-                      ],
+                                  ),
+                                )
+                              : Container(),
+                        ],
+                      ),
                     ),
                   ),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
+          floatingActionButton: _detailFloatingButton(
+            id: id,
+            cubit: detailCubit,
+            context: context,
+            type: type,
+            imageUrl: detailCubit.data.imageUrl,
+          ),
         );
       }
 
       return CircularProgressIndicator();
     });
   }
+}
+
+FloatingActionButton _detailFloatingButton(
+    {DetailAnimeCubit cubit,
+    int id,
+    BuildContext context,
+    AnimeTypes type,
+    String imageUrl}) {
+  return FloatingActionButton(
+    child: Icon(cubit.imageFloatingData),
+    backgroundColor: Colors.pinkAccent,
+    onPressed: () {
+      if (cubit.isDeleteFavourite) {
+        cubit.deleteFavourite(
+          id: id,
+        );
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Delete to favourite'),
+        ));
+      } else {
+        if (type == AnimeTypes.ANIME) {
+          cubit.insertNewFavourite(
+            favourite: Favourite(
+              id: null,
+              malId: id,
+              imageUrl: imageUrl,
+              type: PageCharacter.ANIME.value,
+            ),
+          );
+        } else {
+          cubit.insertNewFavourite(
+            favourite: Favourite(
+              id: null,
+              malId: id,
+              imageUrl: imageUrl,
+              type: PageCharacter.MANGA.value,
+            ),
+          );
+        }
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text('Added to favourite'),
+        ));
+      }
+    },
+  );
 }

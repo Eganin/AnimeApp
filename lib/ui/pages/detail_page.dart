@@ -14,7 +14,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class DetailPage extends StatelessWidget {
   ScreenArguments data;
   final repository = AnimeRepository();
-  DetailAnimeCubit detailCubit;
 
   DetailPage({this.data});
 
@@ -25,57 +24,12 @@ class DetailPage extends StatelessWidget {
         return DetailAnimeCubit(repository: repository);
       },
       child: SafeArea(
-        child: BlocBuilder<DetailAnimeCubit, DataState>(
-          builder: (context, state) {
-            detailCubit = BlocProvider.of<DetailAnimeCubit>(context);
-            detailCubit.isExistsFavourite(
-              id: data.id,
-            );
-            return Scaffold(
-              backgroundColor: Colors.white,
-              body: DetailInfo(
-                id: data.id,
-                type: data.type,
-              ),
-              floatingActionButton: FloatingActionButton(
-                child: Icon(detailCubit.imageFloatingData),
-                backgroundColor: Colors.pinkAccent,
-                onPressed: () {
-                  if (detailCubit.isDeleteFavourite) {
-                    detailCubit.deleteFavourite(
-                      id: data.id,
-                    );
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('Delete to favourite'),
-                    ));
-                  } else {
-                    if (data.type == AnimeTypes.ANIME) {
-                      detailCubit.insertNewFavourite(
-                        favourite: Favourite(
-                          id: null,
-                          malId: data.id,
-                          imageUrl: data.imageUrl,
-                          type: PageCharacter.ANIME.value,
-                        ),
-                      );
-                    } else {
-                      detailCubit.insertNewFavourite(
-                        favourite: Favourite(
-                          id: null,
-                          malId: data.id,
-                          imageUrl: data.imageUrl,
-                          type: PageCharacter.MANGA.value,
-                        ),
-                      );
-                    }
-                    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-                      content: Text('Added to favourite'),
-                    ));
-                  }
-                },
-              ),
-            );
-          },
+        child: Scaffold(
+          backgroundColor: Colors.white,
+          body: DetailInfo(
+            id: data.id,
+            type: data.type,
+          ),
         ),
       ),
     );

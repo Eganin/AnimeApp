@@ -18,14 +18,15 @@ class DetailCharactersCubit extends Cubit<DataState> {
     try {
       emit(DataLoadingState());
       characters = await repository.getDetailCharacters(id: id);
-
+      await isExistsFavourite(
+        id: id,
+      );
       emit(DataLoadedState());
     } catch (e) {
       print(e.toString());
       emit(DataErrorState());
     }
   }
-
 
   Future<void> isExistsFavourite({int id}) async {
     int result = await repository.getFavouriteById(
@@ -38,17 +39,22 @@ class DetailCharactersCubit extends Cubit<DataState> {
       isDeleteFavourite = true;
       imageFloatingData = Icons.close;
     }
+    emit(DataUpdateDb());
   }
 
   Future<void> insertNewFavourite({Favourite favourite}) {
     repository.insertFavourite(
       favourite: favourite,
     );
+    isDeleteFavourite = true;
+    imageFloatingData = Icons.close;
+    emit(DataUpdateDb());
   }
 
   Future<void> deleteFavourite({int id}) async {
     imageFloatingData = Icons.star;
+    isDeleteFavourite = false;
     repository.deleteFavourite(id: id);
+    emit(DataUpdateDb());
   }
-
 }

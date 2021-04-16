@@ -35,6 +35,9 @@ class DetailAnimeCubit extends Cubit<DataState> {
       recommendations = await repository.getDetailInfoRecommendations(id: id);
       reviews = await repository.getDetailInfoReviews(id: id);
       episodes = await repository.getDetailInfoEpisodes(id: id);
+      await isExistsFavourite(
+        id: id,
+      );
 
       emit(DataLoadedState());
     } catch (e) {
@@ -72,17 +75,23 @@ class DetailAnimeCubit extends Cubit<DataState> {
       isDeleteFavourite = true;
       imageFloatingData = Icons.close;
     }
+    emit(DataUpdateDb());
   }
 
-  Future<void> insertNewFavourite({Favourite favourite}) {
+  Future<void> insertNewFavourite({Favourite favourite}) async {
     repository.insertFavourite(
       favourite: favourite,
     );
+    isDeleteFavourite = true;
+    imageFloatingData = Icons.close;
+    emit(DataUpdateDb());
   }
 
   Future<void> deleteFavourite({int id}) async {
-    imageFloatingData = Icons.star;
     repository.deleteFavourite(id: id);
+    imageFloatingData = Icons.star;
+    isDeleteFavourite = false;
+    emit(DataUpdateDb());
   }
 
   String getGenres() {
