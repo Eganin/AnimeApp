@@ -122,7 +122,7 @@ class _CharacterInfoState extends State<CharacterInfo> {
                           widget: Center(
                             child: detailSubtitle(
                               text: charactersCubit.characters.about
-                                  .replaceAll(r'\D\n\D', ''),
+                                  .replaceAll('\n', ''),
                               size: 20.0,
                             ),
                           ),

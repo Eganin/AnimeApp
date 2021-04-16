@@ -58,7 +58,7 @@ class _AnimeListState extends State<AnimeList> {
                       width: size.width,
                       alignment: Alignment.topCenter,
                       height: closeTopContainer ? 0 : categoryHeight,
-                      child: categoriesScroller),
+                      child: CategoriesScroller(height : closeTopContainer ? 0 : categoryHeight)),
                 ),
                 Expanded(
                     child: ListView.builder(

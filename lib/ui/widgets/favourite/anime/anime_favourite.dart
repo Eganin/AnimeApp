@@ -15,17 +15,21 @@ class AnimeFavourites extends StatelessWidget {
     this.type,
   });
 
+  Future<List<Favourite>> getData(){
+    if (type == PageCharacter.ANIME) {
+      return  repository.getFavouriteAnime();
+    } else if (type == PageCharacter.CHARACTERS) {
+      return repository.getFavouriteCharacters();
+    } else {
+      return  repository.getFavouriteManga();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+
     TCardController _controller = TCardController();
-    Future<List<Favourite>> data;
-    if (type == PageCharacter.ANIME) {
-      data = repository.getFavouriteAnime();
-    } else if (type == PageCharacter.CHARACTERS) {
-      data = repository.getFavouriteCharacters();
-    } else {
-      data = repository.getFavouriteManga();
-    }
+    Future<List<Favourite>> data = getData();
 
     return Scaffold(
       appBar: AppBar(
@@ -65,13 +69,13 @@ class AnimeFavourites extends StatelessWidget {
                     children: [
                       OutlineButton(
                         onPressed: () {
-                          print(_controller);
                           _controller.back();
                         },
                         child: Text('Back'),
                       ),
                       OutlineButton(
                         onPressed: () {
+                          data = getData();
                           _controller.reset();
                         },
                         child: Text('Reset'),
@@ -164,9 +168,6 @@ class AnimeFavourites extends StatelessWidget {
             ),
           );
         }
-      },
-      onBack: (index, info) {
-        print(index);
       },
     );
   }

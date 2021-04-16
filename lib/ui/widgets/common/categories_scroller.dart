@@ -3,12 +3,13 @@ import 'package:anime_app/data/services/api/anime_api_provider.dart';
 import 'package:flutter/material.dart';
 
 class CategoriesScroller extends StatelessWidget {
-  const CategoriesScroller();
+
+  final double height;
+
+  CategoriesScroller({this.height});
 
   @override
   Widget build(BuildContext context) {
-    final double categoryHeight =
-        MediaQuery.of(context).size.height * 0.30 - 50;
     return SingleChildScrollView(
       physics: BouncingScrollPhysics(),
       scrollDirection: Axis.horizontal,
@@ -17,7 +18,7 @@ class CategoriesScroller extends StatelessWidget {
         child: Row(
           children: <Widget>[
             Category(
-              height: categoryHeight,
+              height: height,
               color: Colors.orange[400],
               title: 'Airing',
               subtitle: 'Anime',
