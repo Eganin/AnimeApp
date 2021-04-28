@@ -110,8 +110,6 @@ class _DetailInfoState extends State<DetailInfo> {
                             "${detailCubit.data.rating}",
                             style: TextStyle(
                               fontSize: 17,
-                              color: Colors.white,
-                              backgroundColor: Colors.black87,
                             ),
                           ),
                         ),
@@ -214,7 +212,6 @@ class _DetailInfoState extends State<DetailInfo> {
                           detailSubtitle(
                             text: detailCubit.getGenres(),
                             size: 15.0,
-                            color: Colors.redAccent,
                           ),
                           SizedBox(
                             height: 15,
@@ -231,7 +228,6 @@ class _DetailInfoState extends State<DetailInfo> {
                                           style: TextStyle(
                                             fontSize: 30,
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.white,
                                             fontStyle: FontStyle.italic,
                                           ),
                                         ),
@@ -279,7 +275,6 @@ class _DetailInfoState extends State<DetailInfo> {
                                           style: TextStyle(
                                             fontSize: 30,
                                             fontWeight: FontWeight.bold,
-                                            color: Colors.white,
                                             fontStyle: FontStyle.italic,
                                           ),
                                         ),

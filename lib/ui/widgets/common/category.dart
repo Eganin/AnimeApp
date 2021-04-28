@@ -34,14 +34,14 @@ class Category extends StatelessWidget {
             children: <Widget>[
               Text(
                 title,
-                style: TextStyle(fontSize: 25, color: Colors.white, fontWeight: FontWeight.bold),
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
               ),
               SizedBox(
                 height: 10,
               ),
               Text(
                 subtitle,
-                style: TextStyle(fontSize: 16, color: Colors.white),
+                style: TextStyle(fontSize: 16),
               ),
             ],
           ),

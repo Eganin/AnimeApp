@@ -58,7 +58,6 @@ class Character extends StatelessWidget {
           child: detailSubtitle(
             text: name,
             size: 14.0,
-            color: Colors.white70,
           ),
         ),
       ],

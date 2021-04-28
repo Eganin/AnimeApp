@@ -131,7 +131,6 @@ class _CharacterInfoState extends State<CharacterInfo> {
                           condition:
                           charactersCubit.characters.animeography.isNotEmpty,
                           widget: Container(
-                            color: Colors.blueAccent,
                             child: Column(
                               children: [
                                 Align(
@@ -141,7 +140,6 @@ class _CharacterInfoState extends State<CharacterInfo> {
                                     style: TextStyle(
                                       fontSize: 30,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white,
                                       fontStyle: FontStyle.italic,
                                     ),
                                   ),
@@ -157,7 +155,6 @@ class _CharacterInfoState extends State<CharacterInfo> {
                           condition:
                           charactersCubit.characters.mangaography.isNotEmpty,
                           widget: Container(
-                            color: Colors.deepPurple,
                             child: Column(
                               children: [
                                 Align(
@@ -167,7 +164,6 @@ class _CharacterInfoState extends State<CharacterInfo> {
                                     style: TextStyle(
                                       fontSize: 30,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white,
                                       fontStyle: FontStyle.italic,
                                     ),
                                   ),
@@ -183,7 +179,6 @@ class _CharacterInfoState extends State<CharacterInfo> {
                           condition:
                           charactersCubit.characters.voiceActors.isNotEmpty,
                           widget: Container(
-                            color: Colors.teal,
                             child: Column(
                               children: [
                                 Align(
@@ -193,7 +188,6 @@ class _CharacterInfoState extends State<CharacterInfo> {
                                     style: TextStyle(
                                       fontSize: 30,
                                       fontWeight: FontWeight.bold,
-                                      color: Colors.white,
                                       fontStyle: FontStyle.italic,
                                     ),
                                   ),

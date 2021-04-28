@@ -1,3 +1,4 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:anime_app/data/services/anime_repository.dart';
 import 'package:anime_app/ui/pages/character_page.dart';
 import 'package:anime_app/ui/pages/detail_page.dart';
@@ -5,6 +6,7 @@ import 'package:anime_app/ui/pages/home_page.dart';
 import 'package:anime_app/ui/utils/screen_arguments.dart';
 import 'package:anime_app/ui/widgets/favourite/anime/anime_favourite.dart';
 import 'package:flutter/material.dart';
+import 'ui/theme/theme_config.dart';
 
 void main() {
   runApp(MyApp());
@@ -13,61 +15,67 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Anime App',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      onGenerateRoute: (settings) {
-        switch (settings.name) {
-          case '/':
-            return MaterialPageRoute(builder: (context) => HomePage());
-          case '/detail':
-            ScreenArguments arguments = settings.arguments;
-            return MaterialPageRoute(
-                builder: (context) => DetailPage(
+    final isPlatformDark =
+        WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
+    final initTheme = isPlatformDark ? lightTheme : darkTheme;
+    return ThemeProvider(
+      initTheme: initTheme,
+      builder: (_, myTheme) {
+        return MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Anime App',
+          theme  :myTheme,
+          onGenerateRoute: (settings) {
+            switch (settings.name) {
+              case '/':
+                return MaterialPageRoute(builder: (context) => HomePage());
+              case '/detail':
+                ScreenArguments arguments = settings.arguments;
+                return MaterialPageRoute(
+                    builder: (context) => DetailPage(
                       data: arguments,
                     ));
 
-          case '/character':
-            ScreenArguments arguments = settings.arguments;
-            return MaterialPageRoute(
-                builder: (_) => CharacterPage(
+              case '/character':
+                ScreenArguments arguments = settings.arguments;
+                return MaterialPageRoute(
+                    builder: (_) => CharacterPage(
                       arguments: arguments,
                     ));
 
-          case '/favourite/anime':
-            AnimeRepository repository = settings.arguments;
-            return MaterialPageRoute(
-              builder: (_) => AnimeFavourites(
-                repository: repository,
-                type: PageCharacter.ANIME,
-              ),
-            );
+              case '/favourite/anime':
+                AnimeRepository repository = settings.arguments;
+                return MaterialPageRoute(
+                  builder: (_) => AnimeFavourites(
+                    repository: repository,
+                    type: PageCharacter.ANIME,
+                  ),
+                );
 
-          case '/favourite/manga':
-            AnimeRepository repository = settings.arguments;
-            return MaterialPageRoute(
-                builder: (_) => AnimeFavourites(
+              case '/favourite/manga':
+                AnimeRepository repository = settings.arguments;
+                return MaterialPageRoute(
+                    builder: (_) => AnimeFavourites(
                       repository: repository,
                       type: PageCharacter.MANGA,
                     ));
 
-          case '/favourite/characters':
-            AnimeRepository repository = settings.arguments;
-            return MaterialPageRoute(
-              builder: (_) => AnimeFavourites(
-                repository: repository,
-                type: PageCharacter.CHARACTERS,
-              ),
-            );
+              case '/favourite/characters':
+                AnimeRepository repository = settings.arguments;
+                return MaterialPageRoute(
+                  builder: (_) => AnimeFavourites(
+                    repository: repository,
+                    type: PageCharacter.CHARACTERS,
+                  ),
+                );
 
-          default:
-            return MaterialPageRoute(builder: (context) => HomePage());
-        }
+              default:
+                return MaterialPageRoute(builder: (context) => HomePage());
+            }
+          },
+          home: HomePage(),
+        );
       },
-      home: HomePage(),
     );
   }
 }

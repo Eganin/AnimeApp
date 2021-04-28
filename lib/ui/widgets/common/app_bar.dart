@@ -39,8 +39,6 @@ class _AppBarAnimeAppState extends State<AppBarAnimeApp> {
   Widget build(BuildContext context) {
     return AppBar(
       elevation: 2,
-      backgroundColor: Colors.blue,
-      foregroundColor: Colors.blue,
       title: AnimatedOpacity(
         opacity: _closeContainer ? 0 : 1,
         duration: const Duration(milliseconds: 250),

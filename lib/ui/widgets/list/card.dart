@@ -28,7 +28,7 @@ class AnimeCard extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
           decoration: BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20.0)),
-              color: Colors.white,
+              color: Theme.of(context).backgroundColor,
               boxShadow: [
                 BoxShadow(color: Colors.black.withAlpha(100), blurRadius: 10.0),
               ]),
@@ -50,7 +50,7 @@ class AnimeCard extends StatelessWidget {
                       Text(
                         'Episodes - ${post.episodes == null ? 'No Info' : post.episodes.toString()}',
                         style:
-                            const TextStyle(fontSize: 14, color: Colors.grey),
+                            const TextStyle(fontSize: 14),
                       ),
                       SizedBox(
                         height: 10,
@@ -59,7 +59,6 @@ class AnimeCard extends StatelessWidget {
                         'Raiting : ${post.score}',
                         style: const TextStyle(
                             fontSize: 11,
-                            color: Colors.black,
                             fontWeight: FontWeight.bold),
                       )
                     ],

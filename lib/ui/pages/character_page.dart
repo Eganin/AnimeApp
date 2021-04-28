@@ -22,7 +22,6 @@ class CharacterPage extends StatelessWidget {
       create: (context) => DetailCharactersCubit(repository: repository),
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.white,
           body: CharacterInfo(
             id: arguments.id,
           ),

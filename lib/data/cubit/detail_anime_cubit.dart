@@ -56,6 +56,7 @@ class DetailAnimeCubit extends Cubit<DataState> {
       recommendations =
           await repository.getDetailInfoMangaRecommendations(id: id);
       reviews = await repository.getDetailInfoMangaReviews(id: id);
+      await isExistsFavourite(id: id);
 
       emit(DataLoadedState());
     } catch (e) {

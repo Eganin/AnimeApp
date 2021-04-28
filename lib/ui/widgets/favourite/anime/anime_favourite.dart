@@ -32,11 +32,6 @@ class AnimeFavourites extends StatelessWidget {
     Future<List<Favourite>> data = getData();
 
     return Scaffold(
-      appBar: AppBar(
-        iconTheme: IconThemeData(
-          color: Colors.black, //change your color here
-        ),
-      ),
       body: FutureBuilder(
         future: data,
         builder: (context, snapshot) {
@@ -108,7 +103,6 @@ class AnimeFavourites extends StatelessWidget {
       (int index) {
         return Container(
           decoration: BoxDecoration(
-            color: Colors.white,
             borderRadius: BorderRadius.circular(16.0),
             boxShadow: [
               BoxShadow(

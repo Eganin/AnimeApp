@@ -19,7 +19,6 @@ class DetailPage extends StatelessWidget {
       },
       child: SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.white,
           body: DetailInfo(
             id: data.id,
             type: data.type,

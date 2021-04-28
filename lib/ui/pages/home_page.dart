@@ -1,3 +1,4 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:anime_app/data/cubit/main_anime_cubit.dart';
 import 'package:anime_app/data/services/anime_repository.dart';
 import 'package:anime_app/ui/widgets/common/app_bar.dart';
@@ -19,39 +20,38 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<MainAnimeCubit>(
-      create: (context) => MainAnimeCubit(repository: repository),
-      child: SafeArea(
-        child: Scaffold(
-          backgroundColor: Colors.white,
-          appBar: AppBarAnimeApp(
-            repository: repository,
-          ),
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: Colors.pinkAccent,
-            child: Icon(
-              Icons.menu,
-              color: Colors.black,
-            ),
-            onPressed: () {
-              setState(() {
-                _fsbStatus = _fsbStatus == FSBStatus.FSB_OPEN
-                    ? FSBStatus.FSB_CLOSE
-                    : FSBStatus.FSB_OPEN;
-              });
-            },
-          ),
-          body: FoldableSidebarBuilder(
-            screenContents: AnimeList(),
-            drawerBackgroundColor: Colors.white,
-            status: _fsbStatus,
-            drawer: CustomSidebarDrawer(
+    return ThemeSwitchingArea(
+      child: BlocProvider<MainAnimeCubit>(
+        create: (context) => MainAnimeCubit(repository: repository),
+        child: SafeArea(
+          child: Scaffold(
+            appBar: AppBarAnimeApp(
               repository: repository,
-              drawerClose: () {
+            ),
+            floatingActionButton: FloatingActionButton(
+              backgroundColor: Colors.yellow,
+              child: Icon(
+                Icons.menu,
+              ),
+              onPressed: () {
                 setState(() {
-                  _fsbStatus = FSBStatus.FSB_CLOSE;
+                  _fsbStatus = _fsbStatus == FSBStatus.FSB_OPEN
+                      ? FSBStatus.FSB_CLOSE
+                      : FSBStatus.FSB_OPEN;
                 });
               },
+            ),
+            body: FoldableSidebarBuilder(
+              screenContents: AnimeList(),
+              status: _fsbStatus,
+              drawer: CustomSidebarDrawer(
+                repository: repository,
+                drawerClose: () {
+                  setState(() {
+                    _fsbStatus = FSBStatus.FSB_CLOSE;
+                  });
+                },
+              ),
             ),
           ),
         ),

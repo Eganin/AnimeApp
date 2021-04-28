@@ -1,4 +1,6 @@
+import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:anime_app/data/services/anime_repository.dart';
+import 'package:anime_app/ui/theme/theme_config.dart';
 import 'package:flutter/material.dart';
 
 class CustomSidebarDrawer extends StatefulWidget {
@@ -23,7 +25,6 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
   Widget build(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
     return Container(
-      color: Colors.white,
       width: mediaQuery.size.width * 0.60,
       height: mediaQuery.size.height,
       child: Column(
@@ -31,14 +32,14 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
           Container(
               width: double.infinity,
               height: 200,
-              color: Colors.grey.withAlpha(30),
+              color: const Color(0xFFBAFB0B4),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Image.asset(
-                    "assets/images/anime_icon.jpg",
-                    width: 100,
-                    height: 100,
+                    "assets/images/icon_app.jpg",
+                    width: 150,
+                    height: 150,
                   ),
                   SizedBox(
                     height: 10,
@@ -81,6 +82,23 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
             ),
             leading: Icon(Icons.person),
           ),
+          ThemeSwitcher(
+            clipper: ThemeSwitcherCircleClipper(),
+            builder: (context) {
+              return ListTile(
+                title: Text('Other Color Mode'),
+                onTap: () {
+                  ThemeSwitcher.of(context).changeTheme(
+                    theme: ThemeProvider.of(context).brightness ==
+                        Brightness.light
+                        ? darkTheme
+                        : lightTheme,
+                  );
+                },
+              );
+            },
+          ),
+
         ],
       ),
     );
