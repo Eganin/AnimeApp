@@ -1,13 +1,7 @@
-import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
 import 'package:anime_app/data/cubit/detail_anime_cubit.dart';
-import 'package:anime_app/data/cubit/state.dart';
-import 'package:anime_app/data/db/models/favourite.dart';
 import 'package:anime_app/data/services/anime_repository.dart';
-import 'package:anime_app/data/services/api/anime_api_provider.dart';
-import 'package:anime_app/main.dart';
 import 'package:anime_app/ui/utils/screen_arguments.dart';
-import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/ui/widgets/common/app_bar.dart';
-import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/ui/widgets/detailinfo/detail_info.dart';
+import 'package:anime_app/ui/widgets/detailinfo/detail_info.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

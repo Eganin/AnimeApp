@@ -1,11 +1,12 @@
 import 'package:anime_app/data/cubit/main_anime_cubit.dart';
 import 'package:anime_app/data/cubit/state.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
-import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/ui/widgets/list/card.dart';
-import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/ui/widgets/common/categories_scroller.dart';
+import 'package:anime_app/ui/widgets/common/categories_scroller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+
+import 'card.dart';
 
 class AnimeList extends StatefulWidget {
   @override
@@ -15,7 +16,7 @@ class AnimeList extends StatefulWidget {
 class _AnimeListState extends State<AnimeList> {
   MainAnimeCubit animeCubit;
 
-  final CategoriesScroller categoriesScroller = CategoriesScroller();
+  final CategoriesScroller categoriesScroller = CategoriesScroller(height: 100,);
   ScrollController controller = ScrollController();
   bool closeTopContainer = false;
   double topContainer = 0;

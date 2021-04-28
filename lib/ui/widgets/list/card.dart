@@ -1,4 +1,3 @@
-import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
 import 'package:anime_app/data/models/data_card.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
 import 'package:anime_app/ui/utils/screen_arguments.dart';

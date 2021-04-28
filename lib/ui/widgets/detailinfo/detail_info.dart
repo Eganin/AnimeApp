@@ -1,4 +1,3 @@
-import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
 import 'package:anime_app/data/cubit/detail_anime_cubit.dart';
 import 'package:anime_app/data/cubit/state.dart';
 import 'package:anime_app/data/db/models/favourite.dart';

@@ -1,5 +1,4 @@
-import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
-import 'package:anime_app/data/models/data_card.dart';
+import 'package:anime_app/data/models/anime/list/top.dart';
 
 class AnimeData{
   String requestHash;

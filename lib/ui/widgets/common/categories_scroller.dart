@@ -1,6 +1,6 @@
-import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/ui/widgets/common/category.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
 import 'package:flutter/material.dart';
+import 'category.dart';
 
 class CategoriesScroller extends StatelessWidget {
 
@@ -25,77 +25,77 @@ class CategoriesScroller extends StatelessWidget {
               type: AnimeTypes.ANIME,
             ),
             Category(
-              height: categoryHeight,
+              height: height,
               color: Colors.blue[400],
               title: 'Up coming',
               subtitle: 'Anime',
               type: AnimeTypes.ANIME,
             ),
             Category(
-              height: categoryHeight,
+              height: height,
               color: Colors.lightBlueAccent,
               title: 'TV',
               subtitle: 'Anime',
               type: AnimeTypes.ANIME,
             ),
             Category(
-              height: categoryHeight,
+              height: height,
               color: Colors.greenAccent,
               title: 'Movie',
               subtitle: 'Anime',
               type: AnimeTypes.ANIME,
             ),
             Category(
-              height: categoryHeight,
+              height: height,
               color: Colors.yellowAccent[400],
               title: 'OVA',
               subtitle: 'Anime',
               type: AnimeTypes.ANIME,
             ),
             Category(
-              height: categoryHeight,
+              height: height,
               color: Colors.pinkAccent,
               title: 'Special',
               subtitle: 'Anime',
               type: AnimeTypes.ANIME,
             ),
             Category(
-              height: categoryHeight,
+              height: height,
               color: Colors.deepPurple,
               title: 'Manga',
               subtitle: 'Manga',
               type: AnimeTypes.MANGA,
             ),
             Category(
-              height: categoryHeight,
+              height: height,
               color: Colors.teal,
               title: 'Novels',
               subtitle: 'Manga',
               type: AnimeTypes.MANGA,
             ),
             Category(
-              height: categoryHeight,
+              height: height,
               color: Colors.indigo,
               title: 'Oneshots',
               subtitle: 'Manga',
               type: AnimeTypes.MANGA,
             ),
             Category(
-              height: categoryHeight,
+              height: height,
               color: Colors.brown,
               title: 'Doujin',
               subtitle: 'Manga',
               type: AnimeTypes.MANGA,
             ),
             Category(
-              height: categoryHeight,
+              height: height,
               color: Colors.deepOrange,
               title: 'Manhwa',
               subtitle: 'Manga',
               type: AnimeTypes.MANGA,
             ),
             Category(
-              height: categoryHeight,
+              height: height,
               color: Colors.tealAccent,
               title: 'Manhua',
               subtitle: 'Manga',

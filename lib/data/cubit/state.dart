@@ -1,5 +1,3 @@
-import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
-import 'package:flutter/cupertino.dart';
 
 abstract class DataState {}
 

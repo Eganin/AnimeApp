@@ -1,12 +1,21 @@
 import 'package:anime_app/data/cubit/main_anime_cubit.dart';
 import 'package:anime_app/data/services/anime_repository.dart';
 import 'package:anime_app/ui/widgets/common/app_bar.dart';
-import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/ui/widgets/list/anime_list.dart';
+import 'package:anime_app/ui/widgets/common/drawer.dart';
+import 'package:anime_app/ui/widgets/list/anime_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:foldable_sidebar/foldable_sidebar.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  _HomePageState createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   final repository = AnimeRepository();
+
+  FSBStatus _fsbStatus;
 
   @override
   Widget build(BuildContext context) {
@@ -18,44 +27,33 @@ class HomePage extends StatelessWidget {
           appBar: AppBarAnimeApp(
             repository: repository,
           ),
-          drawer: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: [
-                DrawerHeader(
-                  child: Text('AnimeApp'),
-                  decoration: BoxDecoration(
-                    color: Colors.blue,
-                  ),
-                ),
-                ListTile(
-                  title: Text('Favourite Anime '),
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    '/favourite/anime',
-                    arguments: repository,
-                  ),
-                ),
-                ListTile(
-                  title: Text('Favourite  Manga'),
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    '/favourite/manga',
-                    arguments: repository,
-                  ),
-                ),
-                ListTile(
-                  title: Text('Favourite Characters'),
-                  onTap: () => Navigator.pushNamed(
-                    context,
-                    '/favourite/characters',
-                    arguments: repository,
-                  ),
-                ),
-              ],
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.pinkAccent,
+            child: Icon(
+              Icons.menu,
+              color: Colors.black,
+            ),
+            onPressed: () {
+              setState(() {
+                _fsbStatus = _fsbStatus == FSBStatus.FSB_OPEN
+                    ? FSBStatus.FSB_CLOSE
+                    : FSBStatus.FSB_OPEN;
+              });
+            },
+          ),
+          body: FoldableSidebarBuilder(
+            screenContents: AnimeList(),
+            drawerBackgroundColor: Colors.white,
+            status: _fsbStatus,
+            drawer: CustomSidebarDrawer(
+              repository: repository,
+              drawerClose: () {
+                setState(() {
+                  _fsbStatus = FSBStatus.FSB_CLOSE;
+                });
+              },
             ),
           ),
-          body: AnimeList(),
         ),
       ),
     );

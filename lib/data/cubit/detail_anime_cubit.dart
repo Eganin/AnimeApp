@@ -19,7 +19,7 @@ class DetailAnimeCubit extends Cubit<DataState> {
   AnimeReviews reviews;
   AnimeEpisodes episodes;
   IconData imageFloatingData = Icons.star;
-  bool isDeleteFavourite;
+  bool isDeleteFavourite=false;
 
   DetailAnimeCubit({this.repository}) : super(DataEmptyState());
 

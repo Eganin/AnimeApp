@@ -1,12 +1,10 @@
 import 'dart:convert';
-
-import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/anime_data.dart';
-import 'file:///C:/Users/egorz/AndroidStudioProjects/anime_app/lib/data/models/anime/list/top.dart';
-import 'package:anime_app/data/cubit/detail_anime_cubit.dart';
 import 'package:anime_app/data/models/anime/detail/anime_detail_info.dart';
 import 'package:anime_app/data/models/anime/detail/episodes/anime_episodes.dart';
 import 'package:anime_app/data/models/anime/detail/recommendation/anime_recommendation.dart';
 import 'package:anime_app/data/models/anime/detail/reviews/anime_reviews.dart';
+import 'package:anime_app/data/models/anime/list/anime_data.dart';
+import 'package:anime_app/data/models/anime/list/top.dart';
 import 'package:anime_app/data/models/characters/characters_detail_info.dart';
 import 'package:anime_app/data/models/charactersdetail/characters.dart';
 import 'package:anime_app/data/models/manga/manga_detail_info.dart';
