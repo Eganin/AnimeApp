@@ -1,13 +1,12 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:anime_app/data/services/anime_repository.dart';
+import 'package:anime_app/domain/repository/anime_repository.dart';
+import 'package:anime_app/resource/theme/theme_config.dart';
 import 'package:anime_app/ui/pages/character_page.dart';
 import 'package:anime_app/ui/pages/detail_page.dart';
 import 'package:anime_app/ui/pages/home_page.dart';
 import 'package:anime_app/ui/utils/screen_arguments.dart';
 import 'package:anime_app/ui/widgets/favourite/anime/anime_favourite.dart';
 import 'package:flutter/material.dart';
-import 'ui/theme/theme_config.dart';
-
 void main() {
   runApp(MyApp());
 }
@@ -17,7 +16,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final isPlatformDark =
         WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
-    final initTheme = isPlatformDark ? lightTheme : darkTheme;
+    final initTheme = isPlatformDark ? darkTheme : lightTheme;
     return ThemeProvider(
       initTheme: initTheme,
       builder: (_, myTheme) {

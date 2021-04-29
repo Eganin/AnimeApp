@@ -1,23 +1,29 @@
 import 'package:anime_app/data/cubit/state.dart';
 import 'package:anime_app/data/db/models/favourite.dart';
 import 'package:anime_app/data/models/charactersdetail/characters.dart';
-import 'package:anime_app/data/services/anime_repository.dart';
+import 'package:anime_app/domain/interactor/anime_interactor.dart';
+import 'package:anime_app/domain/repository/anime_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailCharactersCubit extends Cubit<DataState> {
   final AnimeRepository repository;
+  AnimeInteractor _interactor;
 
   CharactersDetail characters;
   IconData imageFloatingData = Icons.star;
   bool isDeleteFavourite;
 
-  DetailCharactersCubit({this.repository}) : super(DataEmptyState());
+  DetailCharactersCubit({this.repository})
+      : _interactor = AnimeInteractor(
+          animeRepository: repository,
+        ),
+        super(DataEmptyState());
 
   Future<void> fetchCharacters({int id}) async {
     try {
       emit(DataLoadingState());
-      characters = await repository.getDetailCharacters(id: id);
+      characters = await _interactor.getDetailCharacters(id: id);
       await isExistsFavourite(
         id: id,
       );
@@ -29,7 +35,7 @@ class DetailCharactersCubit extends Cubit<DataState> {
   }
 
   Future<void> isExistsFavourite({int id}) async {
-    int result = await repository.getFavouriteById(
+    int result = await _interactor.getFavouriteById(
       id: id,
     );
     if (result == null) {
@@ -43,7 +49,7 @@ class DetailCharactersCubit extends Cubit<DataState> {
   }
 
   Future<void> insertNewFavourite({Favourite favourite}) {
-    repository.insertFavourite(
+    _interactor.insertFavourite(
       favourite: favourite,
     );
     isDeleteFavourite = true;
@@ -54,7 +60,7 @@ class DetailCharactersCubit extends Cubit<DataState> {
   Future<void> deleteFavourite({int id}) async {
     imageFloatingData = Icons.star;
     isDeleteFavourite = false;
-    repository.deleteFavourite(id: id);
+    _interactor.deleteFavourite(id: id);
     emit(DataUpdateDb());
   }
 }

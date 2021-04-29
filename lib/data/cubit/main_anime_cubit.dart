@@ -1,11 +1,13 @@
 import 'package:anime_app/data/cubit/state.dart';
 import 'package:anime_app/data/models/data_card.dart';
-import 'package:anime_app/data/services/anime_repository.dart';
+import 'package:anime_app/domain/interactor/anime_interactor.dart';
+import 'package:anime_app/domain/repository/anime_repository.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class MainAnimeCubit extends Cubit<DataState> {
   final AnimeRepository repository;
+  AnimeInteractor _interactor;
 
   int _page = 1;
 
@@ -16,7 +18,11 @@ class MainAnimeCubit extends Cubit<DataState> {
 
   bool loadedRequest = false;
 
-  MainAnimeCubit({this.repository}) : super(DataEmptyState());
+  MainAnimeCubit({this.repository})
+      : _interactor = AnimeInteractor(
+          animeRepository: repository,
+        ),
+        super(DataEmptyState());
 
   Future<void> fetchAnime({
     AnimeTypes type,
@@ -29,7 +35,7 @@ class MainAnimeCubit extends Cubit<DataState> {
       lastSubtype = subtype;
       _page = 1;
 
-      final List<DataCard> _loadedData = await repository.getAnimeData(
+      final List<DataCard> _loadedData = await _interactor.getAnimeData(
         type: type,
         page: _page,
         subtype: subtype,
@@ -47,8 +53,8 @@ class MainAnimeCubit extends Cubit<DataState> {
     try {
       emit(DataLoadingState());
 
-      _page=1;
-      itemsData = await repository.getSearchData(
+      _page = 1;
+      itemsData = await _interactor.getSearchData(
         query: query,
         page: _page,
         type: lastType,
@@ -65,7 +71,7 @@ class MainAnimeCubit extends Cubit<DataState> {
       _page++;
       loadedRequest = true;
       try {
-        final List<DataCard> _loadedData = await repository.getAnimeData(
+        final List<DataCard> _loadedData = await _interactor.getAnimeData(
           type: lastType,
           page: _page,
           subtype: lastSubtype,

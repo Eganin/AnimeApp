@@ -1,29 +1,22 @@
 import 'package:anime_app/data/cubit/main_anime_cubit.dart';
-import 'package:anime_app/data/services/anime_repository.dart';
+import 'package:anime_app/domain/repository/anime_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class AppBarAnimeApp extends StatefulWidget implements PreferredSizeWidget {
   @override
-  _AppBarAnimeAppState createState() => _AppBarAnimeAppState(
-        repository: repository,
-      );
+  _AppBarAnimeAppState createState() => _AppBarAnimeAppState();
 
   AppBarAnimeApp({Key key, AnimeRepository repository})
       : preferredSize = Size.fromHeight(kToolbarHeight),
-        repository = repository,
         super(key: key);
 
   @override
   final Size preferredSize;
-
-  final AnimeRepository repository;
 }
 
 class _AppBarAnimeAppState extends State<AppBarAnimeApp> {
-  final AnimeRepository repository;
-
-  _AppBarAnimeAppState({this.repository});
+  _AppBarAnimeAppState();
 
   bool _closeContainer = true;
   MainAnimeCubit _animeCubit;

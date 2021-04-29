@@ -1,5 +1,6 @@
 import 'package:anime_app/data/db/models/favourite.dart';
-import 'package:anime_app/data/services/anime_repository.dart';
+import 'package:anime_app/domain/interactor/anime_interactor.dart';
+import 'package:anime_app/domain/repository/anime_repository.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
 import 'package:anime_app/main.dart';
 import 'package:anime_app/ui/utils/screen_arguments.dart';
@@ -9,25 +10,27 @@ import 'package:tcard/tcard.dart';
 class AnimeFavourites extends StatelessWidget {
   final AnimeRepository repository;
   final PageCharacter type;
+  AnimeInteractor _interactor;
 
   AnimeFavourites({
     this.repository,
     this.type,
-  });
+  }) : _interactor = AnimeInteractor(
+          animeRepository: repository,
+        );
 
-  Future<List<Favourite>> getData(){
+  Future<List<Favourite>> getData() {
     if (type == PageCharacter.ANIME) {
-      return  repository.getFavouriteAnime();
+      return _interactor.getFavouriteAnime();
     } else if (type == PageCharacter.CHARACTERS) {
-      return repository.getFavouriteCharacters();
+      return _interactor.getFavouriteCharacters();
     } else {
-      return  repository.getFavouriteManga();
+      return _interactor.getFavouriteManga();
     }
   }
 
   @override
   Widget build(BuildContext context) {
-
     TCardController _controller = TCardController();
     Future<List<Favourite>> data = getData();
 
@@ -140,7 +143,7 @@ class AnimeFavourites extends StatelessWidget {
               type: AnimeTypes.ANIME,
             ),
           );
-        } else if(type == PageCharacter.CHARACTERS) {
+        } else if (type == PageCharacter.CHARACTERS) {
           Favourite character = data[index - 1];
           Navigator.pushNamed(
             context,
@@ -150,7 +153,7 @@ class AnimeFavourites extends StatelessWidget {
               imageUrl: character.imageUrl,
             ),
           );
-        }else{
+        } else {
           Favourite manga = data[index - 1];
           Navigator.pushNamed(
             context,

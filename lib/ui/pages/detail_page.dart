@@ -1,5 +1,5 @@
 import 'package:anime_app/data/cubit/detail_anime_cubit.dart';
-import 'package:anime_app/data/services/anime_repository.dart';
+import 'package:anime_app/domain/repository/anime_repository.dart';
 import 'package:anime_app/ui/utils/screen_arguments.dart';
 import 'package:anime_app/ui/widgets/detailinfo/detail_info.dart';
 import 'package:flutter/material.dart';

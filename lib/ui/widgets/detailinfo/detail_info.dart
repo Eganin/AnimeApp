@@ -110,6 +110,8 @@ class _DetailInfoState extends State<DetailInfo> {
                             "${detailCubit.data.rating}",
                             style: TextStyle(
                               fontSize: 17,
+                              backgroundColor:
+                                  Theme.of(context).backgroundColor,
                             ),
                           ),
                         ),

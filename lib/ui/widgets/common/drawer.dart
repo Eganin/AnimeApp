@@ -1,6 +1,7 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
-import 'package:anime_app/data/services/anime_repository.dart';
-import 'package:anime_app/ui/theme/theme_config.dart';
+import 'package:anime_app/domain/interactor/anime_interactor.dart';
+import 'package:anime_app/domain/repository/anime_repository.dart';
+import 'package:anime_app/resource/theme/theme_config.dart';
 import 'package:flutter/material.dart';
 
 class CustomSidebarDrawer extends StatefulWidget {
@@ -86,19 +87,19 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
             clipper: ThemeSwitcherCircleClipper(),
             builder: (context) {
               return ListTile(
+                leading: Icon(Icons.lightbulb_outline),
                 title: Text('Other Color Mode'),
                 onTap: () {
                   ThemeSwitcher.of(context).changeTheme(
-                    theme: ThemeProvider.of(context).brightness ==
-                        Brightness.light
-                        ? darkTheme
-                        : lightTheme,
+                    theme:
+                        ThemeProvider.of(context).brightness == Brightness.light
+                            ? darkTheme
+                            : lightTheme,
                   );
                 },
               );
             },
           ),
-
         ],
       ),
     );

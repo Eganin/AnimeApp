@@ -1,7 +1,7 @@
 import 'package:anime_app/data/cubit/detail_characters_cubit.dart';
 import 'package:anime_app/data/cubit/state.dart';
 import 'package:anime_app/data/db/models/favourite.dart';
-import 'package:anime_app/data/services/anime_repository.dart';
+import 'package:anime_app/domain/repository/anime_repository.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
 import 'package:anime_app/main.dart';
 import 'package:anime_app/ui/utils/screen_arguments.dart';

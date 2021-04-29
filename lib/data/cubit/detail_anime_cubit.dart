@@ -6,12 +6,14 @@ import 'package:anime_app/data/models/anime/detail/recommendation/anime_recommen
 import 'package:anime_app/data/models/anime/detail/reviews/anime_reviews.dart';
 import 'package:anime_app/data/models/characters/characters_detail_info.dart';
 import 'package:anime_app/data/models/data.dart';
-import 'package:anime_app/data/services/anime_repository.dart';
+import 'package:anime_app/domain/interactor/anime_interactor.dart';
+import 'package:anime_app/domain/repository/anime_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class DetailAnimeCubit extends Cubit<DataState> {
   final AnimeRepository repository;
+  AnimeInteractor _interactor;
 
   Data data;
   CharactersDetailInfo characters;
@@ -19,22 +21,26 @@ class DetailAnimeCubit extends Cubit<DataState> {
   AnimeReviews reviews;
   AnimeEpisodes episodes;
   IconData imageFloatingData = Icons.star;
-  bool isDeleteFavourite=false;
+  bool isDeleteFavourite = false;
 
-  DetailAnimeCubit({this.repository}) : super(DataEmptyState());
+  DetailAnimeCubit({this.repository})
+      : _interactor = AnimeInteractor(
+          animeRepository: repository,
+        ),
+        super(DataEmptyState());
 
   Future<void> fetchAnimeDetailData({int id}) async {
     try {
       emit(DataLoadingState());
 
-      final AnimeDetailInfo _loadedData = await repository.getAnimeDetailInfo(
+      final AnimeDetailInfo _loadedData = await _interactor.getAnimeDetailInfo(
         id: id,
       );
       data = _loadedData;
-      characters = await repository.getDetailInfoCharactersAnime(id: id);
-      recommendations = await repository.getDetailInfoRecommendations(id: id);
-      reviews = await repository.getDetailInfoReviews(id: id);
-      episodes = await repository.getDetailInfoEpisodes(id: id);
+      characters = await _interactor.getDetailInfoCharactersAnime(id: id);
+      recommendations = await _interactor.getDetailInfoRecommendations(id: id);
+      reviews = await _interactor.getDetailInfoReviews(id: id);
+      episodes = await _interactor.getDetailInfoEpisodes(id: id);
       await isExistsFavourite(
         id: id,
       );
@@ -49,13 +55,13 @@ class DetailAnimeCubit extends Cubit<DataState> {
   Future<void> fetchMangaDetailData({int id}) async {
     try {
       emit(DataLoadingState());
-      data = await repository.getMangaDetailInfo(
+      data = await _interactor.getMangaDetailInfo(
         id: id,
       );
-      characters = await repository.getDetailInfoCharactersManga(id: id);
+      characters = await _interactor.getDetailInfoCharactersManga(id: id);
       recommendations =
-          await repository.getDetailInfoMangaRecommendations(id: id);
-      reviews = await repository.getDetailInfoMangaReviews(id: id);
+          await _interactor.getDetailInfoMangaRecommendations(id: id);
+      reviews = await _interactor.getDetailInfoMangaReviews(id: id);
       await isExistsFavourite(id: id);
 
       emit(DataLoadedState());
@@ -66,7 +72,7 @@ class DetailAnimeCubit extends Cubit<DataState> {
   }
 
   Future<void> isExistsFavourite({int id}) async {
-    int result = await repository.getFavouriteById(
+    int result = await _interactor.getFavouriteById(
       id: id,
     );
     if (result == null) {
@@ -80,7 +86,7 @@ class DetailAnimeCubit extends Cubit<DataState> {
   }
 
   Future<void> insertNewFavourite({Favourite favourite}) async {
-    repository.insertFavourite(
+    _interactor.insertFavourite(
       favourite: favourite,
     );
     isDeleteFavourite = true;
@@ -89,7 +95,7 @@ class DetailAnimeCubit extends Cubit<DataState> {
   }
 
   Future<void> deleteFavourite({int id}) async {
-    repository.deleteFavourite(id: id);
+    _interactor.deleteFavourite(id: id);
     imageFloatingData = Icons.star;
     isDeleteFavourite = false;
     emit(DataUpdateDb());
