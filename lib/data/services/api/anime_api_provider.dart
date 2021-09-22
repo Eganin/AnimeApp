@@ -24,7 +24,7 @@ class AnimeProvider {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> dataJson = json.decode(response.body);
-      return AnimeData.fromJson(dataJson).top;
+      return AnimeData.fromJson(json : dataJson).top;
     } else {
       throw ('${response.statusCode}');
     }
@@ -44,7 +44,6 @@ class AnimeProvider {
     );
 
     final response = await http.get(url);
-    print('${url.toString()}');
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> dataJson = json.decode(response.body);

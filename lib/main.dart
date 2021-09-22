@@ -7,6 +7,7 @@ import 'package:anime_app/ui/pages/home_page.dart';
 import 'package:anime_app/ui/utils/screen_arguments.dart';
 import 'package:anime_app/ui/widgets/favourite/anime/anime_favourite.dart';
 import 'package:flutter/material.dart';
+
 void main() {
   runApp(MyApp());
 }
@@ -14,6 +15,7 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    //checking the subject condition
     final isPlatformDark =
         WidgetsBinding.instance.window.platformBrightness == Brightness.dark;
     final initTheme = isPlatformDark ? darkTheme : lightTheme;
@@ -23,7 +25,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'Anime App',
-          theme  :myTheme,
+          theme: myTheme,
           onGenerateRoute: (settings) {
             switch (settings.name) {
               case '/':
@@ -31,16 +33,17 @@ class MyApp extends StatelessWidget {
               case '/detail':
                 ScreenArguments arguments = settings.arguments;
                 return MaterialPageRoute(
-                    builder: (context) => DetailPage(
-                      data: arguments,
-                    ));
+                  builder: (context) => DetailPage(
+                    data: arguments,
+                  ),
+                );
 
               case '/character':
                 ScreenArguments arguments = settings.arguments;
                 return MaterialPageRoute(
                     builder: (_) => CharacterPage(
-                      arguments: arguments,
-                    ));
+                          arguments: arguments,
+                        ),);
 
               case '/favourite/anime':
                 AnimeRepository repository = settings.arguments;
@@ -55,9 +58,9 @@ class MyApp extends StatelessWidget {
                 AnimeRepository repository = settings.arguments;
                 return MaterialPageRoute(
                     builder: (_) => AnimeFavourites(
-                      repository: repository,
-                      type: PageCharacter.MANGA,
-                    ));
+                          repository: repository,
+                          type: PageCharacter.MANGA,
+                        ));
 
               case '/favourite/characters':
                 AnimeRepository repository = settings.arguments;
@@ -72,7 +75,6 @@ class MyApp extends StatelessWidget {
                 return MaterialPageRoute(builder: (context) => HomePage());
             }
           },
-          home: HomePage(),
         );
       },
     );
@@ -86,7 +88,7 @@ enum PageCharacter {
   OTHER,
 }
 
-extension ExtensionPageCHaracter on PageCharacter {
+extension ExtensionPageCharacter on PageCharacter {
   String get value {
     switch (this) {
       case PageCharacter.ANIME:

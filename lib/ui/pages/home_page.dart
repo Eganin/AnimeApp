@@ -1,6 +1,5 @@
 import 'package:animated_theme_switcher/animated_theme_switcher.dart';
 import 'package:anime_app/data/cubit/main_anime_cubit.dart';
-import 'package:anime_app/domain/interactor/anime_interactor.dart';
 import 'package:anime_app/domain/repository/anime_repository.dart';
 import 'package:anime_app/ui/widgets/common/app_bar.dart';
 import 'package:anime_app/ui/widgets/common/drawer.dart';

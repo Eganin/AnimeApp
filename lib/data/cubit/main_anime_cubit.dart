@@ -35,12 +35,11 @@ class MainAnimeCubit extends Cubit<DataState> {
       lastSubtype = subtype;
       _page = 1;
 
-      final List<DataCard> _loadedData = await _interactor.getAnimeData(
+      itemsData = await _interactor.getAnimeData(
         type: type,
         page: _page,
         subtype: subtype,
       );
-      itemsData = _loadedData;
 
       emit(DataLoadedState());
     } catch (e) {
@@ -71,13 +70,13 @@ class MainAnimeCubit extends Cubit<DataState> {
       _page++;
       loadedRequest = true;
       try {
-        final List<DataCard> _loadedData = await _interactor.getAnimeData(
-          type: lastType,
-          page: _page,
-          subtype: lastSubtype,
+        itemsData.addAll(
+          await _interactor.getAnimeData(
+            type: lastType,
+            page: _page,
+            subtype: lastSubtype,
+          ),
         );
-
-        itemsData.addAll(_loadedData);
       } catch (e) {
         print(e.toString());
         emit(DataErrorState());

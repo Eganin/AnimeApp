@@ -16,7 +16,9 @@ class AnimeList extends StatefulWidget {
 class _AnimeListState extends State<AnimeList> {
   MainAnimeCubit animeCubit;
 
-  final CategoriesScroller categoriesScroller = CategoriesScroller(height: 100,);
+  final CategoriesScroller categoriesScroller = CategoriesScroller(
+    height: 100,
+  );
   ScrollController controller = ScrollController();
   bool closeTopContainer = false;
   double topContainer = 0;
@@ -42,7 +44,7 @@ class _AnimeListState extends State<AnimeList> {
   @override
   Widget build(BuildContext context) {
     final Size size = MediaQuery.of(context).size;
-    final double categoryHeight = size.height * 0.30;
+    final double categoryHeight = size.height * 0.3;
 
     return BlocBuilder<MainAnimeCubit, DataState>(
       builder: (context, state) {
@@ -55,11 +57,13 @@ class _AnimeListState extends State<AnimeList> {
                   duration: const Duration(milliseconds: 200),
                   opacity: closeTopContainer ? 0 : 1,
                   child: AnimatedContainer(
-                      duration: const Duration(milliseconds: 200),
-                      width: size.width,
-                      alignment: Alignment.topCenter,
-                      height: closeTopContainer ? 0 : categoryHeight,
-                      child: CategoriesScroller(height : closeTopContainer ? 0 : categoryHeight)),
+                    duration: const Duration(milliseconds: 200),
+                    width: size.width,
+                    alignment: Alignment.topCenter,
+                    height: closeTopContainer ? 0 : categoryHeight,
+                    child: CategoriesScroller(
+                        height: closeTopContainer ? 0 : categoryHeight),
+                  ),
                 ),
                 Expanded(
                     child: ListView.builder(
@@ -90,7 +94,7 @@ class _AnimeListState extends State<AnimeList> {
                                   alignment: Alignment.topCenter,
                                   child: AnimeCard(
                                     post: animeCubit.itemsData[index],
-                                    type : animeCubit.lastType,
+                                    type: animeCubit.lastType,
                                   )),
                             ),
                           );
@@ -101,25 +105,32 @@ class _AnimeListState extends State<AnimeList> {
         }
 
         if (state is DataErrorState) {
-          return Column(children: [
-            categoriesScroller,
-            Center(
-              child: Text(
-                'Error loaded data',
-                style: TextStyle(
-                  fontSize: 20,
+          return Column(
+            children: [
+              categoriesScroller,
+              Center(
+                child: Text(
+                  'Error loaded data',
+                  style: TextStyle(
+                    fontSize: 20,
+                  ),
                 ),
               ),
-            ),
-          ]);
+            ],
+          );
         }
 
         if (state is DataLoadingState) {
-          return Center(
-            child: SpinKitDoubleBounce(
-              color: Colors.black87,
-              size: 100,
-            ),
+          return Column(
+            children: [
+              categoriesScroller,
+              Center(
+                child: SpinKitDoubleBounce(
+                  color: Colors.black87,
+                  size: 100,
+                ),
+              ),
+            ],
           );
         }
 

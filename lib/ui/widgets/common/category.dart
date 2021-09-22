@@ -4,19 +4,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Category extends StatelessWidget {
-
   final double height;
   final Color color;
   final String title;
   final String subtitle;
   final AnimeTypes type;
 
-  Category({this.height,this.color,this.title,this.subtitle,this.type,});
+  Category({
+    this.height,
+    this.color,
+    this.title,
+    this.subtitle,
+    this.type,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
+      onTap: () {
         BlocProvider.of<MainAnimeCubit>(context).fetchAnime(
           type: type,
           subtype: getSybtypeByName(name: title),
@@ -26,7 +31,12 @@ class Category extends StatelessWidget {
         width: 150,
         margin: EdgeInsets.only(right: 20),
         height: height,
-        decoration: BoxDecoration(color: color, borderRadius: BorderRadius.all(Radius.circular(20.0))),
+        decoration: BoxDecoration(
+          color: color,
+          borderRadius: BorderRadius.all(
+            Radius.circular(20.0),
+          ),
+        ),
         child: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(

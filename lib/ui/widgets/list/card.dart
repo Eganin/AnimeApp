@@ -16,12 +16,15 @@ class AnimeCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, '/detail',
-            arguments: ScreenArguments(
-              id: post.malId,
-              type: type,
-              imageUrl: post.imageUrl,
-            ));
+        Navigator.pushNamed(
+          context,
+          '/detail',
+          arguments: ScreenArguments(
+            id: post.malId,
+            type: type,
+            imageUrl: post.imageUrl,
+          ),
+        );
       },
       child: Container(
           height: 150,
@@ -49,17 +52,15 @@ class AnimeCard extends StatelessWidget {
                       ),
                       Text(
                         'Episodes - ${post.episodes == null ? 'No Info' : post.episodes.toString()}',
-                        style:
-                            const TextStyle(fontSize: 14),
+                        style: const TextStyle(fontSize: 14),
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       Text(
-                        'Raiting : ${post.score}',
+                        'Rating : ${post.score}',
                         style: const TextStyle(
-                            fontSize: 11,
-                            fontWeight: FontWeight.bold),
+                            fontSize: 11, fontWeight: FontWeight.bold),
                       )
                     ],
                   ),

@@ -8,4 +8,5 @@ ThemeData lightTheme = ThemeData.light().copyWith(
 
 ThemeData darkTheme = ThemeData.dark().copyWith(
   splashColor: Colors.black12,
+  canvasColor: Colors.black54,
 );

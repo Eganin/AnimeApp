@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:anime_app/data/db/models/favourite.dart';
 import 'package:anime_app/main.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 

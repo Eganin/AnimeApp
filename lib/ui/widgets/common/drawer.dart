@@ -31,23 +31,30 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
       child: Column(
         children: <Widget>[
           Container(
-              width: double.infinity,
-              height: 200,
-              color: const Color(0xFFBAFB0B4),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Image.asset(
-                    "assets/images/icon_app.jpg",
-                    width: 150,
-                    height: 150,
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text("Anime App")
-                ],
-              )),
+            width: double.infinity,
+            height: 200,
+            color: const Color(0xFFBAFB0B4),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                Image.asset(
+                  "assets/images/icon_app.jpg",
+                  width: 150,
+                  height: 150,
+                  filterQuality: FilterQuality.high,
+                  fit: BoxFit.cover,
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text("Anime App")
+              ],
+            ),
+          ),
+          Divider(
+            height: 2,
+            color: Colors.green[30],
+          ),
           ListTile(
             title: Text('Favourite Anime '),
             onTap: () => Navigator.pushNamed(
@@ -58,8 +65,11 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
             leading: Icon(Icons.favorite),
           ),
           Divider(
-            height: 1,
+            height: 2,
             color: Colors.green[30],
+          ),
+          SizedBox(
+            height: 3,
           ),
           ListTile(
             title: Text('Favourite  Manga'),
@@ -71,8 +81,11 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
             leading: Icon(Icons.book),
           ),
           Divider(
-            height: 1,
+            height: 2,
             color: Colors.green[30],
+          ),
+          SizedBox(
+            height: 3,
           ),
           ListTile(
             title: Text('Favourite Characters'),
@@ -82,6 +95,13 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
               arguments: repository,
             ),
             leading: Icon(Icons.person),
+          ),
+          Divider(
+            height: 2,
+            color: Colors.green[30],
+          ),
+          SizedBox(
+            height: 3,
           ),
           ThemeSwitcher(
             clipper: ThemeSwitcherCircleClipper(),
@@ -99,6 +119,10 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
                 },
               );
             },
+          ),
+          Divider(
+            height: 2,
+            color: Colors.green[30],
           ),
         ],
       ),

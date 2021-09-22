@@ -33,17 +33,12 @@ class DetailAnimeCubit extends Cubit<DataState> {
     try {
       emit(DataLoadingState());
 
-      final AnimeDetailInfo _loadedData = await _interactor.getAnimeDetailInfo(
-        id: id,
-      );
-      data = _loadedData;
+      data = await _interactor.getAnimeDetailInfo(id: id);
       characters = await _interactor.getDetailInfoCharactersAnime(id: id);
       recommendations = await _interactor.getDetailInfoRecommendations(id: id);
       reviews = await _interactor.getDetailInfoReviews(id: id);
       episodes = await _interactor.getDetailInfoEpisodes(id: id);
-      await isExistsFavourite(
-        id: id,
-      );
+      await isExistsFavourite(id: id);
 
       emit(DataLoadedState());
     } catch (e) {
@@ -55,9 +50,8 @@ class DetailAnimeCubit extends Cubit<DataState> {
   Future<void> fetchMangaDetailData({int id}) async {
     try {
       emit(DataLoadingState());
-      data = await _interactor.getMangaDetailInfo(
-        id: id,
-      );
+
+      data = await _interactor.getMangaDetailInfo(id: id);
       characters = await _interactor.getDetailInfoCharactersManga(id: id);
       recommendations =
           await _interactor.getDetailInfoMangaRecommendations(id: id);
@@ -72,9 +66,8 @@ class DetailAnimeCubit extends Cubit<DataState> {
   }
 
   Future<void> isExistsFavourite({int id}) async {
-    int result = await _interactor.getFavouriteById(
-      id: id,
-    );
+    int result = await _interactor.getFavouriteById(id: id);
+
     if (result == null) {
       isDeleteFavourite = false;
       imageFloatingData = Icons.star;
@@ -82,15 +75,16 @@ class DetailAnimeCubit extends Cubit<DataState> {
       isDeleteFavourite = true;
       imageFloatingData = Icons.close;
     }
+
     emit(DataUpdateDb());
   }
 
   Future<void> insertNewFavourite({Favourite favourite}) async {
-    _interactor.insertFavourite(
-      favourite: favourite,
-    );
+    _interactor.insertFavourite(favourite: favourite);
+
     isDeleteFavourite = true;
     imageFloatingData = Icons.close;
+
     emit(DataUpdateDb());
   }
 

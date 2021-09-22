@@ -19,7 +19,7 @@ class SearchData {
     requestCached = json['request_cached'];
     requestCacheExpiry = json['request_cache_expiry'];
     if (json['results'] != null) {
-      results = new List<Results>();
+      results = <Results>[];
       json['results'].forEach((v) {
         results.add(new Results.fromJson(v));
       });

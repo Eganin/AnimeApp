@@ -12,7 +12,7 @@ class AnimeData{
       this.requestCacheExpiry,
       this.top});
 
-  AnimeData.fromJson(Map<String, dynamic> json) {
+  AnimeData.fromJson({Map<String, dynamic> json}) {
     requestHash = json['request_hash'];
     requestCached = json['request_cached'];
     requestCacheExpiry = json['request_cache_expiry'];

@@ -1,4 +1,3 @@
-
 abstract class DataState {}
 
 class DataEmptyState extends DataState {}

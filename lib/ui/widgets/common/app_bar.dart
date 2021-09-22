@@ -40,17 +40,23 @@ class _AppBarAnimeAppState extends State<AppBarAnimeApp> {
           alignment: Alignment.topCenter,
           width: _closeContainer ? 0 : 240,
           child: TextField(
+            cursorColor: Colors.black,
             controller: _controller,
             onSubmitted: (text) {
-              _animeCubit.fetchSearch(
-                query: text,
-              );
-              _controller.text='';
+              if(_controller.text.isNotEmpty)
+                _animeCubit.fetchSearch(
+                  query: text,
+                );
+              _controller.text = '';
             },
             decoration: InputDecoration(
-              fillColor: Colors.white,
+              focusColor: Colors.white,
               border: UnderlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(14))),
+                borderRadius: BorderRadius.only(
+                  topRight: Radius.circular(14),
+                  topLeft: Radius.circular(14),
+                ),
+              ),
               hintStyle: new TextStyle(color: Colors.black38),
               hintText: "Search",
             ),
