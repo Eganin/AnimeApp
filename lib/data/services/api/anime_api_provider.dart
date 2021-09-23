@@ -60,7 +60,9 @@ class AnimeProvider {
 
     if (response.statusCode == 200) {
       final Map<String, dynamic> dataJson = json.decode(response.body);
-      return AnimeDetailInfo.fromJson(dataJson);
+      AnimeDetailInfo info = AnimeDetailInfo.fromJson(dataJson);
+      print(info.title);
+      return info;
     } else {
       throw ('${response.statusCode}');
     }
