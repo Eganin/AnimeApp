@@ -1,10 +1,8 @@
 import 'package:anime_app/ui/utils/check_null_widget.dart';
 import 'package:anime_app/ui/utils/wrap_widget.dart';
-import 'package:anime_app/ui/widgets/common/detail_subtitle.dart';
 import 'package:flutter/material.dart';
 
 class DurationComposition extends StatelessWidget {
-
   final String duration;
 
   const DurationComposition({this.duration});
@@ -14,10 +12,9 @@ class DurationComposition extends StatelessWidget {
     return wrapWidgetDetailInfo(
       widget: checkNullWidget(
         condition: duration != null,
-        widget: detailSubtitle(
-          text:
+        widget: Text(
           "Duration : $duration",
-          size: 17.0,
+          style: Theme.of(context).textTheme.headline4,
         ),
       ),
     );

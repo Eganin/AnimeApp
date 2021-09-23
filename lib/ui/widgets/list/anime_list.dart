@@ -111,9 +111,7 @@ class _AnimeListState extends State<AnimeList> {
               Center(
                 child: Text(
                   'Error loaded data',
-                  style: TextStyle(
-                    fontSize: 20,
-                  ),
+                  style: Theme.of(context).textTheme.headline4,
                 ),
               ),
             ],
@@ -126,7 +124,7 @@ class _AnimeListState extends State<AnimeList> {
               categoriesScroller,
               Center(
                 child: SpinKitDoubleBounce(
-                  color: Colors.black87,
+                  color: Theme.of(context).splashColor,
                   size: 100,
                 ),
               ),

@@ -25,106 +25,123 @@ class _CustomSidebarDrawerState extends State<CustomSidebarDrawer> {
   @override
   Widget build(BuildContext context) {
     MediaQueryData mediaQuery = MediaQuery.of(context);
-    return Container(
-      width: mediaQuery.size.width * 0.60,
-      height: mediaQuery.size.height,
-      child: Column(
-        children: <Widget>[
-          Container(
-            width: double.infinity,
-            height: 200,
-            color: const Color(0xFFBAFB0B4),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Image.asset(
-                  "assets/images/icon_app.jpg",
-                  width: 150,
-                  height: 150,
-                  filterQuality: FilterQuality.high,
-                  fit: BoxFit.cover,
-                ),
-                SizedBox(
-                  height: 10,
-                ),
-                Text("Anime App")
-              ],
+    return SafeArea(
+      child: Container(
+        width: mediaQuery.size.width * 0.60,
+        height: double.infinity,
+        child: Column(
+          children: <Widget>[
+            Container(
+              width: double.infinity,
+              height: 200,
+              color: const Color(0xFFBAFB0B4),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Image.asset(
+                    "assets/images/icon_app.jpg",
+                    width: 150,
+                    height: 150,
+                    filterQuality: FilterQuality.high,
+                    fit: BoxFit.cover,
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "Anime App",
+                    style: Theme.of(context).textTheme.headline5,
+                  )
+                ],
+              ),
             ),
-          ),
-          Divider(
-            height: 2,
-            color: Colors.green[30],
-          ),
-          ListTile(
-            title: Text('Favourite Anime '),
-            onTap: () => Navigator.pushNamed(
-              context,
-              '/favourite/anime',
-              arguments: repository,
+            Divider(
+              height: 2,
+              color: Colors.green[30],
             ),
-            leading: Icon(Icons.favorite),
-          ),
-          Divider(
-            height: 2,
-            color: Colors.green[30],
-          ),
-          SizedBox(
-            height: 3,
-          ),
-          ListTile(
-            title: Text('Favourite  Manga'),
-            onTap: () => Navigator.pushNamed(
-              context,
-              '/favourite/manga',
-              arguments: repository,
+            ListTile(
+              title: Text(
+                'Favourite Anime ',
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              onTap: () => Navigator.pushNamed(
+                context,
+                '/favourite/anime',
+                arguments: repository,
+              ),
+              leading: Icon(Icons.favorite),
             ),
-            leading: Icon(Icons.book),
-          ),
-          Divider(
-            height: 2,
-            color: Colors.green[30],
-          ),
-          SizedBox(
-            height: 3,
-          ),
-          ListTile(
-            title: Text('Favourite Characters'),
-            onTap: () => Navigator.pushNamed(
-              context,
-              '/favourite/characters',
-              arguments: repository,
+            Divider(
+              height: 2,
+              color: Colors.green[30],
             ),
-            leading: Icon(Icons.person),
-          ),
-          Divider(
-            height: 2,
-            color: Colors.green[30],
-          ),
-          SizedBox(
-            height: 3,
-          ),
-          ThemeSwitcher(
-            clipper: ThemeSwitcherCircleClipper(),
-            builder: (context) {
-              return ListTile(
-                leading: Icon(Icons.lightbulb_outline),
-                title: Text('Other Color Mode'),
-                onTap: () {
-                  ThemeSwitcher.of(context).changeTheme(
-                    theme:
-                        ThemeProvider.of(context).brightness == Brightness.light
-                            ? darkTheme
-                            : lightTheme,
-                  );
-                },
-              );
-            },
-          ),
-          Divider(
-            height: 2,
-            color: Colors.green[30],
-          ),
-        ],
+            SizedBox(
+              height: 3,
+            ),
+            ListTile(
+              title: Text(
+                'Favourite  Manga',
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              onTap: () => Navigator.pushNamed(
+                context,
+                '/favourite/manga',
+                arguments: repository,
+              ),
+              leading: Icon(Icons.book),
+            ),
+            Divider(
+              height: 2,
+              color: Colors.green[30],
+            ),
+            SizedBox(
+              height: 3,
+            ),
+            ListTile(
+              title: Text(
+                'Favourite Characters',
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              onTap: () => Navigator.pushNamed(
+                context,
+                '/favourite/characters',
+                arguments: repository,
+              ),
+              leading: Icon(Icons.person),
+            ),
+            Divider(
+              height: 2,
+              color: Colors.green[30],
+            ),
+            SizedBox(
+              height: 3,
+            ),
+            ThemeSwitcher(
+              clipper: ThemeSwitcherCircleClipper(),
+              builder: (context) {
+                return ListTile(
+                  leading: Icon(Icons.lightbulb_outline),
+                  title: Text(
+                    'Other Color Mode',
+                    style: Theme.of(context).textTheme.headline5,
+                  ),
+                  onTap: () {
+                    ThemeSwitcher.of(context).changeTheme(
+                      theme:
+                          ThemeProvider.of(context).brightness == Brightness.light
+                              ? darkTheme
+                              : lightTheme,
+                    );
+                  },
+                );
+              },
+            ),
+            Divider(
+              height: 2,
+              color: Colors.green[30],
+            ),
+          ],
+        ),
       ),
     );
   }

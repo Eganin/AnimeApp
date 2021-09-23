@@ -29,16 +29,18 @@ class _HomePageState extends State<HomePage> {
               repository: repository,
             ),
             floatingActionButton: FloatingActionButton(
-              backgroundColor: Colors.yellow,
+              //backgroundColor: Colors.yellow,
               child: Icon(
-                Icons.menu,
+                Icons.menu
               ),
               onPressed: () {
-                setState(() {
-                  _fsbStatus = _fsbStatus == FSBStatus.FSB_OPEN
-                      ? FSBStatus.FSB_CLOSE
-                      : FSBStatus.FSB_OPEN;
-                });
+                setState(
+                  () {
+                    _fsbStatus = _fsbStatus == FSBStatus.FSB_OPEN
+                        ? FSBStatus.FSB_CLOSE
+                        : FSBStatus.FSB_OPEN;
+                  },
+                );
               },
             ),
             body: FoldableSidebarBuilder(

@@ -1,6 +1,5 @@
 import 'package:anime_app/ui/utils/check_null_widget.dart';
 import 'package:anime_app/ui/utils/wrap_widget.dart';
-import 'package:anime_app/ui/widgets/common/detail_subtitle.dart';
 import 'package:flutter/material.dart';
 
 class SourceComposition extends StatelessWidget {
@@ -13,9 +12,9 @@ class SourceComposition extends StatelessWidget {
     return wrapWidgetDetailInfo(
       widget: checkNullWidget(
         condition: source != null,
-        widget: detailSubtitle(
-          text: "Source : $source",
-          size: 17.0,
+        widget: Text(
+          "Source : $source",
+          style: Theme.of(context).textTheme.headline4,
         ),
       ),
     );

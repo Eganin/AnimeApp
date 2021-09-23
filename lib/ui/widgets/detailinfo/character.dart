@@ -1,7 +1,6 @@
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
 import 'package:anime_app/main.dart';
 import 'package:anime_app/ui/utils/screen_arguments.dart';
-import 'package:anime_app/ui/widgets/common/detail_subtitle.dart';
 import 'package:flutter/material.dart';
 
 class Character extends StatelessWidget {
@@ -45,7 +44,8 @@ class Character extends StatelessWidget {
               Colors.black.withOpacity(0.4), BlendMode.srcOver),
           child: Image.network(
             imageUrl,
-            height: 176,
+            height: 180,
+            width: 120,
           ),
         ),
       ),
@@ -55,9 +55,10 @@ class Character extends StatelessWidget {
         container,
         ConstrainedBox(
           constraints: BoxConstraints.tightFor(width: 120),
-          child: detailSubtitle(
-            text: name,
-            size: 14.0,
+          child: Text(
+            name,
+            style: Theme.of(context).textTheme.bodyText1,
+              overflow: TextOverflow.ellipsis
           ),
         ),
       ],

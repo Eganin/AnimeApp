@@ -11,9 +11,8 @@ class CharactersList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 212,
+      height: 220,
       child: ListView.builder(
-          shrinkWrap: true,
           padding: EdgeInsets.symmetric(
             horizontal: 20,
           ),

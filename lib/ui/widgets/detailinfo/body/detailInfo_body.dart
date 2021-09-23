@@ -1,9 +1,7 @@
 import 'package:anime_app/data/cubit/detail_anime_cubit.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
 import 'package:anime_app/ui/utils/wrap_widget.dart';
-import 'package:anime_app/ui/widgets/common/detail_subtitle.dart';
 import 'package:anime_app/ui/widgets/detailinfo/body/duration.dart';
-import 'package:anime_app/ui/widgets/detailinfo/body/episodes_list.dart';
 import 'package:anime_app/ui/widgets/detailinfo/body/image.dart';
 import 'package:anime_app/ui/widgets/detailinfo/body/list_characters.dart';
 import 'package:anime_app/ui/widgets/detailinfo/body/rating.dart';
@@ -75,16 +73,15 @@ class _DetailInfoBodyState extends State<DetailInfoBody> {
                     ),
                     widget.type == AnimeTypes.ANIME
                         ? wrapWidgetDetailInfo(
-                            widget: detailSubtitle(
-                              text:
-                                  'Episodes : ${widget.detailCubit.data.episodes == null ? 'No Info' : widget.detailCubit.data.episodes}',
-                              size: 17.0,
+                            widget: Text(
+                              'Episodes : ${widget.detailCubit.data.episodes == null ? 'No Info' : widget.detailCubit.data.episodes}',
+                              style: Theme.of(context).textTheme.headline4,
                             ),
                           )
                         : wrapWidgetDetailInfo(
-                            widget: detailSubtitle(
-                              text:
-                                  'Chapters : ${widget.detailCubit.data.chapters == null ? 'No Info' : widget.detailCubit.data.chapters}',
+                            widget: Text(
+                              'Chapters : ${widget.detailCubit.data.chapters == null ? 'No Info' : widget.detailCubit.data.chapters}',
+                              style: Theme.of(context).textTheme.headline4,
                             ),
                           ),
                     SizedBox(
@@ -105,9 +102,11 @@ class _DetailInfoBodyState extends State<DetailInfoBody> {
                       height: 5,
                     ),
                     wrapWidgetDetailInfo(
-                      widget: detailSubtitle(
-                        text: widget.detailCubit.getGenres(),
-                        size: 15.0,
+                      widget: Text(
+                        widget.detailCubit.getGenres(),
+                        style: Theme.of(context).textTheme.headline5.copyWith(
+                              fontWeight: FontWeight.bold,
+                            ),
                       ),
                     ),
                     SizedBox(
@@ -121,21 +120,22 @@ class _DetailInfoBodyState extends State<DetailInfoBody> {
                     ),
                     widget.detailCubit.episodes != null
                         ? widget.detailCubit.episodes.episodes.isNotEmpty
-                        ? Column(
-                      children: [
-                        Align(
-                          alignment: Alignment.centerLeft,
-                          child: detailSubtitle(
-                            text: 'Episodes: ',
-                            size: 30.0,
-                          ),
-                        ),
-                        EpisodeList(
-                          episodes: widget.detailCubit.episodes,
-                        ),
-                      ],
-                    )
-                        : Container()
+                            ? Column(
+                                children: [
+                                  Align(
+                                    alignment: Alignment.centerLeft,
+                                    child: Text(
+                                      'Episodes: ',
+                                      style:
+                                          Theme.of(context).textTheme.headline2,
+                                    ),
+                                  ),
+                                  EpisodeList(
+                                    episodes: widget.detailCubit.episodes,
+                                  ),
+                                ],
+                              )
+                            : Container()
                         : Container(),
                     SizedBox(
                       height: 15,

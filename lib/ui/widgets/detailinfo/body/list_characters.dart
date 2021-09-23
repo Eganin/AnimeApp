@@ -22,11 +22,7 @@ class ListCharactersWrapper extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 'Characters:',
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
-                ),
+                style: Theme.of(context).textTheme.headline2,
               ),
             ),
             CharactersList(

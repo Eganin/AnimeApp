@@ -13,7 +13,6 @@ class ReviewsList extends StatelessWidget {
     return SizedBox(
       height: 500,
       child: ListView.builder(
-          shrinkWrap: true,
           padding: EdgeInsets.symmetric(
             horizontal: 20,
           ),

@@ -23,11 +23,7 @@ class RecommendationsListWrapper extends StatelessWidget {
               alignment: Alignment.centerLeft,
               child: Text(
                 'Recommendations:',
-                style: TextStyle(
-                  fontSize: 30,
-                  fontWeight: FontWeight.bold,
-                  fontStyle: FontStyle.italic,
-                ),
+                style: Theme.of(context).textTheme.headline2,
               ),
             ),
             RecommendationList(

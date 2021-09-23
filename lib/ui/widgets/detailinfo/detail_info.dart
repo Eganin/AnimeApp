@@ -3,15 +3,9 @@ import 'package:anime_app/data/cubit/state.dart';
 import 'package:anime_app/data/db/models/favourite.dart';
 import 'package:anime_app/data/services/api/anime_api_provider.dart';
 import 'package:anime_app/main.dart';
-import 'package:anime_app/ui/widgets/common/detail_subtitle.dart';
-import 'package:anime_app/ui/widgets/detailinfo/characters_list.dart';
 import 'package:anime_app/ui/widgets/detailinfo/body/detailInfo_body.dart';
-import 'package:anime_app/ui/widgets/detailinfo/episode_list.dart';
-import 'package:anime_app/ui/widgets/detailinfo/recommendation_list.dart';
-import 'package:anime_app/ui/widgets/detailinfo/reviews_list.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class DetailInfo extends StatefulWidget {
@@ -78,9 +72,7 @@ class _DetailInfoState extends State<DetailInfo> {
         return Center(
           child: Text(
             'Error loaded data',
-            style: TextStyle(
-              fontSize: 20,
-            ),
+            style: Theme.of(context).textTheme.headline4,
           ),
         );
       }
@@ -88,7 +80,7 @@ class _DetailInfoState extends State<DetailInfo> {
       if (state is DataLoadingState) {
         return Center(
           child: SpinKitDoubleBounce(
-            color: Colors.black87,
+            color: Theme.of(context).splashColor,
             size: 100,
           ),
         );
@@ -127,15 +119,22 @@ FloatingActionButton _detailFloatingButton(
     String imageUrl}) {
   return FloatingActionButton(
     child: Icon(cubit.imageFloatingData),
-    backgroundColor: Colors.pinkAccent,
     onPressed: () {
       if (cubit.isDeleteFavourite) {
         cubit.deleteFavourite(
           id: id,
         );
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Delete to favourite'),
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            duration: Duration(seconds: 2),
+            content: Text(
+              'Delete to favourite',
+              style: Theme.of(context).textTheme.headline5.copyWith(
+                    color: Theme.of(context).backgroundColor,
+                  ),
+            ),
+          ),
+        );
       } else {
         if (type == AnimeTypes.ANIME) {
           cubit.insertNewFavourite(
@@ -156,9 +155,17 @@ FloatingActionButton _detailFloatingButton(
             ),
           );
         }
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text('Added to favourite'),
-        ));
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(
+            duration: Duration(seconds: 2),
+            content: Text(
+              'Added to favourite',
+              style: Theme.of(context).textTheme.headline5.copyWith(
+                    color: Theme.of(context).backgroundColor,
+                  ),
+            ),
+          ),
+        );
       }
     },
   );

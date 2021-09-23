@@ -2,11 +2,10 @@ import 'package:anime_app/ui/utils/check_null_widget.dart';
 import 'package:flutter/material.dart';
 
 class Raiting extends StatelessWidget {
-
   final String rating;
   final bool closeTopContainer;
 
-  Raiting({this.rating,this.closeTopContainer}) ;
+  Raiting({this.rating, this.closeTopContainer});
 
   @override
   Widget build(BuildContext context) {
@@ -22,10 +21,9 @@ class Raiting extends StatelessWidget {
             alignment: Alignment.center,
             child: Text(
               "$rating",
-              style: TextStyle(
-                fontSize: 17,
-                backgroundColor: Theme.of(context).backgroundColor,
-              ),
+              style: Theme.of(context).textTheme.headline4.copyWith(
+                    backgroundColor: Theme.of(context).canvasColor,
+                  ),
             ),
           ),
         ),

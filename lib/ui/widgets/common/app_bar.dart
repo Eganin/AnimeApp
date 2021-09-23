@@ -40,24 +40,23 @@ class _AppBarAnimeAppState extends State<AppBarAnimeApp> {
           alignment: Alignment.topCenter,
           width: _closeContainer ? 0 : 240,
           child: TextField(
-            cursorColor: Colors.black,
+            cursorColor:Theme.of(context).backgroundColor,
             controller: _controller,
             onSubmitted: (text) {
-              if(_controller.text.isNotEmpty)
+              if(text.isNotEmpty)
                 _animeCubit.fetchSearch(
                   query: text,
                 );
               _controller.text = '';
             },
             decoration: InputDecoration(
-              focusColor: Colors.white,
+              focusColor: Theme.of(context).backgroundColor,
               border: UnderlineInputBorder(
                 borderRadius: BorderRadius.only(
                   topRight: Radius.circular(14),
                   topLeft: Radius.circular(14),
                 ),
               ),
-              hintStyle: new TextStyle(color: Colors.black38),
               hintText: "Search",
             ),
           ),
@@ -65,7 +64,7 @@ class _AppBarAnimeAppState extends State<AppBarAnimeApp> {
       ),
       actions: <Widget>[
         IconButton(
-          icon: Icon(Icons.search, color: Colors.black),
+          icon: Icon(Icons.search),
           onPressed: () {
             setState(() {
               _closeContainer = !_closeContainer;

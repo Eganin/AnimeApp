@@ -17,7 +17,6 @@ class EpisodeList extends StatelessWidget {
               thickness: 2,
             );
           },
-          shrinkWrap: true,
           padding: EdgeInsets.symmetric(
             horizontal: 20,
           ),
@@ -25,9 +24,18 @@ class EpisodeList extends StatelessWidget {
           scrollDirection: Axis.vertical,
           itemBuilder: (context, index) {
             return ListTile(
-              title: Text(episodes.episodes[index].title.toString()),
-              subtitle: Text(episodes.episodes[index].titleJapanese.toString()),
-              leading: Text(episodes.episodes[index].episodeId.toString()),
+              title: Text(
+                episodes.episodes[index].title.toString(),
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              subtitle: Text(
+                episodes.episodes[index].titleJapanese.toString(),
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
+              leading: Text(
+                episodes.episodes[index].episodeId.toString(),
+                style: Theme.of(context).textTheme.bodyText1,
+              ),
             );
           }),
     );

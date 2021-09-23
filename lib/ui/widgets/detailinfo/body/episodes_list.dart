@@ -1,12 +1,10 @@
 import 'package:anime_app/data/models/anime/detail/episodes/anime_episodes.dart';
 import 'package:anime_app/ui/utils/check_null_widget.dart';
 import 'package:anime_app/ui/utils/wrap_widget.dart';
-import 'package:anime_app/ui/widgets/common/detail_subtitle.dart';
 import 'package:flutter/material.dart';
 import '../episode_list.dart';
 
 class EpisodesListWrapper extends StatelessWidget {
-
   final AnimeEpisodes episodes;
 
   const EpisodesListWrapper({this.episodes});
@@ -22,9 +20,9 @@ class EpisodesListWrapper extends StatelessWidget {
             children: [
               Align(
                 alignment: Alignment.centerLeft,
-                child: detailSubtitle(
-                  text: 'Episodes: ',
-                  size: 30.0,
+                child: Text(
+                  'Episodes: ',
+                  style: Theme.of(context).textTheme.headline2,
                 ),
               ),
               EpisodeList(

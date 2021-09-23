@@ -14,9 +14,8 @@ class RecommendationList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 250,
+      height: 220,
       child: ListView.builder(
-          shrinkWrap: true,
           padding: EdgeInsets.symmetric(
             horizontal: 20,
           ),
@@ -31,7 +30,7 @@ class RecommendationList extends StatelessWidget {
               flag: PageCharacter.ANIME,
               type: type,
             );
-          }),
+          },),
     );
   }
 }

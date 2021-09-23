@@ -1,5 +1,4 @@
 import 'package:anime_app/data/models/anime/detail/reviews/reviews.dart';
-import 'package:anime_app/ui/widgets/common/detail_subtitle.dart';
 import 'package:flutter/material.dart';
 
 class ReviewInfo extends StatelessWidget {
@@ -17,9 +16,9 @@ class ReviewInfo extends StatelessWidget {
               margin: const EdgeInsets.only(left: 30),
               child: Column(
                 children: [
-                  detailSubtitle(
-                    text: review.reviewer.username,
-                    size: 12,
+                  Text(
+                    review.reviewer.username,
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   Image.network(
                     review.reviewer.imageUrl,
@@ -34,41 +33,47 @@ class ReviewInfo extends StatelessWidget {
               margin: const EdgeInsets.only(left: 30),
               child: Column(
                 children: [
-                  detailSubtitle(
-                    text: 'Overall - ${review.reviewer.scores.overall}',
-                    size: 14,
+                  Text(
+                    'Overall - ${review.reviewer.scores.overall}',
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
-                  detailSubtitle(
-                    text: 'Characters - ${review.reviewer.scores.character}',
-                    size: 14,
+                  Text(
+                    'Characters - ${review.reviewer.scores.character}',
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
-                  detailSubtitle(
-                    text: 'Story - ${review.reviewer.scores.story}',
-                    size: 14,
+                  Text(
+                    'Story - ${review.reviewer.scores.story}',
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
-                  detailSubtitle(
-                    text: 'Animation - ${review.reviewer.scores.animation}',
-                    size: 14,
+                  Text(
+                    'Animation - ${review.reviewer.scores.animation}',
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
-                  detailSubtitle(
-                    text: 'Sound - ${review.reviewer.scores.sound}',
-                    size: 14,
+                  Text(
+                    'Sound - ${review.reviewer.scores.sound}',
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
-                  detailSubtitle(
-                    text: 'Enjoyment - ${review.reviewer.scores.enjoyment}',
-                    size: 14,
+                  Text(
+                    'Enjoyment - ${review.reviewer.scores.enjoyment}',
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                 ],
               ),
             ),
           ],
         ),
-        Text(review.date.substring(0, 10)),
+        Text(
+          review.date.substring(0, 10),
+          style: Theme.of(context).textTheme.bodyText1,
+        ),
         Container(
           margin: const EdgeInsets.only(
             bottom: 50,
           ),
-          child: Text(review.content),
+          child: Text(
+            review.content,
+            style: Theme.of(context).textTheme.bodyText1,
+          ),
         ),
       ],
     );

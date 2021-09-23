@@ -47,20 +47,18 @@ class AnimeCard extends StatelessWidget {
                     children: <Widget>[
                       Text(
                         post.title,
-                        style: const TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.headline4,
                       ),
                       Text(
                         'Episodes - ${post.episodes == null ? 'No Info' : post.episodes.toString()}',
-                        style: const TextStyle(fontSize: 14),
+                        style: Theme.of(context).textTheme.headline5,
                       ),
                       SizedBox(
                         height: 10,
                       ),
                       Text(
                         'Rating : ${post.score}',
-                        style: const TextStyle(
-                            fontSize: 11, fontWeight: FontWeight.bold),
+                        style: Theme.of(context).textTheme.headline6,
                       )
                     ],
                   ),

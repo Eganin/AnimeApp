@@ -47,9 +47,7 @@ class AnimeFavourites extends StatelessWidget {
             return Center(
               child: Text(
                 'No content',
-                style: TextStyle(
-                  fontSize: 20,
-                ),
+                style: Theme.of(context).textTheme.headline4,
               ),
             );
           }
