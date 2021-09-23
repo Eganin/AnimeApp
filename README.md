@@ -14,4 +14,3 @@ A new Flutter application.
 ![Drawer](https://github.com/Eganin/AnimeApp/raw/master/assets/images/image_4.png)
 
 ![Favourite](https://github.com/Eganin/AnimeApp/raw/master/assets/images/image_5.png)
-
